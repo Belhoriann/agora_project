@@ -22,6 +22,7 @@
   <div class="field">
     <%= f.label :author %><br>
     <%= f.text_field :author %>
+    <%= f.text_field :user_id, value: current_user.id %>
   </div>
   <div class="actions">
     <%= f.submit %>

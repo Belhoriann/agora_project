@@ -1,5 +1,7 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  #before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:show]
 
   # GET /comments
   # GET /comments.json
@@ -69,6 +71,6 @@ class CommentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
-      params.require(:comment).permit(:article_id, :body)
+      params.require(:comment).permit(:user_id, :article_id, :body)
     end
 end

@@ -1,5 +1,7 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:show, :index]
 
   # GET /articles
   # GET /articles.json
@@ -69,6 +71,11 @@ class ArticlesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def article_params
-      params.require(:article).permit(:title, :body, :author)
+      params.require(:article).permit(:title, :body, :author, :user_id)
+    end
+    
+    def correct_user
+      @my_article = current_user.articles.find_by(id: params[:id])
+      redirect_to articles_path, notice: "You are not the author of this article." if @my_article.nil?
     end
 end
