@@ -57,23 +57,18 @@
         <div class="card-footer bg-transparent">
           <small class="text-muted">Published on <%= article.created_at.strftime("%b %d") %></small>
           
-          <div class="bookmarking">
+          <div class="bookmarking float-right">
             <% if user_signed_in? %>
               <% if current_user.liked? article %>
-
                 <%= button_to "Unbookmark", unbookmark_article_path(article), remote: true, id: "unlike_#{article.id}", method: :put, class: "btn btn-danger btn-sm" %>
-
               <% else %>
-                                
                 <%= button_to "Bookmark", bookmark_article_path(article), remote: true, id: "like_#{article.id}", method: :put, class: "btn btn-primary btn-sm" %>
-                
               <% end %>
             <% end %>
+          </div> 
+            <div class="vote_count small text-muted">
+               Bookmarked <%= article.votes_for.size.to_s %> times
             </div> 
-            <div class="vote_count">
-              <%= article.get_likes.size %> like.s
-            </div> 
-             
         </div>
       </div>
     <% end %>

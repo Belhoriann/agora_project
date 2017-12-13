@@ -5,5 +5,6 @@ class HomeController < ApplicationController
   
   def collection
     @articles = Article.all
+    @users = User.all
   end
 end
