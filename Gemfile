@@ -12,7 +12,9 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'sass-rails', '~> 5.0'
-gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
+#gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
+gem 'bootstrap', '~> 4.0.0.beta2.1'
+gem 'sprockets-rails', '~> 3.2', '>= 3.2.1'
 gem 'devise', '~> 4.3'
 
 # Use ActiveModel has_secure_password

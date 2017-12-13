@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
-  #before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update, :destroy]
   before_action :authenticate_user!, except: [:show]
 
   # GET /comments
@@ -72,5 +72,14 @@ class CommentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
       params.require(:comment).permit(:user_id, :article_id, :body)
+    end
+    
+    def correct_user
+      if user_signed_in?
+        @my_comment = current_user.comments.find_by(id: params[:id])
+        if @my_comment == nil
+          redirect_to comments_path, notice: "You are not the author of this comment."
+        end
+      end
     end
 end

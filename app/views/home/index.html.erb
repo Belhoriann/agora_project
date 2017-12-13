@@ -1,56 +1,77 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>Agora Project</title>
-        
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-        
-        <!-- Latest compiled and minified JavaScript -->
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    </head>
-    
-    <body>
-        
-        <% if user_signed_in? %>
-            <h2>Your Articles</h2>
-            <div class="row">
-          <% @articles.each do |article| %>
-            <% if article.user_id == current_user.id %>
-              <div class="col-sm-6 col-md-4">
-                <div class="thumbnail">
-                  <div class="caption">
-                    <h3><%= article.title %></h3>
-                    <p><%= article.author %></p>
-                    <p><%= article.body %></p>
-                    <a role="button"><%= link_to "Read", article_path(article), class: "btn btn-default" %></a>
-                  </div>
-                </div>
-              </div>
-            <% end %>
-          <% end %>
-          </div>
-        <% end %> 
-        
-        <h2>Latest Articles</h2>
-            
-        <div class="row">
-        <% @articles.each do |article| %>
-          <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-              <div class="caption">
-                <h3><%= article.title %></h3>
-                <p><%= article.author %></p>
-                <p><%= article.body %></p>
-                <a role="button"><%= link_to "Read", article_path(article), class: "btn btn-default" %></a>
-              </div>
-            </div>
-          </div>
-        <% end %>
+<body>
+  
+<% if user_signed_in? %>
+
+<h2>Your Articles</h2>
+
+<div class="card-deck">
+  <% @articles.each do |article| %>
+    <% if article.user_id == current_user.id %>
+      <div class="card">
+        <img class="card-img-top" src="//placehold.it/720x350" alt="Card image cap">
+          <figure class="profile">
+            <img src="http://success-at-work.com/wp-content/uploads/2015/04/free-stock-photos.gif" class="profile-avatar" alt="">
+          </figure>
+        <div class="card-body">
+          <h4 class="card-title"><%= article.title %></h4>
+          <h6 class="card-subtitle mb-2 text-muted"><%= article.author %></h6>
+          <div class="card-text"><%= article.body %></div>
         </div>
-      
-        <h2>Most Commented</h2>
+        <div class="card-footer bg-transparent">
+          <small class="text-muted">Published on <%= article.created_at.strftime("%b %d") %></small>
+          <%= link_to "Read", article_path(article), class: "btn btn-dark float-right btn-sm" %>
+        </div>
         
-    </body>
+      </div>
+    <% end %>
+  <% end %>
+  </div>
+<% end %>
+
+    
+<br><br />
+
+<h2>Latest Articles</h2>
+
+
+<div class="card-columns">
+    <% @articles.each do |article| %>
+      <div class="card">
+        <div class="card-header bg-transparent">
+          <figure class="profile">
+            <img src="http://success-at-work.com/wp-content/uploads/2015/04/free-stock-photos.gif" class="profile-avatar" alt="">
+          </figure>
+          <h6 class="profile-inline"><%= article.author %></h6>
+          <button class="btn btn-outline-success float-right btn-sm">Follow</button>
+        </div>
+        <img class="card-img-middle img-fluid" src="//placehold.it/720x350" alt="Card image cap">
+          
+        <div class="list-group">
+          <%= link_to article_path(article), class: "list-group-item list-group-item-action" do %>
+            <h4 class="card-title"><%= article.title %></h4>
+            <h6 class="card-subtitle mb-2 text-muted"><%= article.author %></h6>
+            <h6 class="card-text"><%= article.body %></h6>
+          <% end %>
+        </div>
+        
+        <div class="card-footer bg-transparent">
+          <small class="text-muted">Published on <%= article.created_at.strftime("%b %d") %></small>
+            <% if user_signed_in? %>
+              <% @bookmarks.each do |bookmark| %>
+                <% if bookmark.user_id == current_user.id && bookmark.article_id == article.id %>
+                  <%= link_to "UBM", bookmarks_path(:user_id => current_user.id, :article_id => article.id), :method => :post, class: "btn btn-success btn-sm", role: "button" %>
+                <% else %>
+                  <%= link_to "BM", bookmarks_path(:user_id => current_user.id, :article_id => article.id), :method => :post, class: "btn btn-alert btn-sm", role: "button" %>
+                <% end %>
+              <% end %>
+              <% end %>
+        </div>
+      </div>
+     
+    <% end %>
+     
+            
+</div>
+
+</body>
 </html>

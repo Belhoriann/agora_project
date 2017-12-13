@@ -75,7 +75,11 @@ class ArticlesController < ApplicationController
     end
     
     def correct_user
-      @my_article = current_user.articles.find_by(id: params[:id])
-      redirect_to articles_path, notice: "You are not the author of this article." if @my_article.nil?
+      if user_signed_in?
+        @my_article = current_user.articles.find_by(id: params[:id])
+        if @my_article == nil
+          redirect_to articles_path, notice: "You are not the author of this article."
+        end
+      end
     end
 end
