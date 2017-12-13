@@ -1,6 +1,6 @@
 class BookmarksController < ApplicationController
   before_action :set_bookmark, only: [:show, :edit, :update, :destroy]
-  before_action :correct_user, only: [:edit, :update, :destroy]
+  #before_action :correct_user, only: [:edit, :update, :destroy]
   before_action :authenticate_user!, except: [:show, :index]
 
   # GET /bookmarks
@@ -57,8 +57,11 @@ class BookmarksController < ApplicationController
   # DELETE /bookmarks/1.json
   def destroy
     @bookmark.destroy
+
     respond_to do |format|
-      format.html { redirect_to bookmarks_url, notice: 'Bookmark was successfully destroyed.' }
+      format.js
+      format.html { redirect_to :back }
+      # format.html { redirect_to :back, notice: "Bookmark was successfully destroyed." }
       format.json { head :no_content }
     end
   end

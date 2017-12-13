@@ -56,22 +56,32 @@
         
         <div class="card-footer bg-transparent">
           <small class="text-muted">Published on <%= article.created_at.strftime("%b %d") %></small>
+          
+          <div class="bookmarking">
             <% if user_signed_in? %>
-              <% @bookmarks.each do |bookmark| %>
-                <% if bookmark.user_id == current_user.id && bookmark.article_id == article.id %>
-                  <%= link_to "UBM", bookmarks_path(:user_id => current_user.id, :article_id => article.id), :method => :post, class: "btn btn-success btn-sm", role: "button" %>
-                <% else %>
-                  <%= link_to "BM", bookmarks_path(:user_id => current_user.id, :article_id => article.id), :method => :post, class: "btn btn-alert btn-sm", role: "button" %>
-                <% end %>
+              <% if current_user.liked? article %>
+
+                <%= button_to "Unbookmark", unbookmark_article_path(article), remote: true, id: "unlike_#{article.id}", method: :put, class: "btn btn-danger btn-sm" %>
+
+              <% else %>
+                                
+                <%= button_to "Bookmark", bookmark_article_path(article), remote: true, id: "like_#{article.id}", method: :put, class: "btn btn-primary btn-sm" %>
+                
               <% end %>
-              <% end %>
+            <% end %>
+            </div> 
+            <div class="vote_count">
+              <%= article.get_likes.size %> like.s
+            </div> 
+             
         </div>
       </div>
-     
     <% end %>
-     
-            
 </div>
 
 </body>
 </html>
+
+<%#= link_to "UBM",  bookmark,  method: :delete, id: bookmark.id, data: { confirm: 'Are you sure?', remote: true }, class: "btn btn-danger btn-sm", role: "button" %> 
+<%# if Bookmark.find_by(:user_id => current_user.id, :article_id => article.id) == nil %>
+<%#= link_to "BM", bookmarks_path(:user_id => current_user.id, :article_id => article.id), :method => :post, class: "btn btn-primary btn-sm", role: "button" %>

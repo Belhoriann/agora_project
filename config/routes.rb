@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   devise_for :users
   
   # Allow Desive to use DELETE for the log out route
@@ -8,12 +9,18 @@ Rails.application.routes.draw do
 
   root 'home#index'
   get 'home/index'
+  get 'home/collection'
   
-  resources :articles
+  resources :articles do 
+    member do
+      put "bookmark", to: "articles#like"
+      put "unbookmark", to: "articles#unlike"
+    end
+  end
+  
   resources :comments
-  resources :bookmarks
+  #resources :bookmarks
 
-  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

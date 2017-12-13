@@ -1,0 +1,27 @@
+<h1>Your Article Collection</h1>
+
+<body>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Article id</th>
+      <th>Title</th>
+      <th>Author</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if user_signed_in? %>
+      <% @articles.each do |article| %>
+        <% if current_user.liked? article %>
+          <tr>
+            <td><%= article.id %></td>
+            <td><%= article.title %></td>
+            <td><%= article.author %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

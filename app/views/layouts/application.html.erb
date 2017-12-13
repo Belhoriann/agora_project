@@ -4,13 +4,12 @@
     <title>Agora</title>
     
     <!-- Required JS for Destroy handling and such -->
-    <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
+    <%= javascript_include_tag "application" %>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
 
     <!-- Bootstrap CSS -->
     <%= stylesheet_link_tag "application" %>
@@ -20,7 +19,11 @@
   <body>
     
     <%= render 'layouts/navbar' %>
-    <p id="notice"><%= notice %></p>
+    
+    <% if flash[:notice] %>
+      <div class="notice"><%= flash[:notice] %></div>
+    <% end %>
+    
     <p class="alert"><%= alert %></p>
     <%= yield %>
 

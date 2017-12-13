@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy]
-  before_action :correct_user, only: [:edit, :update, :destroy]
+  #before_action :correct_user, only: [:edit, :update, :destroy]
   before_action :authenticate_user!, except: [:show, :index]
 
   # GET /articles
@@ -61,6 +61,26 @@ class ArticlesController < ApplicationController
       format.html { redirect_to articles_url, notice: 'Article was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+  
+  def like
+    @article = Article.find(params[:id])
+    @article.liked_by current_user
+
+    respond_to do |format|
+    format.html { redirect_to :back }
+    format.js
+    end
+  end  
+  
+  def unlike
+    @article = Article.find(params[:id])
+    @article.unliked_by current_user
+    
+    respond_to do |format|
+    format.html { redirect_to :back }
+    format.js
+  end
   end
 
   private

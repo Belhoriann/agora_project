@@ -23,30 +23,33 @@
 </table>
 
 <% if user_signed_in? %>
+
+
   <div class="card-columns">
-    <% @bookmarks.each do |bookmark| %>
-      <% if bookmark.user_id == current_user.id %>
-        <% bm_article = Article.find(bookmark.article_id) %>
+    <%# @bookmarks.each do |bookmark| %>
+      <%# if bookmark.user_id == current_user.id %>
+        <%# bm_article = Article.find(bookmark.article_id) %>
         <div class="card">
           <div class="card-header bg-transparent">
             <figure class="profile">
             <img src="http://success-at-work.com/wp-content/uploads/2015/04/free-stock-photos.gif" class="profile-avatar" alt="">
             </figure>
-            <h4 class="profile-inline"><%= bm_article.author %></h4>
+            <h4 class="profile-inline"><%#= bm_article.author %></h4>
           </div>
           <img class="card-img-top" src="//placehold.it/720x350" alt="Card image cap">
           <div class="card-body">
-            <h4 class="card-title"><%= bm_article.title %></h4>
-            <div class="card-text"><%= bm_article.body %></div>
+            <h4 class="card-title"><%#= bm_article.title %></h4>
+            <div class="card-text"><%#= bm_article.body %></div>
           </div>
           <div class="card-footer">
-            <small class="text-muted"><%= bm_article.created_at %></small>
-            <%= link_to "Read", article_path(bm_article), class: "btn btn-dark float-right btn-sm" %>
+            <small class="text-muted"><%#= bm_article.created_at %></small>
+            <%#= link_to "Read", article_path(bm_article), class: "btn btn-dark float-right btn-sm" %>
           </div>
         </div>
-      <% end %>
-    <% end %>
+      <%# end %>
+    <%# end %>
   </div>
+  
 <% end %>
 
 <br>

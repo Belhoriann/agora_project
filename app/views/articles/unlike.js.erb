@@ -1,0 +1,10 @@
+/* global $ */ 
+
+/*
+var like_article = $('<%= @article.id %>');
+   like_article.parent().parent().find('.vote_count').html('<%= escape_javascript @article.votes_for.size.to_s %>');
+   like_article.closest('.unlike_post').hide();
+   like_article.closest('.votes').html('<%= button_to "Bookmark", bookmark_article_path(@article), class: "like_post btn btn-primary btn-sm", method: :put, remote: true %> ');
+   */
+   
+$("#unlike_<%= @article.id %>").closest('.bookmarking').html('<%= button_to "Bookmark", bookmark_article_path(@article), remote: true, id: "like_#{@article.id}", method: :put, class: "btn btn-primary btn-sm" %>');
