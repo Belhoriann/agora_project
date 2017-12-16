@@ -1,0 +1,22 @@
+# config/tinymce.yml
+
+menubar: false
+branding: false
+browser_spellcheck : true
+paste_merge_formats: true
+content_css : "app/assets/stylesheets/application.css"
+paste_retain_style_properties: all
+toolbar:
+  - undo | redo | formatselect | hr bold italic underline strikethrough alignleft aligncenter alignjustify alignright bullist numlist outdent indent blockquote | link unlink | image | preview | searchreplace
+  
+plugins:
+  - link
+  - image
+  - paste
+  - importcss
+  - autolink
+  - lists
+  - wordcount
+  - hr
+  - preview
+  - searchreplace

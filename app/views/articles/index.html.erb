@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Listing Articles</h1>
 
 <table class="table table-striped">
@@ -8,7 +6,7 @@
       <th>Title</th>
       <th>Content</th>
       <th>Author</th>
-      <th>User id</th>
+      <th>WP</th>
       <th>Articles id</th>
       <th colspan="4"></th>
     </tr>
@@ -20,7 +18,7 @@
         <td><%= article.title %></td>
         <td><%= article.body %></td>
         <td><%= article.author %></td>
-        <td><%= article.user_id %></td>
+        <td><%= article.author_work_place %></td>
         <td><%= article.id %></td>
         <td><%= link_to 'Show', article %></td>
         <% if user_signed_in? %>

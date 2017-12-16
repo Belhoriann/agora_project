@@ -17,8 +17,15 @@ gem 'bootstrap', '~> 4.0.0.beta2.1'
 gem 'sprockets-rails', '~> 3.2', '>= 3.2.1'
 gem 'devise', '~> 4.3'
 
+# WYSIWYG text editor
+gem 'tinymce-rails'
+#gem 'ckeditor', github: 'galetahub/ckeditor'
+
 # For Like/Dislike - Bookmark functionality
 gem 'acts_as_votable', '~> 0.11.1'
+
+# Easy file attachment management for ActiveRecord
+gem "paperclip", "~> 5.0.0"
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

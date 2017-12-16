@@ -20,6 +20,22 @@ body { padding-top: 60px; }
 body { padding-top: 30px; }
 }
 
+// Sur le site entier
+html {
+  font-size: 1.1rem;
+}
+
+// Text editor styling
+.mce-container {
+   border: 0px !important;
+   box-shadow: 0 0px 0px rgba(0,0,0,0.1) !important;
+}
+
+.mce-content-body { padding-top: 5px; }
+
+.mce-toolbar { background: none!important; filter: none!important; border: 0; -webkit-box-shadow: none!important; -moz-box-shadow: none!important; box-shadow: none!important; }
+
+// Card article styling
 .card {
     box-shadow: 0 3px 10px rgba(0,0,0,0.1);
     img {
@@ -27,6 +43,7 @@ body { padding-top: 30px; }
 	}
 }
 
+// Clickable part of the article card
 .list-group
 {
     .list-group-item {
@@ -35,30 +52,28 @@ body { padding-top: 30px; }
 }
 
 // Code for the author avatar image and name
-.profile {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    display: inline-block;
+.profile-picture {
+    background-color: white;
+    border: 1px solid #d9d9d9;
+    border-radius: 30px;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    height: 60px;
+    width: 60px;
     overflow: hidden;
-    box-sizing: border-box;
-    width: 50px;
-    height: 50px;
-    margin: 0;
-    border: 2px solid #000;
-    border-radius: 100%;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    text-align: center;
+    img { width: 100% }
 }
 
-.profile-avatar {
-    display: inline-block;
-    width: 100%;
-    height: auto;
-    border-radius: 50%;
-}
-
-.profile-inline {
-    padding-left: 50px;
-    vertical-align: middle;
-    display: inline-block;
+.profile-picture-navbar {
+    background-color: white;
+    border: 1px solid #d9d9d9;
+    border-radius: 20px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    height: 40px;
+    width: 40px;
+    overflow: hidden;
+    text-align: center;
+    img { width: 100% }
 }

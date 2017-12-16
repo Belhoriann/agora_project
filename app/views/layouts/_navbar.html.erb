@@ -20,15 +20,12 @@
 
       <ul class="nav navbar-nav ml-auto">
         <% if user_signed_in? %>
-        
           <li class="nav-item">
           <%= link_to "Collection", home_collection_path, class: "nav-link" %>
           </li>
-          
           <li class="nav-item">
           <%= link_to "Write an Article", new_article_path, class: "nav-link" %>
           </li>
-          
           <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             My Account
@@ -38,15 +35,47 @@
             <div class="dropdown-divider"></div>
             <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
           </div>
+          <li class="profile-picture-navbar"><%= image_tag(current_user.avatar.url(:thumb)) %></li>
           </li>
-  
         <% else %>
-  
-          <%= link_to "Sign In", new_user_session_path, class: "nav-link" %>
-          <%= link_to "Sign Up", new_user_registration_path, class: "nav-link" %>
         
+        <div class="dropdown">
+         <button class="dropdown-toggle btn btn-outline-primary mx-1" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+            Login
+          </button>
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <div class="dropdown-menu dropdown-menu-right pb-0" style="width: 300px; box-shadow: 0 3px 10px rgba(0,0,0,0.1);">
+              <form class="form-group">
+                <div class="px-2">
+                  <%= f.email_field :email, autofocus: true, class: "form-control mb-2", placeholder: "Email" %>
+                </div>
+                <div class="px-2">
+                  <%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Password" %>
+                </div>
+                <div class="form-check pt-2 px-2">
+                  <button type="submit" class="btn btn-primary">Sign in</button>
+                  <label class="form-check-label pl-2">
+                    <% if devise_mapping.rememberable? -%>
+                    <div class="form-check">
+                      <%= f.check_box :remember_me %>
+                      <%= f.label :remember_me %>
+                    </div>
+                  <% end %>
+                  </label>
+                </div>
+              </form>
+              <div class="card-footer">
+                <div class="px-2">
+                  <%= link_to "Forgot your password?", new_password_path(resource_name) %><br />
+                  <%= link_to "Create Account", new_registration_path(resource_name) %><br />
+                </div>
+                </div>
+            </div>
+        </div>
+        <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-outline-success mx-1" %>
         <% end %>
-        </ul>
+        <% end %>
+      </ul>
     </div>
   </div>
 </nav>

@@ -1,20 +1,26 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @article.title %>
-</p>
-
-<p>
-  <strong>Content:</strong>
-  <%= @article.body %>
-</p>
-
-<p>
-  <strong>Author:</strong>
-  <%= @article.author %>
-</p>
-
-<% if user_signed_in? && current_user.id == @article.user_id %>
-<%= link_to 'Edit', edit_article_path(@article) %>
-<% end %>
+<div class="container" style="width: 800px; margin: 0 auto;">
+  
+  <div class="float-left" style="max-width: 700px; margin: 0 auto;">
+    <h2 class="text-center font-weight-bold">
+      <%= @article.title %>
+    </h2>
+    <h4 class="text-center font-weight-light">
+      By <%= @article.author %>
+    </h4>
+    <h5 class="text-center font-weight-light">
+      <%= @article.author_work_place %>
+    </h5>
+    
+    <br></br>
+    <div style="font-size: 1.2em;">
+      <%= sanitize @article.body, tags: %w(p hr strong em a), attributes: %w(href) %>
+    </div>
+  </div>
+  
+    <div class="float-right" style="max-width: 100px;">
+        <% if user_signed_in? && current_user.id == @article.user_id %>
+          <%= link_to 'Edit', edit_article_path(@article), class: "btn btn-outline-primary" %>
+        <% end %>
+    </div>
+  
+</div>

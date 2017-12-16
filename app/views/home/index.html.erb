@@ -10,12 +10,12 @@
       <div class="card">
         <img class="card-img-top" src="//placehold.it/720x350" alt="Card image cap">
           <figure class="profile">
-            <img src="http://success-at-work.com/wp-content/uploads/2015/04/free-stock-photos.gif" class="profile-avatar" alt="">
+            <img src="" class="profile-avatar" alt="">
           </figure>
         <div class="card-body">
           <h4 class="card-title"><%= article.title %></h4>
           <h6 class="card-subtitle mb-2 text-muted"><%= article.author %></h6>
-          <div class="card-text"><%= article.body %></div>
+          <h6 class="card-subtitle mb-2 text-muted"><%= article.author_work_place %></h6>
         </div>
         <div class="card-footer bg-transparent">
           <small class="text-muted">Published on <%= article.created_at.strftime("%b %d") %></small>
@@ -33,45 +33,43 @@
 
 <h2>Latest Articles</h2>
 
-
-<div class="card-columns">
-    <% @articles.each do |article| %>
-      <div class="card">
-        <div class="card-header bg-transparent">
-          <figure class="profile">
-            <img src="http://success-at-work.com/wp-content/uploads/2015/04/free-stock-photos.gif" class="profile-avatar" alt="">
-          </figure>
-          <h6 class="profile-inline"><%= article.author %></h6>
-          <button class="btn btn-outline-success float-right btn-sm">Follow</button>
-        </div>
-        <img class="card-img-middle img-fluid" src="//placehold.it/720x350" alt="Card image cap">
-          
-        <div class="list-group">
-          <%= link_to article_path(article), class: "list-group-item list-group-item-action" do %>
-            <h4 class="card-title"><%= article.title %></h4>
+<div class="card-deck">
+  <% @articles.each do |article| %>
+    <div class="card">
+      <img class="card-img-middle img-fluid" src="//placehold.it/720x350" alt="Card image cap">
+      <div class="list-group">
+        <%= link_to article_path(article), class: "list-group-item list-group-item-action" do %>
+        <h5 class="card-title"><%= article.title %></h5>
+        <div class="d-flex flex-row">
+          <div >
+            <%= image_tag(current_user.avatar.url(:thumb), class:"rounded-circle border border-secondary") %>
+          </div>
+          <div class="p-2">
             <h6 class="card-subtitle mb-2 text-muted"><%= article.author %></h6>
-            <h6 class="card-text"><%= article.body %></h6>
-          <% end %>
+            <p class="card-subtitle mb-2 text-muted"><%= article.author_work_place %></p>
+          </div>
         </div>
-        
-        <div class="card-footer bg-transparent">
-          <small class="text-muted">Published on <%= article.created_at.strftime("%b %d") %></small>
-          
-          <div class="bookmarking float-right">
-            <% if user_signed_in? %>
-              <% if current_user.liked? article %>
-                <%= button_to "Unbookmark", unbookmark_article_path(article), remote: true, id: "unlike_#{article.id}", method: :put, class: "btn btn-danger btn-sm" %>
-              <% else %>
-                <%= button_to "Bookmark", bookmark_article_path(article), remote: true, id: "like_#{article.id}", method: :put, class: "btn btn-primary btn-sm" %>
-              <% end %>
-            <% end %>
-          </div> 
-            <div class="vote_count small text-muted">
-               Bookmarked <%= article.votes_for.size.to_s %> times
-            </div> 
-        </div>
+        <% end %>
       </div>
-    <% end %>
+      
+      <div class="card-footer bg-transparent">
+        <small class="text-muted">Published on <%= article.created_at.strftime("%b %d") %></small>
+        
+        <div class="bookmarking float-right">
+          <% if user_signed_in? %>
+            <% if current_user.liked? article %>
+              <%= button_to "Unbookmark", unbookmark_article_path(article), remote: true, id: "unlike_#{article.id}", method: :put, class: "btn btn-danger btn-sm" %>
+            <% else %>
+              <%= button_to "Bookmark", bookmark_article_path(article), remote: true, id: "like_#{article.id}", method: :put, class: "btn btn-primary btn-sm" %>
+            <% end %>
+          <% end %>
+        </div> 
+          <div class="vote_count small text-muted">
+             Bookmarked <%= article.votes_for.size.to_s %> times
+          </div> 
+      </div>
+    </div>
+  <% end %>
 </div>
 
 </body>
