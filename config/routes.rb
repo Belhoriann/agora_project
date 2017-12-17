@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   devise_for :users
   
   # Allow Desive to use DELETE for the log out route
@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   end
   
   resources :comments
+  resources :categories
   #resources :bookmarks
 
   # The priority is based upon order of creation: first created -> highest priority.

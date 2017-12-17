@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row">
+    
+    <div class="col">
+    </div>  
+    
+    <div class="col-8">
+      <h3> Articles in <%= @category.name %> </h3>
+      <small><%= @category.description %></small>
+      
+      <% Article.where(category_id: @category.id).each do |article| %>
+      <li> <%= article.title %> </li>
+      <% end %>
+      
+      
+      <%= link_to 'Edit', edit_category_path(@category) %> |
+      <%= link_to 'Back', categories_path %>
+    </div>
+    
+    <div class="col">
+
+    </div>
+    
+  </div>
+</div>

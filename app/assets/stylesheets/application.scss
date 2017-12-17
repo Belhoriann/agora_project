@@ -37,10 +37,19 @@ html {
 
 // Card article styling
 .card {
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    img {
-		width: 100%;
-	}
+  overflow: hidden;
+  -webkit-transition: .25s box-shadow;
+  transition: .25s box-shadow;
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 0.7em;
+  
+  .card-footer {
+      border-top: 1px dotted rgba(0,0,0,.1);
+  }
+}
+
+.card:hover {
+  box-shadow: 0px 15px 40px 1px rgba(0, 0, 0, 0.1);
 }
 
 // Clickable part of the article card
@@ -71,8 +80,8 @@ html {
     border-radius: 20px;
     -moz-border-radius: 20px;
     -webkit-border-radius: 20px;
-    height: 40px;
-    width: 40px;
+    height: 45px;
+    width: 45px;
     overflow: hidden;
     text-align: center;
     img { width: 100% }
