@@ -15,44 +15,48 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
 
-body { padding-top: 60px; }
-@media screen and (max-width: 768px) {
-body { padding-top: 30px; }
+body { 
+    padding-top: 120px; 
+    // background-color: #F6F6F6 !important;
+
+    @media screen and (max-width: 768px) {
+        body { 
+            padding-top: 40px;
+        }
+    }
+}
+
+// Style of the form field focus effect
+.form-control:focus {
+    box-shadow: 0px 0px 10px rgba(107, 198, 255, 0.6)!important;
 }
 
 // Sur le site entier
 html {
   font-size: 1.1rem;
+  overflow-y: scroll;
 }
 
 // Text editor styling
 .mce-container {
-   border: 0px !important;
-   box-shadow: 0 0px 0px rgba(0,0,0,0.1) !important;
+   box-shadow: 0 0px 0px rgba(0,0,0,0.0)!important;
 }
 
-.mce-content-body { padding-top: 5px; }
-
-.mce-toolbar { background: none!important; filter: none!important; border: 0; -webkit-box-shadow: none!important; -moz-box-shadow: none!important; box-shadow: none!important; }
-
-// Card article styling
-.card {
-  overflow: hidden;
-  -webkit-transition: .25s box-shadow;
-  transition: .25s box-shadow;
-  border: 1px solid rgba(0,0,0,.1);
-  border-radius: 0.7em;
-  
-  .card-footer {
-      border-top: 1px dotted rgba(0,0,0,.1);
-  }
+.mce-content-body { 
+    padding-top: 5px;
+    font-size: 21px
 }
 
-.card:hover {
-  box-shadow: 0px 15px 40px 1px rgba(0, 0, 0, 0.1);
+.mce-toolbar { 
+    background: none!important; 
+    filter: none!important; 
+    border: 0; 
+    -webkit-box-shadow: none!important; 
+    -moz-box-shadow: none!important; 
+    box-shadow: none!important; 
 }
 
-// Clickable part of the article card
+// List of item without border
 .list-group
 {
     .list-group-item {

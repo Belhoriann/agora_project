@@ -9,4 +9,5 @@ var unliked_article = $("#unlike_<%= @article.id %>");
 unliked_article.parent().parent().parent().find(".vote_count").html("Bookmarked <%= @article.votes_for.size.to_s %> times");
 
 // Replace the unbookmark button by the bookmark one
-unliked_article.closest('.bookmarking').html('<%= button_to "Bookmark", bookmark_article_path(@article), remote: true, id: "like_#{@article.id}", method: :put, class: "btn btn-primary btn-sm" %>');
+//unliked_article.closest('.bookmarking').html('<%= button_to "Bookmark", bookmark_article_path(@article), remote: true, id: "like_#{@article.id}", method: :put, class: "btn btn-primary btn-sm" %>');
+unliked_article.closest('.bookmarking').html('<%= link_to bookmark_article_path(@article), remote: true, id: "like_#{@article.id}", method: :put do %><i class="material-icons">bookmark_border</i><% end %>');

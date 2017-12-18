@@ -17,15 +17,15 @@
       
       <br></br>
       <div style="font-size: 1.2em;">
-        <%= sanitize @article.body, tags: %w(p hr strong em a), attributes: %w(href) %>
+        <%= @article.body.html_safe %>
       </div>
     </div>
-    
+
     <div class="col">
         <%# if user_signed_in? && current_user.id == @article.user_id %>
           <%= link_to 'Edit', edit_article_path(@article), class: "btn btn-outline-primary" %>
         <%# end %>
     </div>
-    
+
   </div>
 </div>

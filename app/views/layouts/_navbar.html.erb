@@ -1,82 +1,101 @@
-<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light ">
-  <div class="container">
-    <%= link_to "Agora", root_path, class: "navbar-brand navbar-brand mb-0 h1" %>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      
-      <form class="form-inline my-2">
-        <input class="form-control mr-sm-2" type="search" placeholder="Article, author..." aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        <ul class="nav navbar-nav ml-auto">
-          <%= link_to "All Articles", articles_path, class: "nav-link" %>
-        </ul>
-      </form>
+<nav class="d-flex justify-content-around navbar fixed-top navbar-expand-lg navbar-light navbar-transparent p-0">
 
-      <ul class="nav navbar-nav ml-auto">
+  <div class="d-flex flex-column">
+    <%= link_to "AGORA", root_path, class: "navbar-brand navbar-brand mb-0 h1" %>
+  </div>
+
+  <div class="d-flex flex-column align-items-center">
+    <div class="collapse navbar-collapse">
+      <form class="form-inline pt-2">
+        <input class="form-control form-control-sm" type="search" placeholder="Search..." aria-label="Search">
+      </form>
+    </div>
+    <div class="navbar-nav-scroll">
+      <ul class="navbar-nav ml-auto flex-row">
+        <% @categories = Category.all %>
+          <% @categories.each do |cat| %>
+            <li class="nav-item">
+              <%= link_to Category.find(cat.id).name, category_path(cat.id), class: "nav-link" %>
+            </li>
+          <% end %>
+        <li class="nav-item">
+          <%= link_to "All Categories", categories_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "All Articles", articles_path, class: "nav-link" %>
+        </li>
+      </ul>
+    </div>
+  </div>
         
-        <% if user_signed_in? %>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  
+  <div class="d-flex">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="nav navbar-nav">
+      <% if user_signed_in? %>
+      
+        <li class="nav-item">
+          <%= link_to "Collection", home_collection_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Write an Article", new_article_path, class: "nav-link" %>
+        </li>
+        <li class="dropdown">
+          <ul class="navbar-nav mr-auto">
+            <li class="dropdown-toggle profile-picture-navbar"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+              <%= image_tag(current_user.avatar.url(:thumb)) %>
+            </li>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+              <%= link_to "Edit Profile", edit_user_registration_path, class: "dropdown-item"  %>
+              <div class="dropdown-divider"></div>
+              <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+            </div>
+          </ul>
+        </li>
         
-          <li class="nav-item">
-            <%= link_to "Collection", home_collection_path, class: "nav-link" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Write an Article", new_article_path, class: "nav-link" %>
-          </li>
-          <li class="dropdown">
-            <ul class="navbar-nav mr-auto">
-              <li class="dropdown-toggle profile-picture-navbar"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
-                <%= image_tag(current_user.avatar.url(:thumb)) %>
-              </li>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <%= link_to "Edit Profile", edit_user_registration_path, class: "dropdown-item"  %>
-                <div class="dropdown-divider"></div>
-                <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+      <% else %>
+      
+      <div class="dropdown">
+        <button class="dropdown-toggle btn btn-outline-primary mx-1" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+          Login
+        </button>
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="dropdown-menu dropdown-menu-right pb-0" style="width: 300px; box-shadow: 0 3px 10px rgba(0,0,0,0.1);">
+          <form class="form-group">
+          <div class="px-2">
+            <%= f.email_field :email, autofocus: true, class: "form-control mb-2", placeholder: "Email" %>
+          </div>
+          <div class="px-2">
+            <%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Password" %>
+          </div>
+          <div class="form-check pt-2 px-2">
+            <button type="submit" class="btn btn-primary">Sign in</button>
+            <label class="form-check-label pl-2">
+              <% if devise_mapping.rememberable? -%>
+              <div class="form-check">
+                <%= f.check_box :remember_me %>
+                <%= f.label :remember_me %>
               </div>
-            </ul>
-          </li>
-          
-        <% else %>
-        
-        <div class="dropdown">
-          <button class="dropdown-toggle btn btn-outline-primary mx-1" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
-            Login
-          </button>
-          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-          <div class="dropdown-menu dropdown-menu-right pb-0" style="width: 300px; box-shadow: 0 3px 10px rgba(0,0,0,0.1);">
-            <form class="form-group">
-            <div class="px-2">
-              <%= f.email_field :email, autofocus: true, class: "form-control mb-2", placeholder: "Email" %>
-            </div>
-            <div class="px-2">
-              <%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Password" %>
-            </div>
-            <div class="form-check pt-2 px-2">
-              <button type="submit" class="btn btn-primary">Sign in</button>
-              <label class="form-check-label pl-2">
-                <% if devise_mapping.rememberable? -%>
-                <div class="form-check">
-                  <%= f.check_box :remember_me %>
-                  <%= f.label :remember_me %>
-                </div>
-              <% end %>
-              </label>
-            </div>
-              </form>
-              <div class="card-footer">
-                <div class="px-2">
-                  <%= link_to "Forgot your password?", new_password_path(resource_name) %><br />
-                  <%= link_to "Create Account", new_registration_path(resource_name) %><br />
-                </div>
-                </div>
-            </div>
+            <% end %>
+            </label>
+          </div>
+            </form>
+            <div class="card-footer">
+              <div class="px-2">
+                <%= link_to "Forgot your password?", new_password_path(resource_name) %><br />
+                <%= link_to "Create Account", new_registration_path(resource_name) %><br />
+              </div>
+              </div>
+          </div>
         </div>
         <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-outline-success mx-1" %>
         <% end %>
         <% end %>
       </ul>
-    </div>
   </div>
+      </div>
+    </div>
 </nav>

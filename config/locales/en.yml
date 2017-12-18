@@ -20,4 +20,16 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    errors:
+      models:
+        article:
+          attributes:
+            title:
+              blank: "Please add a title to your article."
+            sub_title:
+              blank: "Please add a subtitle to your article."
+            body:
+              blank: "Please right an article."
+            category_id:
+              blank: "Please choose a category."

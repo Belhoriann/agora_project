@@ -7,6 +7,7 @@ class ArticlesController < ApplicationController
   # GET /articles.json
   def index
     @articles = Article.all
+    @categories = Category.all
   end
 
   # GET /articles/1
@@ -29,7 +30,9 @@ class ArticlesController < ApplicationController
   # POST /articles.json
   def create
     @article = Article.new(article_params)
-    @article.category_id = params[:category_id] 
+    
+    @categories = Category.all.map{|c| [ c.name, c.id ] }
+    @article.category_id = params[:category_id]
 
     respond_to do |format|
       if @article.save
@@ -45,7 +48,9 @@ class ArticlesController < ApplicationController
   # PATCH/PUT /articles/1
   # PATCH/PUT /articles/1.json
   def update
+    @categories = Category.all.map{|c| [ c.name, c.id ] }    
     @article.category_id = params[:category_id]
+
     
     respond_to do |format|
       if @article.update(article_params)

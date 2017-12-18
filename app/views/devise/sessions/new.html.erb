@@ -2,24 +2,19 @@
 
 <div class="container">
   <div class="card border-primary mb-3 mx-auto" style="max-width: 20rem;">
-    
     <div class="card-body">
       <div>
         <%= f.email_field :email, autofocus: true, class: "form-control form-control-lg mb-3", placeholder: "Email" %>
       </div>
-      
       <div>
         <%= f.password_field :password, autocomplete: "off", class: "form-control form-control-lg", placeholder: "Password" %>
       </div>
-
     </div>
     <div class="card-footer bg-transparent border-secondary">
       <div class="form-row align-items-center">
-        
         <div class="col-auto mx-auto">
           <button type="submit" class="btn btn-primary">Log in</button>
         </div>
-         
         <div class="col-auto">     
           <% if devise_mapping.rememberable? -%>
             <div class="form-check my-0 mb-sm-2">

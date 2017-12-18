@@ -4,7 +4,7 @@
 
 <h2>Your Articles</h2>
 
-<div class="card-deck">
+<div class="card-columns">
   <% @articles.each do |article| %>
     <% if article.user_id == current_user.id %>
       <div class="card">
@@ -34,22 +34,22 @@
 <h2>Latest Articles</h2>
 
 <div class="card-deck">
+  
   <% @articles.each do |article| %>
+  
     <div class="card" style="min-width: 400px; margin-bottom: 30px">
-      
       <img class="card-img-middle img-fluid" src="//placehold.it/720x350" alt="Card image cap">
-      
       <div class="card-body">
-        <%= link_to article_path(article) do %>
-        <h6 class="d-flex card-title"><%= article.title %></h6>
-        <p class="d-flex card-title"><%= article.sub_title %></p>
+        <small><%#= link_to Category.find(article.category_id).name, category_path(article.category_id) %></small> 
+        <%= link_to article_path(article), class: "card-link" do %>
+          <strong class="d-flex card-title"><%= article.title %></strong>
+          <small class="d-flex card-subtitle"><%= article.sub_title %></small>
         <% end %>
       </div>
       
       <div class="card-body pt-0 pb-2">  
         <div class="d-flex justify-content-between align-items-center">
           <small class="text-muted align-middle">Published on <%= article.created_at.strftime("%b %d") %></small>
-  
           <div class="bookmarking">
             <% if user_signed_in? %>
               <% if current_user.liked? article %>

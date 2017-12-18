@@ -1,0 +1,17 @@
+<!-- Code for displaying error messages, related to empty fields. Custom message are set in en.yml for localisation purposes -->
+<% if @article.errors.any? %>
+  <div class="d-flex justify-content-center">
+    <div class="card error-explanation">
+      <ul class="list-group">
+        <li class="list-group-item list-group-item-warning">
+          Your article contains <%= pluralize(@article.errors.count, "error") %>.
+        </li>
+      <% @article.errors.messages.values.each do |msg| %>
+        <% msg.each do |m| %>
+          <li class="list-group-item"><%= m %></li>
+        <%end %>
+      <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>

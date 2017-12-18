@@ -12,7 +12,6 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'sass-rails', '~> 5.0'
-#gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
 gem 'bootstrap', '~> 4.0.0.beta2.1'
 gem 'sprockets-rails', '~> 3.2', '>= 3.2.1'
 gem 'devise', '~> 4.3'
@@ -27,14 +26,8 @@ gem 'acts_as_votable', '~> 0.11.1'
 # Easy file attachment management for ActiveRecord
 gem "paperclip", "~> 5.0.0"
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use Unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+# Masonry layout of the articles
+#gem 'masonry-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

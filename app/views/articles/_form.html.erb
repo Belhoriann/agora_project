@@ -15,9 +15,6 @@
   
   <br>
   
-    
-  
-  
   <div class="d-flex justify-content-center">
     <%= select_tag(:category_id, options_for_select(@categories), :prompt => "Select Category", class: "custom-select") %>
     <button type="submit" class="btn btn-primary ml-3">Publish</button>
@@ -25,6 +22,11 @@
     <%= f.text_field :author, value: current_user.full_name, type: "hidden" %>
     <%= f.text_field :author_work_place, value: current_user.work_place, type: "hidden" %>
   </div>
+  
+  <br></br>
+  
+  <%= render "articles/error" %>
+
 </div>
 
 <% end %>

@@ -1,0 +1,41 @@
+// Card article styling
+.card {
+  overflow: hidden;
+  -webkit-transition: .25s box-shadow;
+  transition: .25s box-shadow;
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 0.7em;
+  
+  .card-footer {
+      border-top: 1px dotted rgba(0,0,0,.1);
+  }
+}
+
+.card-title {
+  font-size: 21px;
+  color: rgba(0, 0, 0, 0.85);
+  margin-bottom: 0.3em !important;
+  margin-top: 0.1em !important;
+}
+
+.card-subtitle {
+  font-size: 16px;
+  color: rgba(0, 0, 0.1, 0.5);
+}
+
+.card:hover {
+  box-shadow: 0px 10px 30px 1px rgba(0, 0, 0, 0.1);
+}
+
+// Fit image in the card, regarding of the card's height
+.thumb-category {
+    object-fit: cover;
+    min-height: 100%;
+    min-width: 100%;
+}
+
+.bm-icon-cat {
+   position: relative; 
+   top: 5px;
+   right: 5px;
+}
