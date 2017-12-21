@@ -1,0 +1,18 @@
+<body>
+    <div class="d-flex flex-row justify-content-center">
+      <div class="navbar-nav-scroll p-4">
+        <% @categories = Category.all %>
+          <% @categories.order(:name).each do |cat| %>
+            <div class="p-1 form-inline">
+              <!--category_icon is a helper method inside application_helper-->
+              <% cat_icon = category_icon(Category.find(cat.id).name) %> 
+              
+              <%= button_to category_path(cat.id), method: :get, class:"btn btn-outline-dark" do %>
+              <i class="<%= cat_icon %>"></i>
+              <%= Category.find(cat.id).name %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+    </div>
+</body>

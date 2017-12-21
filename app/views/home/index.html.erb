@@ -16,8 +16,11 @@
       <img class="card-img-middle img-fluid" src="//placehold.it/720x350" alt="Card image cap">
       <div class="card-body pb-0">
         <div class="row">
-          <small class="col text-muted">Published on <%= article.created_at.strftime("%b %d") %> in 
-          <%= link_to Category.find(article.category_id).name, category_path(article.category_id) %></small>
+          <small class="col text-muted">
+            <i class="far fa-clock"></i>
+            <%= article.created_at.strftime("%b %d") %> - 
+          <%= link_to Category.find(article.category_id).name, category_path(article.category_id) %>
+          </small>
           <%#= article.cached_votes_total %>
           <div class="col-2 bookmarking">
             <% if user_signed_in? %>
@@ -57,7 +60,7 @@
           </div>
           <% end %>
           <div class="p-2">
-            <h6 class="card-subtitle mb-2 text-muted"><%= article.author %></h6>
+            <h6 class="card-subtitle pb-1 pt-2 text-muted"><%= article.author %></h6>
             <p class="card-subtitle text-muted"><%= article.author_work_place %></p>
           </div>
         </div>
