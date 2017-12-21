@@ -75,7 +75,7 @@ class ArticlesController < ApplicationController
   
   def like
     @article = Article.find(params[:id])
-    @article.liked_by current_user
+    @article.liked_by current_user, vote_scope: 'bookmark'
 
     respond_to do |format|
     format.html { redirect_to :back }
@@ -85,12 +85,32 @@ class ArticlesController < ApplicationController
   
   def unlike
     @article = Article.find(params[:id])
-    @article.unliked_by current_user
+    @article.unliked_by current_user, vote_scope: 'bookmark'
     
     respond_to do |format|
     format.html { redirect_to :back }
     format.js
-  end
+    end
+  end 
+  
+  def upvote
+    @article = Article.find(params[:id])
+    @article.liked_by current_user, vote_scope: 'praise'
+
+    respond_to do |format|
+    format.html { redirect_to :back }
+    format.js
+    end
+  end  
+  
+  def downvote
+    @article = Article.find(params[:id])
+    @article.unliked_by current_user, vote_scope: 'praise'
+    
+    respond_to do |format|
+    format.html { redirect_to :back }
+    format.js
+    end
   end
 
   private

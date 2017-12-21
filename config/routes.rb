@@ -15,6 +15,9 @@ Rails.application.routes.draw do
     member do
       put "bookmark", to: "articles#like"
       put "unbookmark", to: "articles#unlike"
+      
+      put "upvote", to: "articles#upvote"
+      put "downvote", to: "articles#downvote"
     end
   end
   

@@ -14,14 +14,14 @@
     <% Article.order(:cached_votes_up => :desc).first(4).each do |article| %>
     <div class="card" style="min-width: 300px; margin-bottom: 30px">
       <img class="card-img-middle img-fluid" src="//placehold.it/720x350" alt="Card image cap">
-      <div class="card-body">
+      <div class="card-body pb-0">
         <div class="row">
           <small class="col text-muted">Published on <%= article.created_at.strftime("%b %d") %> in 
           <%= link_to Category.find(article.category_id).name, category_path(article.category_id) %></small>
           <%#= article.cached_votes_total %>
           <div class="col-2 bookmarking">
             <% if user_signed_in? %>
-              <% if current_user.liked? article %>
+              <% if current_user.liked? article, vote_scope: 'bookmark' %>
                 <%= link_to unbookmark_article_path(article), remote: true, id: "unlike_#{article.id}", method: :put do %>
                   <i class="material-icons">bookmark</i>
                 <% end %>
@@ -34,9 +34,19 @@
           </div> 
         </div>
         <%= link_to article_path(article), class: "card-link" do %>
-        <strong class="d-flex card-title"><%= article.title %></strong>
+        <strong class="d-flex card-title pb-1"><%= article.title %></strong>
         <small class="d-flex card-subtitle"><%= article.sub_title %></small>
         <% end %>
+      </div>
+      <div class="d-flex flex-row justify-content-end p-2">
+        <div class="">
+          <i class="fas fa-heart"></i>
+          <small class="pr-2 vote-count"><%= article.find_votes_for(:vote_scope => 'praise').size.to_s %></small>
+        </div>
+        <div class="">
+          <i class="fas fa-comment-alt"></i>
+          <small class="pr-2 vote-count"><%= "x" %></small>
+        </div> 
       </div>
       <div class="card-footer bg-transparent">
         <div class="d-flex flex-row">
@@ -48,10 +58,9 @@
           <% end %>
           <div class="p-2">
             <h6 class="card-subtitle mb-2 text-muted"><%= article.author %></h6>
-            <p class="card-subtitle mb-2 text-muted"><%= article.author_work_place %></p>
+            <p class="card-subtitle text-muted"><%= article.author_work_place %></p>
           </div>
         </div>
-        <!--Bookmarked <%#= article.votes_for.size.to_s %> times-->
       </div>
     </div>    
     <% end %>
@@ -60,8 +69,24 @@
 
 <br><br />
 
+<!--JUMBOTRON!-->
+<div class="jumbotron jumbotron-fluid">
+  <div class="container" align="center">
+    <h1 class="display-4">Your research meets the world</h1>
+    <h3 class="lead">You are a scientist, an engineer or a student? Share your knowledge by writing engaging articles.</h3>
+    <% if user_signed_in? %>
+        <%= button_to "Start Writing", new_article_path, class: "btn btn-outline-light mt-4", :method => :get %>      
+    <% else %>
+        <%= button_to "Sign Up & Start Writing", new_user_registration_path, class: "btn btn-outline-light mt-4", :method => :get %>
+    <% end %>
+  </div>
+</div>
+
 <div class="container">
-  <h2>Latest Articles</h2>
+  <div class="d-flex align-items-end">
+    <h4 class="p-2 mb-0">LATEST ARTICLES</h4>
+    <small class="pb-2 text-muted">The state of the art</small>
+  </div>
   <div class="card-deck">
     <% @articles.each do |article| %>
       <div class="card" style="min-width: 300px; margin-bottom: 30px">
@@ -79,7 +104,7 @@
             <small class="text-muted align-middle">Published on <%= article.created_at.strftime("%b %d") %></small>
             <div class="bookmarking">
               <% if user_signed_in? %>
-                <% if current_user.liked? article %>
+                <% if current_user.liked? article, vote_scope: 'bookmark' %>
                   <%= button_to "Unbookmark", unbookmark_article_path(article), remote: true, id: "unlike_#{article.id}", method: :put, class: "btn btn-danger btn-sm" %>
                 <% else %>
                   <%= button_to "Bookmark", bookmark_article_path(article), remote: true, id: "like_#{article.id}", method: :put, class: "btn btn-primary btn-sm" %>
