@@ -24,6 +24,8 @@ module ApplicationHelper
         when "Mathematics" then "fas fa-chart-area"
         when "Aerospace" then "fas fa-rocket"
         when "Health" then "fas fa-medkit"
+        when "Archeology" then "fas fa-university"
+        when "Environment" then "fas fa-globe"
         end
     end
 end

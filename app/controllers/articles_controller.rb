@@ -48,7 +48,7 @@ class ArticlesController < ApplicationController
   # PATCH/PUT /articles/1
   # PATCH/PUT /articles/1.json
   def update
-    @categories = Category.all.map{|c| [ c.name, c.id ] }    
+    @categories = Category.all.map{|c| [ c.name, c.id ] }
     @article.category_id = params[:category_id]
 
     

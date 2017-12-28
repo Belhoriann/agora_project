@@ -11,32 +11,46 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171220003013) do
+ActiveRecord::Schema.define(version: 20171221232438) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
     t.text     "body"
     t.string   "author"
     t.integer  "user_id"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
     t.string   "author_work_place"
     t.string   "sub_title"
     t.string   "category_id"
-    t.integer  "cached_votes_total",      default: 0
-    t.integer  "cached_votes_score",      default: 0
-    t.integer  "cached_votes_up",         default: 0
-    t.integer  "cached_votes_down",       default: 0
-    t.integer  "cached_weighted_score",   default: 0
-    t.integer  "cached_weighted_total",   default: 0
-    t.float    "cached_weighted_average", default: 0.0
+    t.integer  "cached_votes_total",               default: 0
+    t.integer  "cached_votes_score",               default: 0
+    t.integer  "cached_votes_up",                  default: 0
+    t.integer  "cached_votes_down",                default: 0
+    t.integer  "cached_weighted_score",            default: 0
+    t.integer  "cached_weighted_total",            default: 0
+    t.float    "cached_weighted_average",          default: 0.0
+    t.integer  "cached_scoped_praise_votes_total", default: 0
+    t.integer  "cached_scoped_praise_votes_score", default: 0
+    t.integer  "cached_scoped_praise_votes_up",    default: 0
+    t.integer  "cached_scoped_praise_votes_down",  default: 0
+    t.integer  "cached_weighted_praise_score",     default: 0
+    t.integer  "cached_weighted_praise_total",     default: 0
+    t.float    "cached_weighted_praise_average",   default: 0.0
   end
 
+  add_index "articles", ["cached_scoped_praise_votes_down"], name: "index_articles_on_cached_scoped_praise_votes_down"
+  add_index "articles", ["cached_scoped_praise_votes_score"], name: "index_articles_on_cached_scoped_praise_votes_score"
+  add_index "articles", ["cached_scoped_praise_votes_total"], name: "index_articles_on_cached_scoped_praise_votes_total"
+  add_index "articles", ["cached_scoped_praise_votes_up"], name: "index_articles_on_cached_scoped_praise_votes_up"
   add_index "articles", ["cached_votes_down"], name: "index_articles_on_cached_votes_down"
   add_index "articles", ["cached_votes_score"], name: "index_articles_on_cached_votes_score"
   add_index "articles", ["cached_votes_total"], name: "index_articles_on_cached_votes_total"
   add_index "articles", ["cached_votes_up"], name: "index_articles_on_cached_votes_up"
   add_index "articles", ["cached_weighted_average"], name: "index_articles_on_cached_weighted_average"
+  add_index "articles", ["cached_weighted_praise_average"], name: "index_articles_on_cached_weighted_praise_average"
+  add_index "articles", ["cached_weighted_praise_score"], name: "index_articles_on_cached_weighted_praise_score"
+  add_index "articles", ["cached_weighted_praise_total"], name: "index_articles_on_cached_weighted_praise_total"
   add_index "articles", ["cached_weighted_score"], name: "index_articles_on_cached_weighted_score"
   add_index "articles", ["cached_weighted_total"], name: "index_articles_on_cached_weighted_total"
 

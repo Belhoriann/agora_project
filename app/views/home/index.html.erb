@@ -4,15 +4,60 @@
 <!-- Do stuff if the user is logged --->
 <% end %>
 
-
-<div class="container" style="max-width: 80%;">
-  <div class="d-flex align-items-end">
-    <h4 class="p-2 mb-0">YOU MAY LIKE</h4>
-    <small class="pb-2 text-muted">Most Bookmarked Articles</small>
+<div class="container mt-4">
+  <div class="form-inline">
+    <h4 class="p-2">FEATURED</h4>
+    <small class="text-muted">Whet Your Curiosity</small>
   </div>
-  <div class="card-deck">
-    <% Article.order(:cached_votes_up => :desc).first(4).each do |article| %>
-    <div class="card" style="min-width: 300px; margin-bottom: 30px">
+  <div class="row mb-4 p-0" style="height: 100%">
+    <div class="col-md-5 p-2">
+      <% Article.order(:cached_scoped_praise_votes_total => :desc).first(1).each do |article| %>
+        <%= render 'layouts/vcard_full', article: article %>  
+      <% end %>
+    </div>
+    <div class="col-md">
+      <div class="row" style="height: 50%">
+        <div class="col-sm p-2">
+          <% Article.order(:cached_scoped_praise_votes_total => :desc).sample(1).each do |article| %>
+            <%= render 'layouts/vcard_compact', article: article %>  
+          <% end %>
+        </div>
+      
+        <div class="col-sm p-2">
+          <% Article.order(:cached_scoped_praise_votes_total => :desc).sample(1).each do |article| %>
+            <%= render 'layouts/vcard_compact', article: article %>  
+          <% end %>
+        </div>
+      </div>
+
+      <div class="row p-0" style="height: 50%">
+        <div class="col-sm p-2">
+          <% Article.order(:cached_scoped_praise_votes_total => :desc).sample(1).each do |article| %>
+            <%= render 'layouts/vcard_compact', article: article %>  
+          <% end %>
+        </div>
+        
+        <div class="col-sm p-2">
+          <% Article.order(:cached_scoped_praise_votes_total => :desc).sample(1).each do |article| %>
+            <%= render 'layouts/vcard_compact', article: article %>  
+          <% end %>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  
+</div>
+
+
+<div class="container-fluid">
+  <div class="form-inline">
+    <h4 class="p-2">YOU MAY LIKE</h4>
+    <small class="text-muted">Most Upvoted Articles</small>
+  </div>
+  <div class="d-flex flex-row dragscroll" style="overflow: auto;">
+    <% Article.order(:cached_scoped_praise_votes_total => :desc).first(7).each do |article| %>
+    <div class="card" style="min-width: 300px; margin-right: 10px">
       <img class="card-img-middle img-fluid" src="//placehold.it/720x350" alt="Card image cap">
       <div class="card-body pb-0">
         <div class="row">
@@ -52,16 +97,16 @@
         </div> 
       </div>
       <div class="card-footer bg-transparent">
-        <div class="d-flex flex-row">
+        <div class="form-inline">
           <% author_avatar = User.find(article.user_id) %>
           <% if author_avatar.avatar != nil %>
-          <div >
+          <div class="pr-2">
             <%= image_tag(author_avatar.avatar.url(:thumb), class:"rounded-circle border border-secondary", style: "height: 60px; width: 60px;") %>
           </div>
           <% end %>
-          <div class="p-2">
-            <h6 class="card-subtitle pb-1 pt-2 text-muted"><%= article.author %></h6>
-            <p class="card-subtitle text-muted"><%= article.author_work_place %></p>
+          <div class="align-items-middle">
+            <h6 class="author"><%= article.author %></h6>
+            <p class="author"><%= article.author_work_place %></p>
           </div>
         </div>
       </div>
@@ -73,7 +118,7 @@
 <br><br />
 
 <!--JUMBOTRON!-->
-<div class="jumbotron jumbotron-fluid">
+<div class="jumbotron jumbotron-fluid p-4">
   <div class="container" align="center">
     <h1 class="display-4">Your research meets the world</h1>
     <h3 class="lead">You are a scientist, an engineer or a student? Share your knowledge by writing engaging articles.</h3>
@@ -84,59 +129,86 @@
     <% end %>
   </div>
 </div>
+<!--JUMBOTRON!-->
 
-<div class="container">
+<div class="container-fluid" style="max-width: 1400px">
   <div class="d-flex align-items-end">
     <h4 class="p-2 mb-0">LATEST ARTICLES</h4>
     <small class="pb-2 text-muted">The state of the art</small>
   </div>
-  <div class="card-deck">
-    <% @articles.each do |article| %>
-      <div class="card" style="min-width: 300px; margin-bottom: 30px">
-        <img class="card-img-middle img-fluid" src="//placehold.it/720x350" alt="Card image cap">
-        <div class="card-body">
-          <small><%#= link_to Category.find(article.category_id).name, category_path(article.category_id) %></small> 
-          <%= link_to article_path(article), class: "card-link" do %>
-            <strong class="d-flex card-title"><%= article.title %></strong>
-            <small class="d-flex card-subtitle"><%= article.sub_title %></small>
+  
+  <div class="row justify-content-center">
+    <% @categories = Category.all %>
+    <% @categories.order(:name).each do |cat| %>
+      <div class="col-lg-6">
+        <div class="p-1 form-inline">
+          <!--category_icon is a helper method inside application_helper-->
+          <% cat_icon = category_icon(Category.find(cat.id).name) %> 
+          <%= button_to category_path(cat.id), method: :get, class:"btn btn-cat btn-outline-dark" do %>
+          <i class="<%= cat_icon %>"></i>
+          <%= Category.find(cat.id).name %>
           <% end %>
         </div>
-        
-        <div class="card-body pt-0 pb-2">  
-          <div class="d-flex justify-content-between align-items-center">
-            <small class="text-muted align-middle">Published on <%= article.created_at.strftime("%b %d") %></small>
-            <div class="bookmarking">
-              <% if user_signed_in? %>
-                <% if current_user.liked? article, vote_scope: 'bookmark' %>
-                  <%= button_to "Unbookmark", unbookmark_article_path(article), remote: true, id: "unlike_#{article.id}", method: :put, class: "btn btn-danger btn-sm" %>
-                <% else %>
-                  <%= button_to "Bookmark", bookmark_article_path(article), remote: true, id: "like_#{article.id}", method: :put, class: "btn btn-primary btn-sm" %>
+      <% Article.where(category_id: cat.id).each do |article| %>
+        <div class="card mb-2">
+          <div class="row">
+            <div class="col-sm-4 p-0">
+              <img class="img-fluid thumb-category" src="//placehold.it/720x350">
+            </div>
+          <div class="col-sm-8">
+            <div class="d-flex justify-content-between align-items-end">
+              <small class="text-muted pl-2 pt-2"><%= article.created_at.strftime("%B %d, %Y") %></small>
+              <div class="bm-icon-cat bookmarking"> <!-- "bookmarking" is used as a marker for the like/unlike.js files -->
+                <% if user_signed_in? %>
+                  <% if current_user.liked? article %>
+                    <%= link_to unbookmark_article_path(article), remote: true, id: "unlike_#{article.id}", method: :put do %>
+                      <i class="material-icons">bookmark</i>
+                    <% end %>
+                  <% else %>
+                    <%= link_to bookmark_article_path(article), remote: true, id: "like_#{article.id}", method: :put do %>
+                      <i class="material-icons">bookmark_border</i>
+                    <% end %>
+                  <% end %>
                 <% end %>
+              </div>    
+            </div>  
+            <div class="">
+              <%= link_to article_path(article), class: "card-link" do %>
+                <strong class="d-flex card-title pl-2 m-0"><%= article.title %></strong>
+                <small class="d-flex card-subtitle pl-2 m-0"><%= article.sub_title %></small>
               <% end %>
-            </div> 
-          </div>
-        </div>
-        
-        <div class="card-footer bg-transparent">
-          
-          <div class="d-flex flex-row">
-            <% author_avatar = User.find(article.user_id) %>
-            <% if author_avatar.avatar != nil %>
-            <div >
-              <%= image_tag(author_avatar.avatar.url(:thumb), class:"rounded-circle border border-secondary", style: "height: 60px; width: 60px;") %>
             </div>
-            <% end %>
-            <div class="p-2">
-              <h6 class="card-subtitle mb-2 text-muted"><%= article.author %></h6>
-              <p class="card-subtitle mb-2 text-muted"><%= article.author_work_place %></p>
-            </div>
+            <div class="form-inline">
+              <div class="p-2">
+                <% author_avatar = User.find(article.user_id) %>
+                <% if author_avatar.avatar != nil %>
+                <%= image_tag(author_avatar.avatar.url(:thumb), class:"rounded-circle border border-secondary", style: "height: 60px; width: 60px;") %>
+                <% end %>
+              </div>
+              <div class="align-items-middle">
+                <h6 class="author"><%= article.author %></h6>
+                <p class="author"><%= article.author_work_place %></p>
+              </div>
+              <div class="d-flex flex-row mt-auto ml-auto p-2">
+                <div class="">
+                  <i class="fas fa-heart"></i>
+                  <small class="pr-2 vote-count"><%= article.find_votes_for(:vote_scope => 'praise').size.to_s %></small>
+                </div>
+                <div class="">
+                  <i class="fas fa-comment-alt"></i>
+                  <small class="pr-2 vote-count"><%= "x" %></small>
+                </div> 
+              </div>
+            </div>          
           </div>
-          <!--Bookmarked <%#= article.votes_for.size.to_s %> times-->
         </div>
       </div>
+      <% end %>
+      </div> 
     <% end %>
   </div>
 </div>
+
 
 </body>
 </html>

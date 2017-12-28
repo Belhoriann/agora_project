@@ -1,0 +1,44 @@
+<div class="card" style="height: 100%; border: none">
+    <img class="thumb-featured-lg img-fluid" src="//placehold.it/720x350" alt="Card image cap">
+    <div class="card-body pb-0">
+      <div class="row">
+        <small class="col text-muted">
+          <i class="far fa-clock"></i>
+          <%= article.created_at.strftime("%b %d") %> - 
+        <%= link_to Category.find(article.category_id).name, category_path(article.category_id) %>
+        </small>
+        <%#= article.cached_votes_total %>
+        <div class="col bookmarking" align="right">
+          <% if user_signed_in? %>
+            <% if current_user.liked? article, vote_scope: 'bookmark' %>
+              <%= link_to unbookmark_article_path(article), remote: true, id: "unlike_#{article.id}", method: :put do %>
+                <i class="material-icons">bookmark</i>
+              <% end %>
+            <% else %>
+              <%= link_to bookmark_article_path(article), remote: true, id: "like_#{article.id}", method: :put do %>
+                <i class="material-icons">bookmark_border</i>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div> 
+      </div>
+      <%= link_to article_path(article), class: "card-link" do %>
+      <strong class="d-flex card-title pb-1"><%= article.title %></strong>
+      <small class="d-flex card-subtitle"><%= article.sub_title %></small>
+      <% end %>
+    </div>
+    <div class="card-footer bg-transparent">
+      <div class="d-flex flex-row">
+        <% author_avatar = User.find(article.user_id) %>
+        <% if author_avatar.avatar != nil %>
+        <div >
+          <%= image_tag(author_avatar.avatar.url(:thumb), class:"rounded-circle border border-secondary", style: "height: 60px; width: 60px;") %>
+        </div>
+        <% end %>
+        <div class="p-2">
+          <h6 class="card-subtitle pb-1 pt-2 text-muted"><%= article.author %></h6>
+          <p class="card-subtitle text-muted"><%= article.author_work_place %></p>
+        </div>
+      </div>
+    </div>
+</div>

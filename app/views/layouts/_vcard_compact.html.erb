@@ -1,0 +1,31 @@
+<div class="card" style="height: 100%; border: none">
+    <img class="thumb-featured-sm img-fluid" src="//placehold.it/720x350" alt="Card image cap">
+    <div class="card-body pb-0">
+      <div class="row">
+        <small class="col text-muted">
+          <i class="far fa-clock"></i>
+          <%= article.created_at.strftime("%b %d") %> - 
+        <%= link_to Category.find(article.category_id).name, category_path(article.category_id) %>
+        </small>
+        <%#= article.cached_votes_total %>
+        <div class="col-2 bookmarking" align="right">
+          <% if user_signed_in? %>
+            <% if current_user.liked? article, vote_scope: 'bookmark' %>
+              <%= link_to unbookmark_article_path(article), remote: true, id: "unlike_#{article.id}", method: :put do %>
+                <i class="material-icons">bookmark</i>
+              <% end %>
+            <% else %>
+              <%= link_to bookmark_article_path(article), remote: true, id: "like_#{article.id}", method: :put do %>
+                <i class="material-icons">bookmark_border</i>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div> 
+      </div>
+      <%= link_to article_path(article), class: "card-link" do %>
+        <strong class="d-flex card-title pb-1"><%= article.title %></strong>
+        <small class="d-flex card-subtitle"><%= article.sub_title %></small>
+      <% end %>
+      <div class="pt-2 pb-2 author"><%= article.author %></div>
+    </div>
+</div>

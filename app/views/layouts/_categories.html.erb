@@ -1,18 +1,43 @@
 <body>
-    <div class="d-flex flex-row justify-content-center">
-      <div class="navbar-nav-scroll p-4">
-        <% @categories = Category.all %>
-          <% @categories.order(:name).each do |cat| %>
-            <div class="p-1 form-inline">
-              <!--category_icon is a helper method inside application_helper-->
-              <% cat_icon = category_icon(Category.find(cat.id).name) %> 
-              
-              <%= button_to category_path(cat.id), method: :get, class:"btn btn-outline-dark" do %>
+  <div class="d-flex flex-nowrap dragscroll justify-content-center" style="overflow: auto;">
+    <% @categories = Category.all %>
+      <% @categories.order(:name).first(5).each do |cat| %>
+        <div class="p-1 form-inline">
+          <!--category_icon is a helper method inside application_helper-->
+          <% cat_icon = category_icon(Category.find(cat.id).name) %> 
+          <% if current_page?(category_path(cat.id)) %>
+            <%= link_to category_path(cat.id), class:"btn btn-cat btn-outline-dark active" do %>
+            <i class="<%= cat_icon %>"></i>
+            <%= Category.find(cat.id).name %>
+            <% end %>
+          <% else %>
+            <%= link_to category_path(cat.id), class:"btn btn-cat btn-outline-dark" do %>
+            <i class="<%= cat_icon %>"></i>
+            <%= Category.find(cat.id).name %>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <div class="d-flex flex-nowrap dragscroll justify-content-center" style="overflow: auto;">
+      <% @categories.order(:name).each do |cat| %>
+        <% if @categories.order(:name).index(cat) > 4 %>
+          <div class="p-1 form-inline">
+            <!--category_icon is a helper method inside application_helper-->
+            <% cat_icon = category_icon(Category.find(cat.id).name) %> 
+            <% if current_page?(category_path(cat.id)) %>
+              <%= link_to category_path(cat.id), class:"btn btn-cat btn-outline-dark active" do %>
               <i class="<%= cat_icon %>"></i>
               <%= Category.find(cat.id).name %>
               <% end %>
-            </div>
-          <% end %>
-        </div>
+            <% else %>
+              <%= link_to category_path(cat.id), class:"btn btn-cat btn-outline-dark" do %>
+              <i class="<%= cat_icon %>"></i>
+              <%= Category.find(cat.id).name %>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
     </div>
 </body>

@@ -16,13 +16,13 @@
 @import "bootstrap";
 
 body { 
-    padding-top: 50px; 
+    padding-top: 80px; 
     //background-color: #f3f2f0!important;
     color: #674a4b!important;
 
     @media screen and (max-width: 768px) {
         body { 
-            padding-top: 40px;
+            padding-top: 80px;
         }
     }
 }

@@ -1,6 +1,34 @@
-<p id="notice"><%= notice %></p>
+<div class="container-fluid" style="max-width: 1400px">
+  <div class="d-flex align-items-end">
+    <h4 class="p-2 mb-0">ALL TOPICS</h4>
+    <small class="pb-2 text-muted">The Full Spectrum</small>
+  </div>
+  
+  <div class="row justify-content-center">
+    <% @categories = Category.all %>
+    <% @categories.order(:name).each do |cat| %>
+    <div class="col-lg-3">
+      <div class="card mb-4" style="">
+        <div class="card-header" align="center">
+          <!--category_icon is a helper method inside application_helper-->
+          <% cat_icon = category_icon(Category.find(cat.id).name) %> 
+          <%= link_to category_path(cat.id), class:"btn btn-cat btn-outline-dark" do %>
+          <i class="<%= cat_icon %>"></i>
+          <%= Category.find(cat.id).name %>
+          <% end %>
+          <p class="mb-0"><%= Category.find(cat.id).description %></p>
+        </div> 
+        <%= link_to image_tag("//placehold.it/720x350", class:"card-img-middle img-fluid"), category_path(cat.id) %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
 
-<h1>Listing Categories</h1>
+<%= link_to 'New Category', new_category_path %>
+
+
+<br>
 
 <table>
   <thead>
@@ -26,6 +54,3 @@
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Category', new_category_path %>
