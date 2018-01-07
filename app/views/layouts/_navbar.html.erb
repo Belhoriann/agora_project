@@ -27,7 +27,7 @@
         </li>
 
       <% if user_signed_in? %>
-        <%= button_to "Write", new_article_path, class: "btn btn-sm btn-outline-success m-2", :method => :get %>
+        <%= link_to "Write", new_article_path, class: "btn btn-sm btn-outline-success m-2" %>
         <li class="dropdown">
           <ul class="navbar-nav">
             <li class="dropdown-toggle profile-picture-navbar"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
@@ -75,7 +75,7 @@
               </div>
           </div>
         </div>
-        <%= button_to "Sign Up", new_user_registration_path, class: "btn btn-outline-success btn-sm ml-2", :method => :get %>
+        <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-outline-success btn-sm ml-2" %>
         <% end %>
         <% end %>
       </ul>

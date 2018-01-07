@@ -1,0 +1,46 @@
+<div class="card mb-2">
+  <div class="row">
+    <div class="col-sm-4 p-0">
+    <%= link_to image_tag("//placehold.it/720x350", class:"thumb-category img-fluid"), article_path(article) %>
+    </div>
+  <div class="col-sm-8">
+    <div class="d-flex justify-content-between align-items-end">
+      <small class="text-muted pl-2 pt-2">
+        <%= article.created_at.strftime("%B %d, %Y") %> -
+        <%= link_to Category.find(article.category_id).name, category_path(article.category_id) %>
+      </small>
+      <div class="bm-icon-cat bookmarking"> <!-- "bookmarking" is used as a marker for the like/unlike.js files -->
+        <% if user_signed_in? %>
+          <% if current_user.liked? article %>
+            <%= link_to unbookmark_article_path(article), remote: true, id: "unlike_#{article.id}", method: :put do %>
+              <i class="material-icons">bookmark</i>
+            <% end %>
+          <% else %>
+            <%= link_to bookmark_article_path(article), remote: true, id: "like_#{article.id}", method: :put do %>
+              <i class="material-icons">bookmark_border</i>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>    
+    </div>  
+    <div class="">
+      <%= link_to article_path(article), class: "card-link" do %>
+        <strong class="d-flex card-title pl-2 m-0"><%= article.title %></strong>
+        <small class="d-flex card-subtitle pl-2 m-0"><%= article.sub_title %></small>
+      <% end %>
+    </div>
+    <div class="form-inline">
+      <div class="d-flex flex-row mt-auto ml-auto p-2">
+        <div class="">
+          <i class="fas fa-heart"></i>
+          <small class="pr-2 vote-count"><%= article.find_votes_for(:vote_scope => 'praise').size.to_s %></small>
+        </div>
+        <div class="">
+          <i class="fas fa-comment-alt"></i>
+          <small class="pr-2 vote-count"><%= "x" %></small>
+        </div> 
+      </div>
+    </div>          
+  </div>
+</div>
+</div>

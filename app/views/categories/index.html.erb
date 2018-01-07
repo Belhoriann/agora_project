@@ -1,22 +1,42 @@
-<div class="container-fluid" style="max-width: 1400px">
+<div class="container-fluid" style="max-width: 1400px; min-width: 320px">
   <div class="d-flex align-items-end">
     <h4 class="p-2 mb-0">ALL TOPICS</h4>
     <small class="pb-2 text-muted">The Full Spectrum</small>
   </div>
-  
-  <div class="row justify-content-center">
+  <div class="row">
     <% @categories = Category.all %>
     <% @categories.order(:name).each do |cat| %>
-    <div class="col-lg-3">
+    <div class="col-lg-4 col-md-6">
       <div class="card mb-4" style="">
-        <div class="card-header" align="center">
-          <!--category_icon is a helper method inside application_helper-->
-          <% cat_icon = category_icon(Category.find(cat.id).name) %> 
-          <%= link_to category_path(cat.id), class:"btn btn-cat btn-outline-dark" do %>
-          <i class="<%= cat_icon %>"></i>
-          <%= Category.find(cat.id).name %>
-          <% end %>
-          <p class="mb-0"><%= Category.find(cat.id).description %></p>
+        <div class="card-header p-3">
+          <div class="row align-items-center">
+            <div class="col">
+              <% cat_icon = category_icon(Category.find(cat.id).name) %>  <!--category_icon is a helper method inside application_helper-->
+              <% cat_icon_color = category_icon_color(Category.find(cat.id).name) %> <!--category_icon_color is a helper method inside application_helper-->
+              <%= link_to category_path(cat.id), class:"btn btn-cat btn-outline-dark" do %>
+                <i class="<%= cat_icon %>" style="color:<%= cat_icon_color %>"></i>
+                <strong><%= Category.find(cat.id).name %></strong>
+              <% end %>
+            </div>
+            <div class="col-3 subscribing" align="right">
+              <% if user_signed_in? %>
+                <% if current_user.liked? cat, vote_scope: 'subscribe_category' %>
+                  <%= link_to unsubscribe_category_path(cat), remote: true, id: "unsub_#{cat.id}", method: :put do %>
+                    <i class="material-icons md-36">star</i>
+                  <% end %>
+                <% else %>
+                  <%= link_to subscribe_category_path(cat), remote: true, id: "sub_#{cat.id}", method: :put do %>
+                    <i class="material-icons md-36">star_border</i>
+                  <% end %>
+                <% end %>
+              <% else %>
+                <%= link_to "", data: {toggle: "modal", target: "#modalSignup"} do %>
+                  <i class="material-icons md-36">star_border</i>
+                <% end %>
+                <%= render 'layouts/modal_signup' %>
+              <% end %>
+            </div>
+          </div>
         </div> 
         <%= link_to image_tag("//placehold.it/720x350", class:"card-img-middle img-fluid"), category_path(cat.id) %>
       </div>

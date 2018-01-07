@@ -1,0 +1,21 @@
+<div class="container" style="max-width: 800px">
+  <div class="d-flex align-items-center">
+    <% author_avatar = User.find(@user) %>
+    <% if author_avatar.avatar != nil %>
+    <div class="pr-2">
+      <%= image_tag(author_avatar.avatar.url(:thumb), class:"rounded-circle border border-secondary", style: "height: 100px; width: 100px;") %>
+    </div>
+    <% end %>
+    <div>
+      <h4><%= @user.full_name %></h4>
+      <h5><%= @user.work_place %></h5>
+    </div>
+  </div>
+  <br></br>
+  <div>
+    <h4>Published articles</h4>
+    <% Article.where(user_id: @user.id).each do |article| %>
+      <%= render 'layouts/hcard_user_article', article: article %>
+    <% end %>
+  </div> 
+</div> 

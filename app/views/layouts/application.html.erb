@@ -25,7 +25,11 @@
   <body>
     
   <%= render 'layouts/navbar' %>
+  <% if @article == nil %>
   <%= render 'layouts/categories' unless current_page?('/categories') %>
+  <% end %>
+  
+  <br></br>
   
   <% if flash[:notice] %>
     <%= content_tag :div, class: "alert alert-success" do %>

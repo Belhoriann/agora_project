@@ -1,0 +1,58 @@
+<div class="card mb-2">
+  <div class="row">
+    <div class="col-sm-4 p-0">
+    <%= link_to image_tag("//placehold.it/720x350", class:"thumb-category img-fluid"), article_path(article) %>
+    </div>
+  <div class="col-sm-8">
+    <div class="d-flex justify-content-between align-items-end">
+      <small class="text-muted pl-2 pt-2">
+        <%= article.created_at.strftime("%B %d, %Y") %>
+        <% if user_signed_in? && current_user.id == article.user_id %>
+          | <%= link_to "Edit", edit_article_path(article) %>
+        <% end %>
+      </small>
+      <div class="bm-icon-cat bookmarking"> <!-- "bookmarking" is used as a marker for the like/unlike.js files -->
+        <% if user_signed_in? %>
+          <% if current_user.liked? article %>
+            <%= link_to unbookmark_article_path(article), remote: true, id: "unlike_#{article.id}", method: :put do %>
+              <i class="material-icons">bookmark</i>
+            <% end %>
+          <% else %>
+            <%= link_to bookmark_article_path(article), remote: true, id: "like_#{article.id}", method: :put do %>
+              <i class="material-icons">bookmark_border</i>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>    
+    </div>  
+    <div class="">
+      <%= link_to article_path(article), class: "card-link" do %>
+        <strong class="d-flex card-title pl-2 m-0"><%= article.title %></strong>
+        <small class="d-flex card-subtitle pl-2 m-0"><%= article.sub_title %></small>
+      <% end %>
+    </div>
+    <div class="form-inline">
+      <div class="p-2">
+        <% author_avatar = User.find(article.user_id) %>
+        <% if author_avatar.avatar != nil %>
+        <%= image_tag(author_avatar.avatar.url(:thumb), class:"rounded-circle border border-secondary", style: "height: 60px; width: 60px;") %>
+        <% end %>
+      </div>
+      <div class="align-items-middle">
+        <h6 class="author"><%= link_to article.author, user_path(article.user_id, full_name: article.author) %></h6>
+        <p class="author"><%= article.author_work_place %></p>
+      </div>
+      <div class="d-flex flex-row mt-auto ml-auto p-2">
+        <div class="">
+          <i class="fas fa-heart"></i>
+          <small class="pr-2 vote-count"><%= article.find_votes_for(:vote_scope => 'praise').size.to_s %></small>
+        </div>
+        <div class="">
+          <i class="fas fa-comment-alt"></i>
+          <small class="pr-2 vote-count"><%= "x" %></small>
+        </div> 
+      </div>
+    </div>          
+  </div>
+</div>
+</div>

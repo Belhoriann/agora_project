@@ -1,16 +1,19 @@
 Rails.application.routes.draw do
 
   devise_for :users
+  resources :users, :only =>[:show]
   
   # Allow Desive to use DELETE for the log out route
   devise_scope :user do  
-   get '/users/sign_out' => 'devise/sessions#destroy'     
+   get '/users/sign_out' => 'devise/sessions#destroy'
+   get '/users', to: "users#index"
+   get '/users/:full_name', to: "users#show"
   end
 
   root 'home#index'
   get 'home/index'
   get 'home/collection'
-  
+
   resources :articles do 
     member do
       put "bookmark", to: "articles#like"
@@ -22,7 +25,14 @@ Rails.application.routes.draw do
   end
   
   resources :comments
-  resources :categories
+  
+  resources :categories do
+    member do
+      put "subscribe", to: "categories#subscribe"
+      put "unsubscribe", to: "categories#unsubscribe"
+    end
+  end
+  
   #resources :bookmarks
 
   # The priority is based upon order of creation: first created -> highest priority.

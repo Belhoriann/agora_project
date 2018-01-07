@@ -26,6 +26,26 @@ module ApplicationHelper
         when "Health" then "fas fa-medkit"
         when "Archeology" then "fas fa-university"
         when "Environment" then "fas fa-globe"
+        when "Neuroscience" then "fas fa-user-circle"
+        when "Nanotechnology" then "far fa-dot-circle"
+        end
+    end
+    
+    def category_icon_color(category)
+        case category
+        when "Physics" then "RoyalBlue"
+        when "Chemistry" then "PaleVioletRed"
+        when "Biology" then "Lime"
+        when "Cosmology" then "Orange"
+        when "Computer Science" then "grey"
+        when "Technology" then "blue"
+        when "Mathematics" then "HotPink"
+        when "Aerospace" then "Tomato"
+        when "Health" then "Red"
+        when "Archeology" then "LightCoral"
+        when "Environment" then "DeepSkyBlue"
+        when "Neuroscience" then "Coral"
+        when "Nanotechnology" then "SlateBlue"
         end
     end
 end

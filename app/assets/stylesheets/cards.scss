@@ -3,13 +3,18 @@
   overflow: hidden;
   -webkit-transition: .25s box-shadow;
   transition: .25s box-shadow;
-  border: 1px solid rgba(0,0,0,.1);
-  border-radius: 0.7em;
+  //border: 1px solid rgba(0,0,0,0.2)!important;
+  border-radius: 0.2em!important;
   //background-color: #dddcda!important;
+}
+
+.card-footer {
+  border-top: 1px solid rgba(0,0,0,.1)!important;
+}
   
-  .card-footer {
-      border-top: 1px dotted rgba(0,0,0,.1);
-  }
+.card-body {
+  padding: 0.5em!important;
+  border: 0px solid rgba(0,0,0,0)!important;
 }
 
 .card-title {
@@ -31,6 +36,7 @@
 
 .author {
   font-size: 14px;
+  line-height: 1.2em;
   color: grey;
   margin: 0px;
   padding: 0px;
@@ -46,13 +52,15 @@
 // Fit image in the card, regarding of the card's height
 .thumb-featured-sm {
     object-fit: cover;
+    min-width: 100%;
     max-height: 100px;
 }
 
 // Fit image in the card, regarding of the card's height
 .thumb-featured-lg {
     object-fit: cover;
-    max-height: 300px;
+    min-width: 100%;
+    min-height: 256px;
 }
 
 .bm-icon-cat {

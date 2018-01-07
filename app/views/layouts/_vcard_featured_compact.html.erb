@@ -1,0 +1,37 @@
+<div class="card mb-2" style="border: none">
+  <%= link_to image_tag("//placehold.it/720x350", class:"thumb-featured-sm img-fluid"), article_path(article) %>
+  <div class="card-body">
+    <div class="row">
+      <small class="col text-muted">
+        <i class="far fa-clock"></i>
+        <%= article.created_at.strftime("%b %d") %> - 
+        <%= link_to Category.find(article.category_id).name, category_path(article.category_id) %>
+        <% if user_signed_in? && current_user.id == article.user_id %>
+          | <%= link_to "Edit", edit_article_path(article) %>
+        <% end %>
+      </small>
+      <%#= article.cached_votes_total %>
+      <div class="col-3 bookmarking" align="right">
+        <% if user_signed_in? %>
+          <% if current_user.liked? article, vote_scope: 'bookmark' %>
+            <%= link_to unbookmark_article_path(article), remote: true, id: "unlike_#{article.id}", method: :put do %>
+              <i class="material-icons">bookmark</i>
+            <% end %>
+          <% else %>
+            <%= link_to bookmark_article_path(article), remote: true, id: "like_#{article.id}", method: :put do %>
+              <i class="material-icons">bookmark_border</i>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div> 
+    </div>
+    <%= link_to article_path(article), class: "card-link" do %>
+      <strong class="d-flex card-title pb-1"><%= article.title %></strong>
+      <small class="d-flex card-subtitle"><%= article.sub_title %></small>
+    <% end %>
+    <div class="mt-auto">
+      <h6 class="author"><%= link_to article.author, user_path(article.user_id, full_name: article.author) %></h6>
+      <p class="author"><%= article.author_work_place %></p>
+    </div>
+  </div>
+</div>

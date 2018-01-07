@@ -1,0 +1,9 @@
+/* global $ */ 
+
+// AJAX for updating the vote count and the icon for bookmarking
+
+// Get the id of the article liked
+var unsub_cat = $("#unsub_<%= @category.id %>");
+
+// Replace the bookmark button by the unbookmark one
+unsub_cat.closest('.subscribing').html('<%= link_to subscribe_category_path(@category), remote: true, id: "sub_#{@category.id}", method: :put do %><i class="material-icons md-36">star_border</i><% end %>');
