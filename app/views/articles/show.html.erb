@@ -1,30 +1,30 @@
 <div class="container">
-  <div class="row">
+  <div class="row" style="padding-top: 40px">
     
     <div class="col-sm">
     </div>  
     
-    <div class="col-sm-8" style="border-bottom: 1px dotted black">
-      <h2 class="text-center font-weight-bold">
+    <div class="col-sm-8" style="border-bottom: 1px solid grey">
+      <h2 class="text-center article-title">
         <%= @article.title %>
       </h2>
-      <h4 class="text-center font-weight-light">
-        <%= @article.author %> · <%= @article.created_at.strftime("%B %d, %Y") %>
-      </h4>
       <h5 class="text-center font-weight-light">
-        <%= @article.author_work_place %>
+        <%= @article.author %> · <%= @article.author_work_place %>
       </h5>
+      <h6 class="text-center font-weight-light">
+        Published on <%= @article.created_at.strftime("%B %d, %Y") %>
+      </h6>
       
       <br></br>
-      <div style="font-size: 1.2em;">
+      <div class="article-body">
         <%= @article.body.html_safe %>
       </div>
     </div>
 
     <div class="col-sm">
-        <%# if user_signed_in? && current_user.id == @article.user_id %>
-          <%= link_to 'Edit', edit_article_path(@article), class: "btn btn-outline-primary" %>
-        <%# end %>
+      <%# if user_signed_in? && current_user.id == @article.user_id %>
+        <%= link_to 'Edit', edit_article_path(@article), class: "btn btn-outline-primary" %>
+      <%# end %>
     </div>
   </div>
   
@@ -47,10 +47,12 @@
             <% end %>
             <h6 class="praise-count"><%= @article.find_votes_for(:vote_scope => "praise").size.to_s %></h6>
           <% end %>
-      
         <% else %>
-          <i class="material-icons md-36">favorite</i>
-          <h6 class="praise-count"><%= @article.find_votes_for(:vote_scope => 'praise').size.to_s %></h6>
+          <%= link_to "", data: {toggle: "modal", target: "#modalSignup"} do %>
+            <i class="material-icons md-36">favorite</i>
+            <h6 class="praise-count"><%= @article.find_votes_for(:vote_scope => 'praise').size.to_s %></h6>
+          <% end %>
+          <%= render 'layouts/modal_signup' %>
         <% end %>
         </div> 
       </div> 

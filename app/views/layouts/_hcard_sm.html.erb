@@ -13,7 +13,7 @@
       </small>
       <div class="bm-icon-cat bookmarking"> <!-- "bookmarking" is used as a marker for the like/unlike.js files -->
         <% if user_signed_in? %>
-          <% if current_user.liked? article %>
+          <% if current_user.liked? article, vote_scope: "bookmark" %>
             <%= link_to unbookmark_article_path(article), remote: true, id: "unlike_#{article.id}", method: :put do %>
               <i class="material-icons">bookmark</i>
             <% end %>
@@ -22,6 +22,11 @@
               <i class="material-icons">bookmark_border</i>
             <% end %>
           <% end %>
+        <% else %>
+          <%= link_to "", data: {toggle: "modal", target: "#modalSignup"} do %>
+            <i class="material-icons">bookmark_border</i>
+          <% end %>
+          <%= render 'layouts/modal_signup' %>
         <% end %>
       </div>    
     </div>  
@@ -34,8 +39,8 @@
     <div class="form-inline">
       <div class="p-2">
         <% author_avatar = User.find(article.user_id) %>
-        <% if author_avatar.avatar != nil %>
-        <%= image_tag(author_avatar.avatar.url(:thumb), class:"rounded-circle border border-secondary", style: "height: 60px; width: 60px;") %>
+        <%= link_to user_path(article.user_id, full_name: article.author) do %>
+          <%= image_tag(author_avatar.avatar.url(:thumb), class:"rounded-circle border border-secondary", style: "height: 60px; width: 60px;") %>
         <% end %>
       </div>
       <div class="align-items-middle">

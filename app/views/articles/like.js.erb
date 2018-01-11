@@ -10,4 +10,4 @@ var liked_article = $("#like_<%= @article.id %>");
 
 // Replace the bookmark button by the unbookmark one
 // liked_article.closest('.bookmarking').html('<%= button_to "Unbookmark", unbookmark_article_path(@article), remote: true, id: "unlike_#{@article.id}", method: :put, class: "btn btn-danger btn-sm" %>');
-liked_article.closest('.bookmarking').html('<%= link_to unbookmark_article_path(@article), remote: true, id: "unlike_#{@article.id}", method: :put do %><i class="material-icons">bookmark</i><% end %>');
+liked_article.closest('.bookmarking').html('<%= link_to unbookmark_article_path(@article), remote: true, id: "unlike_#{@article.id}", data: {toggle:"tooltip", placement:"top"}, title:"Unbookmark article", method: :put do %><i class="material-icons">bookmark</i><% end %>');

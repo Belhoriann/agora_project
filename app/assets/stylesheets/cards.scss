@@ -19,15 +19,20 @@
 
 .card-title {
   font-size: 18px;
-  Line-Height: 1.2;
+  font-weight: bold;
+  Line-Height: 1.3;
   color: #161616!important;
-  margin-bottom: 0.3em !important;
-  margin-top: 0.1em !important;
 }
 
 .card-subtitle {
-  font-size: 14px;
+  font-size: 16px;
   color: rgba(0, 0, 0.1, 0.5);
+}
+
+.card-article-body {
+  font-size: 16px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .card:hover {
@@ -61,6 +66,12 @@
     object-fit: cover;
     min-width: 100%;
     min-height: 256px;
+}
+
+// Fit image in the card, regarding of the card's height
+.thumb-bookmark {
+    object-fit: cover;
+    min-height: 100%;
 }
 
 .bm-icon-cat {

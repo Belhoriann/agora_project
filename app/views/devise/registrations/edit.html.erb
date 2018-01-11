@@ -1,73 +1,67 @@
 <div class="container">
   <div class="card border-success mb-3 mx-auto" style="max-width: 700px;">
-    
     <div class="card-header">
-      <h4 class="text-center text-success">Edit Account</h4>
+      <h4 class="text-success text-center mb-0">Edit Account</h4>
     </div>
-    
     <div class="card-body">
-  
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-    <%= devise_error_messages! %>
-  
-    <div class="form-group">
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <div>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= devise_error_messages! %>
+      <div class="form-group">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <div>
               <%= f.text_field :full_name, autofocus: true, class: "form-control form-control-md", placeholder: "Full name" %>
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <%#= f.file_field :avatar %>
+            <div class="custom-file" style="display: block;">
+              <input type="file" id="avatar" name="user[avatar]" class="custom-file-input">
+              <span class="custom-file-control"></span>
+            </div>
           </div>
         </div>
-          
-        <div class="form-group col-md-6">
-            <%= f.file_field :avatar, class:"form-group custom-file col-md-6" %>
-            <span class="custom-file-control"></span>
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+        <% end %>
+        <div>
+          <%= f.text_field :headline, autofocus: true, class: "form-control form-control-md mb-3", placeholder: "Headline - e.g.: Ph.D Student, Rocket Scientist..." %>
+        </div>
+        <div>
+          <%= f.text_field :work_place, autofocus: true, class: "form-control form-control-md mb-3", placeholder: "Workplace - e.g.: University of Sherbrooke, Neel Institute..." %>
+        </div>
+        <div class="form-group">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <%= f.password_field :password, autocomplete: "off", class:"form-control form-control-md", placeholder: "New password - If needed" %>
+              <%# if @minimum_password_length %>
+                <!--<em class="mb-3"><%#= @minimum_password_length %> characters minimum</em>-->
+              <%# end %>
+            </div>
+            <div class="form-group col-md-6">
+              <%= f.password_field :password_confirmation, autocomplete: "off", class:"form-control form-control-md", placeholder: "New password confirmation" %>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.password_field :current_password, autocomplete: "off", class:"form-control form-control-md", placeholder: "Current password - Needed to confirm changes" %>
+        </div>
+        <div align="center">
+          <%= f.submit "Update", class:"btn btn-success" %>
+          <%= link_to "Back", :back, class:"btn btn-outline-primary" %>
         </div>
       </div>
-
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
     <% end %>
-    
-    <div>
-        <%= f.text_field :headline, autofocus: true, class: "form-control form-control-md mb-3", placeholder: "Headline - e.g.: Ph.D Student, Rocket Scientist..." %>
     </div>
+  </div>
+
+  <div class="card border-danger mb-3 mx-auto" style="max-width: 700px;">
+    <div class="card-header">
+      <h4 class="text-danger text-center mb-0">Cancel Account</h4>
+    </div>
+    <div class="card-body" align="center">
+      <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, class:"btn btn-danger", method: :delete %>
+    </div>
+  </div>
+</div>
    
-    <div>
-        <%= f.text_field :work_place, autofocus: true, class: "form-control form-control-md mb-3", placeholder: "Workplace - e.g.: University of Sherbrooke, Neel Institute..." %>
-    </div>
-  
-    <div class="field">
-      <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-      <%= f.password_field :password, autocomplete: "off" %>
-      <% if @minimum_password_length %>
-        <br />
-        <em><%= @minimum_password_length %> characters minimum</em>
-      <% end %>
-    </div>
-  
-    <div class="field">
-      <%= f.label :password_confirmation %><br />
-      <%= f.password_field :password_confirmation, autocomplete: "off" %>
-    </div>
-  
-    <div class="field">
-      <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-      <%= f.password_field :current_password, autocomplete: "off" %>
-    </div>
-  
-    <div class="actions">
-      <%= f.submit "Update" %>
-    </div>
-    
-    </div>
-  <% end %>
-
-  <h3>Cancel my account</h3>
-  
-  <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-  
-  </div>
-  
-  </div>
-
-<%= link_to "Back", :back %>

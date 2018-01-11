@@ -11,15 +11,20 @@
       </small>
       <div class="bm-icon-cat bookmarking"> <!-- "bookmarking" is used as a marker for the like/unlike.js files -->
         <% if user_signed_in? %>
-          <% if current_user.liked? article %>
-            <%= link_to unbookmark_article_path(article), remote: true, id: "unlike_#{article.id}", method: :put do %>
+          <% if current_user.liked? article, vote_scope: "bookmark" %>
+            <%= link_to unbookmark_article_path(article), remote: true, id: "unlike_#{article.id}", data: {toggle:"tooltip", placement:"top"}, title:"Unbookmark article", method: :put do %>
               <i class="material-icons">bookmark</i>
             <% end %>
           <% else %>
-            <%= link_to bookmark_article_path(article), remote: true, id: "like_#{article.id}", method: :put do %>
+            <%= link_to bookmark_article_path(article), remote: true, id: "like_#{article.id}", data: {toggle:"tooltip", placement:"top"}, title:"Bookmark article", method: :put do %>
               <i class="material-icons">bookmark_border</i>
             <% end %>
           <% end %>
+        <% else %>
+          <%= link_to "", data: {toggle: "modal", target: "#modalSignup"} do %>
+            <i class="material-icons">bookmark_border</i>
+          <% end %>
+          <%= render 'layouts/modal_signup' %>
         <% end %>
       </div>    
     </div>  

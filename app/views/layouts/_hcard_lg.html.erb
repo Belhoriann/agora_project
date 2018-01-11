@@ -1,0 +1,75 @@
+<div class="card mb-4">
+  <div class="row">
+    <div class="col-md-4 p-0">
+    <%= link_to image_tag("//placehold.it/720x350", class:"thumb-bookmark img-fluid"), article_path(article) %>
+    </div>
+  <div class="col-md-8">
+    <div class="d-flex flex-column">
+      <div class="form-inline p-2">
+        <small class="text-muted">
+          <%= article.created_at.strftime("%B %d, %Y") %> -
+          <% cat_icon = category_icon(Category.find(article.category_id).name) %>
+          <% cat_icon_color = category_icon_color(Category.find(article.category_id).name) %>
+          <i class="<%= cat_icon %>" style="color:<%= cat_icon_color %>"></i>
+          <%= link_to Category.find(article.category_id).name, category_path(article.category_id) %>
+          <% if user_signed_in? && current_user.id == article.user_id %>
+            | <%= link_to "Edit", edit_article_path(article) %>
+          <% end %>
+        </small>
+        <div class="bm-icon-cat bookmarking ml-auto"> <!-- "bookmarking" is used as a marker for the like/unlike.js files -->
+          <% if user_signed_in? %>
+            <% if current_user.liked? article, vote_scope: "bookmark" %>
+              <%= link_to unbookmark_article_path(article), remote: true, id: "unlike_#{article.id}", method: :put do %>
+                <i class="material-icons">bookmark</i>
+              <% end %>
+            <% else %>
+              <%= link_to bookmark_article_path(article), remote: true, id: "like_#{article.id}", method: :put do %>
+                <i class="material-icons">bookmark_border</i>
+              <% end %>
+            <% end %>
+          <% else %>
+            <%= link_to "", data: {toggle: "modal", target: "#modalSignup"} do %>
+              <i class="material-icons">bookmark_border</i>
+            <% end %>
+            <%= render 'layouts/modal_signup' %>
+          <% end %>
+        </div>    
+      </div>  
+      <div class="d-flex flex-column p-2">
+        <%= link_to article_path(article), class: "card-link" do %>
+          <div class="card-title"><%= article.title %></div>
+          <div class="card-subtitle"><%= article.sub_title %></div>
+        <% end %>
+      </div>
+      <div class="card-article-body p-2">
+        <%= truncate strip_tags(article.body), length: 200 %>
+        <%= link_to 'Read more', article_path(article) %> 
+      </div>
+      <div class="d-flex flex-row align-items-center pt-2">
+        <div class="p-2">
+          <% author_avatar = User.find(article.user_id) %>
+          <% if author_avatar.avatar != nil %>
+            <%= link_to user_path(article.user_id, full_name: article.author) do %>
+              <%= image_tag(author_avatar.avatar.url(:thumb), class:"rounded-circle border border-secondary", style: "height: 60px; width: 60px;") %>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="align-items-middle">
+          <h5 class="author"><%= link_to article.author, user_path(article.user_id, full_name: article.author) %></h5>
+          <p class="author"><%= article.author_work_place %></p>
+        </div>
+        <div class="ml-auto p-2">
+          <div>
+            <i class="fas fa-heart"></i>
+            <small class="pr-2 vote-count"><%= article.find_votes_for(:vote_scope => 'praise').size.to_s %></small>
+          </div>
+          <div>
+            <i class="fas fa-comment-alt"></i>
+            <small class="pr-2 vote-count"><%= "x" %></small>
+          </div> 
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

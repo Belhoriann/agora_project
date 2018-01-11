@@ -5,6 +5,9 @@
       <small class="col text-muted">
         <i class="far fa-clock"></i>
         <%= article.created_at.strftime("%b %d") %> - 
+        <% cat_icon = category_icon(Category.find(article.category_id).name) %>
+        <% cat_icon_color = category_icon_color(Category.find(article.category_id).name) %>
+        <i class="<%= cat_icon %>" style="color:<%= cat_icon_color %>"></i>
         <%= link_to Category.find(article.category_id).name, category_path(article.category_id) %>
         <% if user_signed_in? && current_user.id == article.user_id %>
           | <%= link_to "Edit", edit_article_path(article) %>
@@ -22,6 +25,11 @@
               <i class="material-icons">bookmark_border</i>
             <% end %>
           <% end %>
+        <% else %>
+          <%= link_to "", data: {toggle: "modal", target: "#modalSignup"} do %>
+            <i class="material-icons">bookmark_border</i>
+          <% end %>
+          <%= render 'layouts/modal_signup' %>
         <% end %>
       </div> 
     </div>

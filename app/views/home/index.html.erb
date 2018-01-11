@@ -1,8 +1,6 @@
-<body>
-  
-<% if user_signed_in? %>
+<%# if user_signed_in? %>
 <!-- Do stuff if the user is logged --->
-<% end %>
+<%# end %>
 
 <div class="container-fluid">
   <div class="form-inline">
@@ -10,20 +8,20 @@
     <small class="text-muted">Whet Your Curiosity</small>
   </div>
   <div class="row p-2" style="height: 100%">
-    <div class="col-lg-4" style="padding: 0px">
+    <div class="col-lg-4" style="padding: 4px">
       <% Article.order(:cached_scoped_praise_votes_total => :desc).first(1).each do |article| %>
         <%= render 'layouts/vcard_featured_full', article: article %>  
       <% end %>
     </div>
     <div class="col-md">
       <div class="row">
-        <div class="col-sm">
+        <div class="col-sm" style="padding: 4px">
           <% Article.order(:cached_scoped_praise_votes_total => :desc).sample(1).each do |article| %>
             <%= render 'layouts/vcard_featured_compact', article: article %>  
           <% end %>
         </div>
       
-        <div class="col-sm" style="padding: 0px">
+        <div class="col-sm" style="padding: 4px">
           <% Article.order(:cached_scoped_praise_votes_total => :desc).sample(1).each do |article| %>
             <%= render 'layouts/vcard_featured_compact', article: article %>  
           <% end %>
@@ -31,13 +29,13 @@
       </div>
 
       <div class="row p-0">
-        <div class="col-sm">
+        <div class="col-sm" style="padding: 4px">
           <% Article.order(:cached_scoped_praise_votes_total => :desc).sample(1).each do |article| %>
             <%= render 'layouts/vcard_featured_compact', article: article %>  
           <% end %>
         </div>
         
-        <div class="col-sm" style="padding: 0px">
+        <div class="col-sm" style="padding: 4px">
           <% Article.order(:cached_scoped_praise_votes_total => :desc).sample(1).each do |article| %>
             <%= render 'layouts/vcard_featured_compact', article: article %>  
           <% end %>
@@ -53,15 +51,18 @@
     <h4 class="p-2">YOU MAY LIKE</h4>
     <small class="text-muted">Most Upvoted Articles</small>
   </div>
-  <div class="d-flex flex-row dragscroll" style="overflow: auto;">
+  <div class="d-flex flex-row dragscroll" style="overflow-x: auto; min-height:510px">
     <% Article.order(:cached_scoped_praise_votes_total => :desc).first(7).each do |article| %>
-    <div class="card" style="min-width: 300px; margin-right: 10px">
+    <div class="card" style="min-width: 350px; max-height: 500px; margin: 5px">
       <img class="card-img-middle img-fluid" src="//placehold.it/720x350" alt="Card image cap">
       <div class="card-body pb-0">
         <div class="row">
           <small class="col text-muted">
             <i class="far fa-clock"></i>
             <%= article.created_at.strftime("%b %d") %> - 
+            <% cat_icon = category_icon(Category.find(article.category_id).name) %>
+            <% cat_icon_color = category_icon_color(Category.find(article.category_id).name) %>
+            <i class="<%= cat_icon %>" style="color:<%= cat_icon_color %>"></i>
             <%= link_to Category.find(article.category_id).name, category_path(article.category_id) %>
             <% if user_signed_in? && current_user.id == article.user_id %>
               | <%= link_to "Edit", edit_article_path(article) %>
@@ -79,6 +80,11 @@
                   <i class="material-icons">bookmark_border</i>
                 <% end %>
               <% end %>
+            <% else %>
+              <%= link_to "", data: {toggle: "modal", target: "#modalSignup"} do %>
+                <i class="material-icons">bookmark_border</i>
+              <% end %>
+              <%= render 'layouts/modal_signup' %>
             <% end %>
           </div> 
         </div>
@@ -102,7 +108,9 @@
           <% author_avatar = User.find(article.user_id) %>
           <% if author_avatar.avatar != nil %>
           <div class="pr-2">
-            <%= image_tag(author_avatar.avatar.url(:thumb), class:"rounded-circle border border-secondary", style: "height: 60px; width: 60px;") %>
+            <%= link_to user_path(article.user_id, full_name: article.author) do %>
+              <%= image_tag(author_avatar.avatar.url(:thumb), class:"rounded-circle border border-secondary", style: "height: 60px; width: 60px;") %>
+            <% end %>
           </div>
           <% end %>
           <div class="align-items-middle">
@@ -143,24 +151,20 @@
     <% @categories.order(:name).each do |cat| %>
       <div class="col-lg-6">
         <div class="p-1 form-inline">
-          <!--category_icon is a helper method inside application_helper-->
-          <% cat_icon = category_icon(Category.find(cat.id).name) %> 
+          <% cat_icon = category_icon(Category.find(cat.id).name) %> <!--category_icon is a helper method inside application_helper-->
+          <% cat_icon_color = category_icon_color(Category.find(cat.id).name) %> <!--category_icon_color is a helper method inside application_helper-->
           <%= button_to category_path(cat.id), method: :get, class:"btn btn-cat btn-outline-dark" do %>
-          <i class="<%= cat_icon %>"></i>
-          <%= Category.find(cat.id).name %>
+          <i class="<%= cat_icon %>" style="color:<%= cat_icon_color %>"></i>
+          <strong><%= Category.find(cat.id).name %></strong>
           <% end %>
         </div>
       <% Article.where(category_id: cat.id).each do |article| %>
-        <%= render 'layouts/hcard_home', article: article %>
+        <%= render 'layouts/hcard_sm', article: article %>
       <% end %>
       </div> 
     <% end %>
   </div>
 </div>
-
-
-</body>
-</html>
 
 <%#= link_to "UBM",  bookmark,  method: :delete, id: bookmark.id, data: { confirm: 'Are you sure?', remote: true }, class: "btn btn-danger btn-sm", role: "button" %> 
 <%# if Bookmark.find_by(:user_id => current_user.id, :article_id => article.id) == nil %>

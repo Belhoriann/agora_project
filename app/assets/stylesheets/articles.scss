@@ -2,6 +2,15 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.article-title {
+    font-size: 42px;
+    font-weight: bold;
+}
+
+.article-body {
+    font-size: 1.2em;
+}
+
 .error-explanation {
     width: 400px;
 }

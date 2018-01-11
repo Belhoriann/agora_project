@@ -19,15 +19,19 @@ module ApplicationHelper
         when "Chemistry" then "fas fa-flask"
         when "Biology" then "fab fa-pagelines"
         when "Cosmology" then "fab fa-superpowers"
-        when "Computer Science" then "fas fa-microchip"
+        when "Computer Science" then "fas fa-code"
         when "Technology" then "fas fa-code-branch"
-        when "Mathematics" then "fas fa-chart-area"
+        when "Mathematics" then "fas fa-superscript"
         when "Aerospace" then "fas fa-rocket"
         when "Health" then "fas fa-medkit"
         when "Archeology" then "fas fa-university"
         when "Environment" then "fas fa-globe"
         when "Neuroscience" then "fas fa-user-circle"
         when "Nanotechnology" then "far fa-dot-circle"
+        when "Energy" then "fas fa-bolt"
+        when "Transport" then "fas fa-car"   
+        when "Cryptocurrency" then "fab fa-btc"
+        when "Artificial Intelligence" then "fas fa-microchip"
         end
     end
     
@@ -46,6 +50,10 @@ module ApplicationHelper
         when "Environment" then "DeepSkyBlue"
         when "Neuroscience" then "Coral"
         when "Nanotechnology" then "SlateBlue"
+        when "Energy" then "GoldenRod"
+        when "Transport" then "lightseagreen"
+        when "Cryptocurrency" then "DarkCyan"
+        when "Artificial Intelligence" then "DarkTurquoise"
         end
     end
 end

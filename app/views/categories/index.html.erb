@@ -1,24 +1,25 @@
 <div class="container-fluid" style="max-width: 1400px; min-width: 320px">
-  <div class="d-flex align-items-end">
-    <h4 class="p-2 mb-0">ALL TOPICS</h4>
-    <small class="pb-2 text-muted">The Full Spectrum</small>
+  <div class="d-flex section-title">
+    <i class="material-icons md-36 p-1">apps</i>
+    <div class="p-1">TOPICS</div>
   </div>
   <div class="row">
     <% @categories = Category.all %>
     <% @categories.order(:name).each do |cat| %>
     <div class="col-lg-4 col-md-6">
       <div class="card mb-4" style="">
-        <div class="card-header p-3">
+        <div class="card-header p-2">
           <div class="row align-items-center">
-            <div class="col">
+            <div class="col-6">
               <% cat_icon = category_icon(Category.find(cat.id).name) %>  <!--category_icon is a helper method inside application_helper-->
               <% cat_icon_color = category_icon_color(Category.find(cat.id).name) %> <!--category_icon_color is a helper method inside application_helper-->
               <%= link_to category_path(cat.id), class:"btn btn-cat btn-outline-dark" do %>
                 <i class="<%= cat_icon %>" style="color:<%= cat_icon_color %>"></i>
                 <strong><%= Category.find(cat.id).name %></strong>
+                <small>(<%= Article.where(category_id: cat.id).count %>)</small>
               <% end %>
             </div>
-            <div class="col-3 subscribing" align="right">
+            <div class="col subscribing" align="right">
               <% if user_signed_in? %>
                 <% if current_user.liked? cat, vote_scope: 'subscribe_category' %>
                   <%= link_to unsubscribe_category_path(cat), remote: true, id: "unsub_#{cat.id}", method: :put do %>
@@ -38,7 +39,7 @@
             </div>
           </div>
         </div> 
-        <%= link_to image_tag("//placehold.it/720x350", class:"card-img-middle img-fluid"), category_path(cat.id) %>
+        <%= link_to image_tag("//placehold.it/720x350", class:"thumb-featured-sm img-fluid"), category_path(cat.id) %>
       </div>
     </div>
     <% end %>
@@ -55,17 +56,19 @@
     <tr>
       <th>Name</th>
       <th>Description</th>
-      <th>Cat id</th>
+      <th>id</th>
+      <th>Articles</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @categories.each do |category| %>
+    <% @categories.order(:name).each do |category| %>
       <tr>
         <td><%= category.name %></td>
         <td><%= category.description %></td>
         <td><%= category.id %></td>
+        <td><%= Article.where(category_id: category.id).count %></td>        
         <td><%= link_to 'Show', category %></td>
         <td><%= link_to 'Edit', edit_category_path(category) %></td>
         <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %></td>

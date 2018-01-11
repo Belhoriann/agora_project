@@ -8,6 +8,8 @@ Rails.application.routes.draw do
    get '/users/sign_out' => 'devise/sessions#destroy'
    get '/users', to: "users#index"
    get '/users/:full_name', to: "users#show"
+   put 'admin/:id', to: "users#make_admin"
+   put 'users/:id', to: "users#remove_admin"
   end
 
   root 'home#index'
