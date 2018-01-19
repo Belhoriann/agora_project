@@ -10,4 +10,4 @@ upvoted_article.parent().parent().parent().find(".praise-count").html("<%= @arti
 
 // Replace the bookmark button by the unbookmark one
 // liked_article.closest('.bookmarking').html('<%= button_to "Unbookmark", unbookmark_article_path(@article), remote: true, id: "unlike_#{@article.id}", method: :put, class: "btn btn-danger btn-sm" %>');
-upvoted_article.closest('.voting').html('<%= link_to downvote_article_path(@article), remote: true, id: "downvote_#{@article.id}", method: :put do %><i class="material-icons md-36">favorite</i><% end %><h6 class="praise-count"><%= @article.find_votes_for(:vote_scope => "praise").size.to_s %></h6>');
+upvoted_article.closest('.voting').html('<div class="praise-count"><%= @article.find_votes_for(:vote_scope => "praise").size.to_s %></div><%= link_to downvote_article_path(@article), remote: true, id: "downvote_#{@article.id}", method: :put do %><i class="material-icons">favorite</i><% end %>');

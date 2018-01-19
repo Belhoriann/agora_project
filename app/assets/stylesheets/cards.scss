@@ -27,6 +27,7 @@
 .card-subtitle {
   font-size: 16px;
   color: rgba(0, 0, 0.1, 0.5);
+  padding-bottom: 10px;
 }
 
 .card-article-body {
@@ -40,11 +41,20 @@
 }
 
 .author {
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 1.3em;
+  color: black;
+  margin: 0px;
+  padding-top: 0px;
+}
+
+.author-wp {
   font-size: 14px;
   line-height: 1.2em;
   color: grey;
   margin: 0px;
-  padding: 0px;
+  padding-top: 0px;
 }
 
 // Fit image in the card, regarding of the card's height

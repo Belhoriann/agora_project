@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180107203147) do
+ActiveRecord::Schema.define(version: 20180117141049) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20180107203147) do
     t.integer  "cached_weighted_praise_score",     default: 0
     t.integer  "cached_weighted_praise_total",     default: 0
     t.float    "cached_weighted_praise_average",   default: 0.0
+    t.integer  "comments_count",                   default: 0,   null: false
   end
 
   add_index "articles", ["cached_scoped_praise_votes_down"], name: "index_articles_on_cached_scoped_praise_votes_down"
@@ -72,8 +73,11 @@ ActiveRecord::Schema.define(version: 20180107203147) do
     t.integer  "user_id"
     t.integer  "article_id"
     t.text     "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
+    t.integer  "comments_count",   default: 0, null: false
   end
 
   create_table "users", force: :cascade do |t|

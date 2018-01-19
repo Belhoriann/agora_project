@@ -1,6 +1,6 @@
-<div class="d-flex p-2 mb-3" style="overflow-y: auto;">
+<div class="d-flex categories mx-auto" style="overflow-y: auto;">
   <% @categories = Category.all %>
-  <% @categories.order(:name).first(16).each do |cat| %>
+  <% @categories.order(:name).first(20).each do |cat| %>
     <% next if cat.id.even? %>
     <div class="mx-auto">
       <% cat_icon = category_icon(Category.find(cat.id).name) %> <!--category_icon is a helper method inside application_helper-->
@@ -13,7 +13,7 @@
       <% else %>
         <%= link_to category_path(cat.id), class:"btn btn-cat btn-outline-dark" do %>
         <i class="<%= cat_icon %>" style="color:<%= cat_icon_color %>; font-size: 14px;"></i>
-        <strong style="font-size: 14px"><%= Category.find(cat.id).name.upcase %></strong>
+        <strong style="font-size: 16px"><%= Category.find(cat.id).name.upcase %></strong>
         <% end %>
       <% end %>
     </div>

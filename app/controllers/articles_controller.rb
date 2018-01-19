@@ -51,7 +51,6 @@ class ArticlesController < ApplicationController
     @categories = Category.all.map{|c| [ c.name, c.id ] }
     @article.category_id = params[:category_id]
 
-    
     respond_to do |format|
       if @article.update(article_params)
         format.html { redirect_to @article, notice: 'Article was successfully updated.' }

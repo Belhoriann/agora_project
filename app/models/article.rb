@@ -7,6 +7,5 @@ class Article < ActiveRecord::Base
     
     acts_as_votable
     
-    has_many :comments
-    #has_many :bookmarks, dependent: :destroy
+    has_many :comments, as: :commentable, dependent: :destroy
 end

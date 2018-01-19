@@ -1,14 +1,11 @@
 <div class="container">
   <div class="card border-success mb-3 mx-auto" style="max-width: 700px;">
-    
     <div class="card-header">
       <h4 class="text-center text-success">Signing Up</h4>
     </div>
-    
     <div class="card-body">
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <%= devise_error_messages! %>
-      
       <div class="form-group">
         <div class="form-row">
           <div class="form-group col-md-6">

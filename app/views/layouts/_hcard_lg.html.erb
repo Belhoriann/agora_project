@@ -1,6 +1,6 @@
-<div class="card mb-4">
+<div class="card mb-4" style="min-width: 100%">
   <div class="row">
-    <div class="col-md-4 p-0">
+    <div class="col-md p-0">
     <%= link_to image_tag("//placehold.it/720x350", class:"thumb-bookmark img-fluid"), article_path(article) %>
     </div>
   <div class="col-md-8">
@@ -41,7 +41,7 @@
           <div class="card-subtitle"><%= article.sub_title %></div>
         <% end %>
       </div>
-      <div class="card-article-body p-2">
+      <div class="card-article-body p-2 mb-2">
         <%= truncate strip_tags(article.body), length: 200 %>
         <%= link_to 'Read more', article_path(article) %> 
       </div>
@@ -65,7 +65,7 @@
           </div>
           <div>
             <i class="fas fa-comment-alt"></i>
-            <small class="pr-2 vote-count"><%= "x" %></small>
+            <small class="pr-2 vote-count"><%= comment_count(article) %></small>
           </div> 
         </div>
       </div>

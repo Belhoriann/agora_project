@@ -2,15 +2,35 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+img {
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+
 .article-title {
-    font-size: 42px;
+    font-size: 32px;
     font-weight: bold;
+    line-height: 40px;
+    padding-bottom: 5px;
+}
+
+.article-subtitle {
+    color: grey;
+    font-size: 24px;
+    line-height: 32px;
+    padding-bottom: 25px;
 }
 
 .article-body {
     font-size: 1.2em;
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 
 .error-explanation {
     width: 400px;
+}
+
+.praise-count {
+    padding-right: 5px;
 }

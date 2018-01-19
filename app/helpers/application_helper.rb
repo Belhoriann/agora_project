@@ -13,11 +13,15 @@ module ApplicationHelper
     @devise_mapping ||= Devise.mappings[:user]
     end
     
+    def comment_count(article)
+        Comment.where(article_id: article.id).size
+    end
+    
     def category_icon(category)
         case category
         when "Physics" then "fab fa-react"
         when "Chemistry" then "fas fa-flask"
-        when "Biology" then "fab fa-pagelines"
+        when "Biology" then "fas fa-leaf"
         when "Cosmology" then "fab fa-superpowers"
         when "Computer Science" then "fas fa-code"
         when "Technology" then "fas fa-code-branch"
@@ -32,6 +36,8 @@ module ApplicationHelper
         when "Transport" then "fas fa-car"   
         when "Cryptocurrency" then "fab fa-btc"
         when "Artificial Intelligence" then "fas fa-microchip"
+        when "Geology" then "fas fa-adjust"
+        when "Zoology" then "fas fa-paw"
         end
     end
     
@@ -54,6 +60,8 @@ module ApplicationHelper
         when "Transport" then "lightseagreen"
         when "Cryptocurrency" then "DarkCyan"
         when "Artificial Intelligence" then "DarkTurquoise"
+        when "Geology" then "Teal"
+        when "Zoology" then "Hotpink"
         end
     end
 end

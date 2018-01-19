@@ -16,7 +16,7 @@
               <%= link_to category_path(cat.id), class:"btn btn-cat btn-outline-dark" do %>
                 <i class="<%= cat_icon %>" style="color:<%= cat_icon_color %>"></i>
                 <strong><%= Category.find(cat.id).name %></strong>
-                <small>(<%= Article.where(category_id: cat.id).count %>)</small>
+                <small>(<%= Article.where(category_id: cat.id).size %>)</small>
               <% end %>
             </div>
             <div class="col subscribing" align="right">

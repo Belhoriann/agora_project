@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get 'home/collection'
 
   resources :articles do 
+    resources :comments
     member do
       put "bookmark", to: "articles#like"
       put "unbookmark", to: "articles#unlike"
@@ -26,7 +27,9 @@ Rails.application.routes.draw do
     end
   end
   
-  resources :comments
+  resources :comments do
+    resources :comments
+  end
   
   resources :categories do
     member do

@@ -1,6 +1,7 @@
 // Navbar style
 .navbar  {
-    border-bottom: 1px solid #d6d6d6 !important;
+    //border-bottom: 1px solid #d6d6d6 !important;
+    box-shadow: 0px 1px 10px 0px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-transparent {
@@ -26,5 +27,6 @@
 
 .dropdown-menu {
     position: absolute;
-    box-shadow: 0px 10px 30px 1px rgba(0, 0, 0, 0.1);
+    border: none!important;
+    box-shadow: 0px 5px 20px 5px rgba(0, 0, 0, 0.1);
 }

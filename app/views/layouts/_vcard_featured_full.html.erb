@@ -34,7 +34,7 @@
         </div> 
       </div>
       <%= link_to article_path(article), class: "card-link" do %>
-      <strong class="d-flex card-title pb-1"><%= article.title %></strong>
+      <strong class="d-flex card-title"><%= article.title %></strong>
       <small class="d-flex card-subtitle"><%= article.sub_title %></small>
       <% end %>
     </div>
@@ -49,8 +49,8 @@
         </div>
         <% end %>
         <div>
-          <h6 class="author"><%= link_to article.author, user_path(article.user_id, full_name: article.author) %></h6>
-          <p class="author"><%= article.author_work_place %></p>
+          <div class="author"><%= link_to article.author, user_path(article.user_id, full_name: article.author) %></div>
+          <p class="author-wp"><%= article.author_work_place %></p>
         </div>
       </div>
     </div>

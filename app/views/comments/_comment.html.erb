@@ -1,0 +1,37 @@
+<div class="card mb-3">
+  <div class="card-header">
+    <% commenter = User.find_by(id: comment.user_id) %>
+    <% if commenter != nil %> 
+      <strong><%= commenter.full_name %></strong>
+    <% end %> 
+    <small>- <%= time_ago_in_words(comment.created_at) %> ago</small>
+  </div>
+  
+  <div class="card-body">
+    <%= comment.body %>
+  </div>
+  
+  <div class="card-footer text-right">
+    <small><%= link_to "Edit", edit_article_comment_path(@article, comment) %></small>
+    <small>- <%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %> -</small>
+    <button class="btn btn-sm btn-outline-primary" type="button" data-toggle="collapse" data-target="#<%= comment.id %>" aria-expanded="false" aria-controls="collapseExample">
+      Reply
+    </button>
+    <div class="collapse mt-3" id="<%= comment.id %>">
+        <% if user_signed_in? %>
+          <%= form_for [comment, Comment.new] do |f| %>
+          <%= f.text_area :body, placeholder: "Add a Reply", class: "form-control mb-3" %>
+          <%= f.submit "Post Reply", class:"btn btn-success"  %>
+          <%= f.text_field :user_id, value: current_user.id, type: "hidden" %>
+          <%= f.text_field :article_id, value: comment.article_id, type: "hidden" %>
+          <% end %>
+        <% end %>      
+    </div>
+
+  </div>
+</div>
+
+<div style="padding-left: 30px">
+  <%= render partial: 'comments/comment', collection: comment.comments %>
+</div>
+

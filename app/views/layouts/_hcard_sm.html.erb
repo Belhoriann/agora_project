@@ -45,7 +45,7 @@
       </div>
       <div class="align-items-middle">
         <h6 class="author"><%= link_to article.author, user_path(article.user_id, full_name: article.author) %></h6>
-        <p class="author"><%= article.author_work_place %></p>
+        <p class="author-wp"><%= article.author_work_place %></p>
       </div>
       <div class="d-flex flex-row mt-auto ml-auto p-2">
         <div class="">
@@ -54,7 +54,7 @@
         </div>
         <div class="">
           <i class="fas fa-comment-alt"></i>
-          <small class="pr-2 vote-count"><%= "x" %></small>
+          <small class="pr-2 vote-count"><%= comment_count(article) %></small>
         </div> 
       </div>
     </div>          

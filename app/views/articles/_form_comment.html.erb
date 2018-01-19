@@ -1,0 +1,6 @@
+<%= form_for [@article, Comment.new] do |f| %>
+  <%= f.text_area :body, placeholder: "Add a comment", class: "form-control mb-3" %>
+  <%= f.submit "Post comment", class:"btn btn-success" %>
+  <%= f.text_field :user_id, value: current_user.id, type: "hidden" %>
+  <%= f.text_field :article_id, value: @article.id, type: "hidden" %>
+<% end %>

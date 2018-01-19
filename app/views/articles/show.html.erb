@@ -1,64 +1,109 @@
-<div class="container">
-  <div class="row" style="padding-top: 40px">
-    
-    <div class="col-sm">
-    </div>  
-    
-    <div class="col-sm-8" style="border-bottom: 1px solid grey">
-      <h2 class="text-center article-title">
+<div class="container" style="max-width: 800px">
+  <div class="d-flex flex-column" style="padding-top: 40px">
+    <div class="d-flex justify-content-left">
+      <div class="article-title">
         <%= @article.title %>
-      </h2>
-      <h5 class="text-center font-weight-light">
-        <%= @article.author %> · <%= @article.author_work_place %>
-      </h5>
-      <h6 class="text-center font-weight-light">
-        Published on <%= @article.created_at.strftime("%B %d, %Y") %>
-      </h6>
-      
-      <br></br>
-      <div class="article-body">
-        <%= @article.body.html_safe %>
       </div>
-    </div>
-
-    <div class="col-sm">
-      <%# if user_signed_in? && current_user.id == @article.user_id %>
-        <%= link_to 'Edit', edit_article_path(@article), class: "btn btn-outline-primary" %>
-      <%# end %>
-    </div>
-  </div>
-  
-  <div class="row p-2">
-    
-    <div class="col-sm">
-    </div> 
-    
-    <div class="col-sm-10" align="center">
-      <div class="voting">
+      <div class="bookmarking p-2">
         <% if user_signed_in? %>
-          <% if current_user.liked? @article, vote_scope: 'praise' %>
-            <%= link_to downvote_article_path(@article), remote: true, id: "downvote_#{@article.id}", method: :put do %>
-              <i class="material-icons md-36">favorite</i>
+          <% if current_user.liked? @article, vote_scope: 'bookmark' %>
+            <%= link_to unbookmark_article_path(@article), remote: true, id: "unlike_#{@article.id}", method: :put do %>
+              <i class="material-icons">bookmark</i>
             <% end %>
-            <h6 class="praise-count"><%= @article.find_votes_for(:vote_scope => "praise").size.to_s %></h6>
           <% else %>
-            <%= link_to upvote_article_path(@article), remote: true, id: "upvote_#{@article.id}", method: :put do %>
-              <i class="material-icons md-36">favorite_border</i>
+            <%= link_to bookmark_article_path(@article), remote: true, id: "like_#{@article.id}", method: :put do %>
+              <i class="material-icons">bookmark_border</i>
             <% end %>
-            <h6 class="praise-count"><%= @article.find_votes_for(:vote_scope => "praise").size.to_s %></h6>
           <% end %>
         <% else %>
           <%= link_to "", data: {toggle: "modal", target: "#modalSignup"} do %>
-            <i class="material-icons md-36">favorite</i>
-            <h6 class="praise-count"><%= @article.find_votes_for(:vote_scope => 'praise').size.to_s %></h6>
+            <i class="material-icons">bookmark_border</i>
           <% end %>
           <%= render 'layouts/modal_signup' %>
         <% end %>
-        </div> 
-      </div> 
-
-    <div class="col-sm">
+      </div>
+      <div>
+        <% if user_signed_in? %>
+          <%= link_to 'Edit', edit_article_path(@article), class: "btn btn-outline-primary" %>
+        <% end %>
+      </div>
     </div>
-    
+    <div class="article-subtitle">
+      <%= @article.sub_title %>
+    </div>
+    <div class="d-flex align-items-center">
+      <% author_avatar = User.find(@article.user_id) %>
+      <% if author_avatar.avatar != nil %>
+      <div class="pr-2">
+        <%= link_to user_path(@article.user_id, full_name: @article.author) do %>
+          <%= image_tag(author_avatar.avatar.url(:thumb), class:"rounded-circle border border-secondary", style: "height: 60px; width: 60px;") %>
+        <% end %>
+      </div>
+      <% end %>
+      <div>
+        <div class="author"><%= link_to @article.author, user_path(@article.user_id, full_name: @article.author) %></div>
+        <p class="author-wp"><%= @article.author_work_place %></p>
+        <p class="author-wp"><%= @article.created_at.strftime("%B %d, %Y") %></p>
+      </div>
+      <div class="pl-4">
+        <%= button_to "Follow", user_path(@article.user_id, full_name: @article.author), class:"btn btn-sm btn-outline-info" %>
+      </div>
+    </div>
+    <div class="article-body">
+      <%= @article.body.html_safe %>
+    </div>
+  </div>
+  
+  <div class="d-flex flex-row justify-content-between align-items-center">
+    <div class="d-flex align-items-center">
+      <% author_avatar = User.find(@article.user_id) %>
+      <% if author_avatar.avatar != nil %>
+      <div class="pr-2">
+        <%= link_to user_path(@article.user_id, full_name: @article.author) do %>
+          <%= image_tag(author_avatar.avatar.url(:thumb), class:"rounded-circle border border-secondary", style: "height: 60px; width: 60px;") %>
+        <% end %>
+      </div>
+      <% end %>
+      <div>
+        <div class="author"><%= link_to @article.author, user_path(@article.user_id, full_name: @article.author) %></div>
+        <p class="author-wp"><%= @article.author_work_place %></p>
+      </div>
+      <div class="pl-4">
+        <%= button_to "Follow", user_path(@article.user_id, full_name: @article.author), class:"btn btn-sm btn-outline-info" %>
+      </div>
+    </div>
+    <div class="voting d-flex">
+      <% if user_signed_in? %>
+        <% if current_user.liked? @article, vote_scope: 'praise' %>
+          <div class="praise-count"><%= @article.find_votes_for(:vote_scope => "praise").size.to_s %></div>
+          <%= link_to downvote_article_path(@article), remote: true, id: "downvote_#{@article.id}", method: :put do %>
+            <i class="material-icons">favorite</i>
+          <% end %>
+        <% else %>
+          <div class="praise-count"><%= @article.find_votes_for(:vote_scope => "praise").size.to_s %></div>
+          <%= link_to upvote_article_path(@article), remote: true, id: "upvote_#{@article.id}", method: :put do %>
+            <i class="material-icons">favorite_border</i>
+          <% end %>
+        <% end %>
+      <% else %>
+        <div class="praise-count"><%= @article.find_votes_for(:vote_scope => 'praise').size.to_s %></div>
+        <%= link_to "", data: {toggle: "modal", target: "#modalSignup"} do %>
+          <i class="material-icons">favorite</i>
+        <% end %>
+        <%= render 'layouts/modal_signup' %>
+      <% end %>
+    </div>
   </div> 
+  <br></br>
+  <section>
+    <% if user_signed_in? %>
+      <div>
+        <%= render 'form_comment' %>
+      </div>
+    <% end %>
+    <div class="article-body">
+      <h5>Comments (<%= comment_count(@article) %>)</h5> 
+      <%= render(partial: 'comments/comment', collection: @article.comments) %>
+    </div>
+  </section>
 </div>

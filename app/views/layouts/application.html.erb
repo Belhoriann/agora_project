@@ -19,9 +19,6 @@
   
   <body>
     <%= render 'layouts/navbar' %>
-    <% if @article == nil %>
-      <%= render 'layouts/categories' unless current_page?('/categories') or current_page?('/home/collection') %>
-    <% end %>
     <div class="container" style="max-width:400px">
       <% if flash[:notice] %>
         <%= content_tag :div, class: "alert alert-success" do %>

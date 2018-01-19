@@ -7,6 +7,9 @@
     <div class="d-flex justify-content-between align-items-end">
       <small class="text-muted pl-2 pt-2">
         <%= article.created_at.strftime("%B %d, %Y") %> -
+        <% cat_icon = category_icon(Category.find(article.category_id).name) %>
+        <% cat_icon_color = category_icon_color(Category.find(article.category_id).name) %>
+        <i class="<%= cat_icon %>" style="color:<%= cat_icon_color %>"></i>
         <%= link_to Category.find(article.category_id).name, category_path(article.category_id) %>
       </small>
       <div class="bm-icon-cat bookmarking"> <!-- "bookmarking" is used as a marker for the like/unlike.js files -->
@@ -28,11 +31,15 @@
         <% end %>
       </div>    
     </div>  
-    <div class="">
+    <div class="d-flex flex-column p-2">
       <%= link_to article_path(article), class: "card-link" do %>
-        <strong class="d-flex card-title pl-2 m-0"><%= article.title %></strong>
-        <small class="d-flex card-subtitle pl-2 m-0"><%= article.sub_title %></small>
+        <div class="card-title"><%= article.title %></div>
+        <div class="card-subtitle"><%= article.sub_title %></div>
       <% end %>
+    </div>
+    <div class="card-article-body p-2 mb-4">
+      <%= truncate strip_tags(article.body), length: 250 %>
+      <%= link_to 'Read more', article_path(article) %> 
     </div>
     <div class="form-inline">
       <div class="d-flex flex-row mt-auto ml-auto p-2">
@@ -42,7 +49,7 @@
         </div>
         <div class="">
           <i class="fas fa-comment-alt"></i>
-          <small class="pr-2 vote-count"><%= "x" %></small>
+          <small class="pr-2 vote-count"><%= comment_count(article) %></small>
         </div> 
       </div>
     </div>          

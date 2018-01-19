@@ -1,4 +1,4 @@
-<div class="container-fluid" style="max-width: 1200px">
+<div class="container-fluid" style="max-width: 1400px">
   <div class="d-flex section-title align-items-center">
     <i class="material-icons md-36 p-1">star</i>
     <div class="p-1">SUBSCRIPTIONS</div>
@@ -6,7 +6,7 @@
   <div class="row justify-content-center">
     <% @categories.order(:name).each do |cat| %>
       <% if current_user.liked? cat, vote_scope: 'subscribe_category' %>
-        <div class="col-lg-6">
+        <div class="row p-2">
           <div class="p-1 form-inline">
             <% cat_icon = category_icon(Category.find(cat.id).name) %> <!--category_icon is a helper method inside application_helper-->
             <% cat_icon_color = category_icon_color(Category.find(cat.id).name) %> <!--category_icon_color is a helper method inside application_helper-->
@@ -15,10 +15,14 @@
             <strong><%= Category.find(cat.id).name.upcase %></strong>
             <% end %>
           </div>
-        <% Article.where(category_id: cat.id).order(:created_at).reverse_order.each do |article| %>
-          <%= render 'layouts/hcard_sm', article: article %>
-        <% end %>
-        </div> 
+          <div class="row p-2">
+          <% Article.where(category_id: cat.id).order(:created_at).reverse_order.first(6).each do |article| %>
+            <div class="col-md-6">
+              <%= render 'layouts/hcard_lg', article: article %>
+            </div>
+          <% end %>
+          </div>
+        </div>
       <% end %>
     <% end %>
   </div>
