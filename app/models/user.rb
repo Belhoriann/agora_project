@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
          
      # acts_as_votable gem logic, allows to check if current_user.voted_for? @article 
      acts_as_voter
+     acts_as_votable
      
      # Belongings
      has_many :articles

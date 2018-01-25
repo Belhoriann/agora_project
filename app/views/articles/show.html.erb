@@ -1,26 +1,11 @@
-<div class="container" style="max-width: 800px">
+<div class="container-fluid p-0" style="max-width: 800px">
   <div class="d-flex flex-column" style="padding-top: 40px">
     <div class="d-flex justify-content-left">
       <div class="article-title">
         <%= @article.title %>
       </div>
       <div class="bookmarking p-2">
-        <% if user_signed_in? %>
-          <% if current_user.liked? @article, vote_scope: 'bookmark' %>
-            <%= link_to unbookmark_article_path(@article), remote: true, id: "unlike_#{@article.id}", method: :put do %>
-              <i class="material-icons">bookmark</i>
-            <% end %>
-          <% else %>
-            <%= link_to bookmark_article_path(@article), remote: true, id: "like_#{@article.id}", method: :put do %>
-              <i class="material-icons">bookmark_border</i>
-            <% end %>
-          <% end %>
-        <% else %>
-          <%= link_to "", data: {toggle: "modal", target: "#modalSignup"} do %>
-            <i class="material-icons">bookmark_border</i>
-          <% end %>
-          <%= render 'layouts/modal_signup' %>
-        <% end %>
+        <%= render 'layouts/bookmark', article: @article %>
       </div>
       <div>
         <% if user_signed_in? %>
@@ -32,22 +17,7 @@
       <%= @article.sub_title %>
     </div>
     <div class="d-flex align-items-center">
-      <% author_avatar = User.find(@article.user_id) %>
-      <% if author_avatar.avatar != nil %>
-      <div class="pr-2">
-        <%= link_to user_path(@article.user_id, full_name: @article.author) do %>
-          <%= image_tag(author_avatar.avatar.url(:thumb), class:"rounded-circle border border-secondary", style: "height: 60px; width: 60px;") %>
-        <% end %>
-      </div>
-      <% end %>
-      <div>
-        <div class="author"><%= link_to @article.author, user_path(@article.user_id, full_name: @article.author) %></div>
-        <p class="author-wp"><%= @article.author_work_place %></p>
-        <p class="author-wp"><%= @article.created_at.strftime("%B %d, %Y") %></p>
-      </div>
-      <div class="pl-4">
-        <%= button_to "Follow", user_path(@article.user_id, full_name: @article.author), class:"btn btn-sm btn-outline-info" %>
-      </div>
+      <%= render 'author' %> <!-- modal rendering the avatar, the name, workplace and follow button of the author -->
     </div>
     <div class="article-body">
       <%= @article.body.html_safe %>
@@ -55,35 +25,37 @@
   </div>
   
   <div class="d-flex flex-row justify-content-between align-items-center">
-    <div class="d-flex align-items-center">
-      <% author_avatar = User.find(@article.user_id) %>
-      <% if author_avatar.avatar != nil %>
-      <div class="pr-2">
-        <%= link_to user_path(@article.user_id, full_name: @article.author) do %>
-          <%= image_tag(author_avatar.avatar.url(:thumb), class:"rounded-circle border border-secondary", style: "height: 60px; width: 60px;") %>
-        <% end %>
-      </div>
-      <% end %>
-      <div>
-        <div class="author"><%= link_to @article.author, user_path(@article.user_id, full_name: @article.author) %></div>
-        <p class="author-wp"><%= @article.author_work_place %></p>
-      </div>
-      <div class="pl-4">
-        <%= button_to "Follow", user_path(@article.user_id, full_name: @article.author), class:"btn btn-sm btn-outline-info" %>
-      </div>
-    </div>
+    <%= render 'author' %> <!-- modal rendering the avatar, the name, workplace and follow button of the author -->
     <div class="voting d-flex">
       <% if user_signed_in? %>
         <% if current_user.liked? @article, vote_scope: 'praise' %>
-          <div class="praise-count"><%= @article.find_votes_for(:vote_scope => "praise").size.to_s %></div>
-          <%= link_to downvote_article_path(@article), remote: true, id: "downvote_#{@article.id}", method: :put do %>
-            <i class="material-icons">favorite</i>
-          <% end %>
+          <div class="praise-count">
+            <%= @article.find_votes_for(:vote_scope => "praise").size.to_s %>
+          </div>
+          <div class="unfavorite-article-<%= @article.id %>">
+            <%= link_to downvote_article_path(@article), remote: true, method: :put do %>
+              <i class="material-icons">favorite</i>
+            <% end %>
+          </div>
+          <div class="favorite-article-<%= @article.id %>" style="display: none;">
+            <%= link_to upvote_article_path(@article), remote: true, method: :put do %>
+              <i class="material-icons">favorite_border</i>
+            <% end %>
+          </div>
         <% else %>
-          <div class="praise-count"><%= @article.find_votes_for(:vote_scope => "praise").size.to_s %></div>
-          <%= link_to upvote_article_path(@article), remote: true, id: "upvote_#{@article.id}", method: :put do %>
-            <i class="material-icons">favorite_border</i>
-          <% end %>
+          <div class="praise-count">
+            <%= @article.find_votes_for(:vote_scope => "praise").size.to_s %>
+          </div>
+          <div class="favorite-article-<%= @article.id %>">
+            <%= link_to upvote_article_path(@article), remote: true, method: :put do %>
+              <i class="material-icons">favorite_border</i>
+            <% end %>
+          </div>
+          <div class="unfavorite-article-<%= @article.id %>" style="display: none;">
+            <%= link_to downvote_article_path(@article), remote: true, method: :put do %>
+              <i class="material-icons">favorite</i>
+            <% end %>
+          </div>
         <% end %>
       <% else %>
         <div class="praise-count"><%= @article.find_votes_for(:vote_scope => 'praise').size.to_s %></div>
@@ -101,9 +73,9 @@
         <%= render 'form_comment' %>
       </div>
     <% end %>
-    <div class="article-body">
-      <h5>Comments (<%= comment_count(@article) %>)</h5> 
-      <%= render(partial: 'comments/comment', collection: @article.comments) %>
+    <div class="form-inline">
+      <i class="material-icons md-36 p-1">comment</i><div class="section-title">Comments (<%= comment_count(@article) %>)</div> 
     </div>
+    <%= render(partial: 'comments/comment', collection: @article.comments) %>
   </section>
 </div>

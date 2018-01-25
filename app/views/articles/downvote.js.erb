@@ -1,13 +1,13 @@
 /* global $ */ 
 
-// AJAX for updating the vote count and the icon for bookmarking
+// AJAX for updating the vote count and the icon for favorite
 
 // Get the id of the article liked
-var downvoted_article = $("#downvote_<%= @article.id %>");
+var downvoted_article = $(".unfavorite-article-<%= @article.id %>");
 
 // Go outside of the loops and div to find the place where the vote count is and update it
-downvoted_article.parent().parent().parent().parent().find(".praise-count").html("<%= @article.votes_for(:vote_scope => 'praise').size.to_s %>");
+downvoted_article.parent().parent().find(".praise-count").html("<%= @article.votes_for(:vote_scope => 'praise').size.to_s %>");
 
-// Replace the bookmark button by the unbookmark one
-// liked_article.closest('.bookmarking').html('<%= button_to "Unbookmark", unbookmark_article_path(@article), remote: true, id: "unlike_#{@article.id}", method: :put, class: "btn btn-danger btn-sm" %>');
-downvoted_article.closest('.voting').html('<div class="praise-count"><%= @article.find_votes_for(:vote_scope => "praise").size.to_s %></div><%= link_to upvote_article_path(@article), remote: true, id: "upvote_#{@article.id}", method: :put do %><i class="material-icons">favorite_border</i><% end %>');
+// Hide and show the right div with the class "favorite-article-<%= @article.id %>"
+$('.favorite-article-<%= @article.id %>').show();
+$('.unfavorite-article-<%= @article.id %>').hide();

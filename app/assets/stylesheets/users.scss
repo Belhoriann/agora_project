@@ -1,3 +1,35 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.author-profile {
+    font-size: 2em;
+    font-weight: bold;
+    line-height: 1.3em;
+    
+    @media screen and (max-width: 580px) {
+        text-align: center;
+    }
+}
+
+.author-wp-profile {
+    color: grey;
+    font-weight: bold;
+    font-size: 1em;
+    line-height: 1.3em;
+    
+    @media screen and (max-width: 580px) {
+        text-align: center;
+    }
+}
+
+.follow-profile {
+    color: grey;
+    font-size: 16px;
+    line-height: 1.2em;
+    padding-left: 10px;
+    
+    @media screen and (max-width: 580px) {
+        text-align: center;
+    } 
+}

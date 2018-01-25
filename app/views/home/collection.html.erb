@@ -1,47 +1,57 @@
-<div class="container-fluid" style="max-width: 1400px">
+<nav id="navbar-example2" class="navbar fixed-bottom navbar-light navbar-white p-0">
+  <ul class="nav nav-pills align-items-center mx-auto p-1">
+    <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Topics">
+      <a class="nav-link p-0" href="#sub" ><i class="material-icons md-36 p-2">star</i></a>
+    </li>
+    <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Writers">
+      <a class="nav-link p-0" href="#fol"><i class="material-icons md-36 p-2">person_pin</i></a>
+    </li>
+  </ul>
+</nav>
+
+<section class="container" style="max-width: 800px">
   <div class="d-flex section-title align-items-center">
     <i class="material-icons md-36 p-1">star</i>
-    <div class="p-1">SUBSCRIPTIONS</div>
+    <div class="p-1" id="sub">SUBSCRIPTIONS</div>
   </div>
-  <div class="row justify-content-center">
     <% @categories.order(:name).each do |cat| %>
       <% if current_user.liked? cat, vote_scope: 'subscribe_category' %>
-        <div class="row p-2">
-          <div class="p-1 form-inline">
-            <% cat_icon = category_icon(Category.find(cat.id).name) %> <!--category_icon is a helper method inside application_helper-->
-            <% cat_icon_color = category_icon_color(Category.find(cat.id).name) %> <!--category_icon_color is a helper method inside application_helper-->
-            <%= button_to category_path(cat.id), method: :get, class:"btn btn-cat btn-outline-dark" do %>
-            <i class="<%= cat_icon %>" style="color:<%= cat_icon_color %>"></i>
-            <strong><%= Category.find(cat.id).name.upcase %></strong>
-            <% end %>
-          </div>
-          <div class="row p-2">
-          <% Article.where(category_id: cat.id).order(:created_at).reverse_order.first(6).each do |article| %>
-            <div class="col-md-6">
-              <%= render 'layouts/hcard_lg', article: article %>
-            </div>
+        <div class="p-1 form-inline">
+          <% cat_icon = category_icon(Category.find(cat.id).name) %> <!--category_icon is a helper method inside application_helper-->
+          <% cat_icon_color = category_icon_color(Category.find(cat.id).name) %> <!--category_icon_color is a helper method inside application_helper-->
+          <%= button_to category_path(cat.id), method: :get, class:"btn btn-cat btn-outline-dark" do %>
+          <i class="<%= cat_icon %>" style="color:<%= cat_icon_color %>"></i>
+          <strong><%= Category.find(cat.id).name.upcase %></strong>
           <% end %>
-          </div>
         </div>
+        <% Article.where(category_id: cat.id).order(:created_at).reverse_order.first(6).each do |article| %>
+          <%= render 'layouts/hcard_lg', article: article %>
+        <% end %>
       <% end %>
     <% end %>
   </div>
-  
-  <div class="d-flex section-title">
-    <i class="material-icons md-36 p-1">bookmark</i>
-    <div class="p-1">BOOKMARKS</div>
+
+  <div class="d-flex section-title align-items-center">
+    <i class="material-icons md-36 p-1">person_pin</i>
+    <div class="p-1" id="fol">FOLLOWING</div>
   </div>
-  <div class="row">
   <% if user_signed_in? %>
-    <% @articles.order(:created_at).reverse_order.each do |article| %>
-      <% if current_user.liked? article, vote_scope: 'bookmark' %>
-        <!--<div class="col-lg-10">-->
+    <% User.order(:full_name).reverse_order.each do |user| %>
+      <% if current_user.liked? user, vote_scope: 'following' %>
+        <% Article.where(user_id: user.id).order(:created_at).reverse_order.each do |article| %>
           <%= render 'layouts/hcard_lg', article: article %>
-        <!--</div> -->
+        <% end %>
       <% end %>
     <% end %>
   <% end %>
-  </div>
+</section>
+ 
+<br></br>
+ 
+<% if current_user.admin? %>
+</section class="admin"> 
+
+  <h1>All Articles</h1>
   
   <body>
   <table class="table table-striped">
@@ -55,22 +65,16 @@
     </thead>
   
     <tbody>
-      <% if user_signed_in? %>
-        <% @articles.each do |article| %>
-          <% if current_user.liked? article, vote_scope: 'bookmark' %>
-            <tr>
-              <td><%= article.id %></td>
-              <td><%= article.title %></td>
-              <td><%= article.author %></td>
-            </tr>
-          <% end %>
-        <% end %>
+      <% @articles.each do |article| %>
+        <tr>
+          <td><%= article.id %></td>
+          <td><%= article.title %></td>
+          <td><%= article.author %></td>
+        </tr>
       <% end %>
     </tbody>
   </table>
-</div>
 
-<% if current_user.admin? %>
   <h1>All Bookmarks</h1>
   
   <body>
@@ -87,20 +91,20 @@
     </thead>
   
     <tbody>
-        <% @articles.each do |article| %>
-          <% @users.each do |user| %>
-            <% if user.liked? article, vote_scope: 'bookmark' %>
-            <tr>
-              <td><%= article.id %></td>
-              <td><%= article.title %></td>
-              <td><%= article.author %></td>
-              <td><%= article.votes_for(vote_scope: 'bookmark').by_type(User).voters[0].full_name %></td>
-              <td><%= article.votes_for(vote_scope: 'upvote').by_type(User).voters[0].full_name %></td>
-              <td><%= link_to 'Destroy', unbookmark_article_path(article), method: :put, data: { confirm: 'Are you sure?' } %></td>
-            </tr>
-            <% end %>
+      <% @articles.each do |article| %>
+        <% @users.each do |user| %>
+          <% if user.liked? article, vote_scope: 'bookmark' %>
+          <tr>
+            <td><%= article.id %></td>
+            <td><%= article.title %></td>
+            <td><%= article.author %></td>
+            <td><%= article.votes_for(vote_scope: 'bookmark').by_type(User).voters[0].full_name %></td>
+            <td><%= article.votes_for(vote_scope: 'upvote').by_type(User).voters[0].full_name %></td>
+            <td><%= link_to 'Destroy', unbookmark_article_path(article), method: :put, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
           <% end %>
         <% end %>
+      <% end %>
     </tbody>
   </table>
   
@@ -119,24 +123,24 @@
     </thead>
   
     <tbody>
-          <% @users.each do |user| %>
-            <tr>
-              <td><%= user.full_name %></td>
-              <td><%= user.email %></td>
-              <td><%= user.headline %></td>
-              <td><%= user.work_place %></td>
-              <td><%= user.admin %></td>
-              <td><% if user.admin == false %>
-                    <%= button_to "Make Admin", {controller: "users", action: "make_admin", id: user.id }, method: :put %>
-                  <% else %>
-                    <%= button_to "Remove Admin", {controller: "users", action: "remove_admin", id: user.id }, method: :put %>
-                  <% end %>
-              </td>
-              <td><%= link_to 'Show', user_path(user, full_name: user.full_name) %></td>
-              <td><%= link_to 'Edit', edit_user_registration_path(user) %></td>
-              <td><%= link_to 'Destroy', registration_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            </tr>
-        <% end %>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.full_name %></td>
+          <td><%= user.email %></td>
+          <td><%= user.headline %></td>
+          <td><%= user.work_place %></td>
+          <td><%= user.admin %></td>
+          <td><% if user.admin == false %>
+                <%= button_to "Make Admin", {controller: "users", action: "make_admin", id: user.id }, method: :put %>
+              <% else %>
+                <%= button_to "Remove Admin", {controller: "users", action: "remove_admin", id: user.id }, method: :put %>
+              <% end %>
+          </td>
+          <td><%= link_to 'Show', user_path(user, full_name: user.full_name) %></td>
+          <td><%= link_to 'Edit', edit_user_registration_path(user) %></td>
+          <td><%= link_to 'Destroy', registration_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
 <% end %>

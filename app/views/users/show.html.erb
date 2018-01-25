@@ -1,28 +1,166 @@
-<div class="container" style="max-width: 1400px">
-  <div class="d-flex align-items-center pt-4">
-    <% author_avatar = User.find(@user) %>
-    <% if author_avatar.avatar != nil %>
-    <div class="pr-2">
-      <%= image_tag(author_avatar.avatar.url(:thumb), class:"rounded-circle border border-secondary", style: "height: 120px; width: 120px;") %>
+<section class="container p-0" style="max-width: 800px">
+  <div class="row pt-3 pb-3">
+    <div class="col-sm-auto">
+      <%= render 'layouts/user_avatar', user: @user, size: 150 %>
     </div>
-    <% end %>
-    <div>
-      <h3 class="m-0"><%= @user.full_name %></h4>
-      <div class="author-wp" style="font-size: 20px"><%= @user.headline %></div>
-      <div class="author-wp" style="font-size: 20px"><%= @user.work_place %></div>
+    <div class="col-sm">
+      <div class="author-profile"><%= @user.full_name %></div>
+      <div class="author-wp-profile"><%= @user.headline %></div>
+      <div class="author-wp-profile"><%= @user.work_place %></div>
+      <div class="row align-items-center pt-2">
+        <% if user_signed_in? %>
+          <% unless current_user == @user %>
+            <% if current_user.voted_for? @user, vote_scope: 'following' %>
+              <div class="col-sm-auto follow-profile pt-1 unfollow-button">
+                <%= link_to "Following", unfollow_user_path(@user), remote: true, class:"btn btn-sm btn-info", method: :put %>
+              </div>
+              <div class="col-sm-auto follow-profile pt-1 follow-button" style="display:none">
+                <%= link_to "Follow", follow_user_path(@user), remote: true, class:"btn btn-sm btn-outline-info", method: :put %>
+              </div>
+            <% else %>
+              <div class="col-sm-auto follow-profile pt-1 follow-button">
+                <%= link_to "Follow", follow_user_path(@user), remote: true, class:"btn btn-sm btn-outline-info", method: :put %>
+              </div>
+              <div class="col-sm-auto follow-profile pt-1 unfollow-button" style="display:none">
+                <%= link_to "Following", unfollow_user_path(@user), remote: true, class:"btn btn-sm btn-info", method: :put %>
+              </div>
+            <% end %>
+          <% end %>
+        <% else %>
+          <div class="col-sm-auto follow-profile pt-1">
+          <%= link_to "", data: {toggle: "modal", target: "#modalSignup"} do %>
+            <button type="button" class="btn btn-sm btn-outline-info">Follow</button>
+          <% end %>
+          </div>
+          <%= render 'layouts/modal_signup' %>
+        <% end %>
+        <div class="col-md follow-profile pt-1">
+          <strong><%= @user.find_votes_for(:vote_scope => 'following').size %></strong>
+          <%=  "follower".pluralize(@user.find_votes_for(:vote_scope => 'following').size) %> -
+          <strong><%= @user.find_voted_items(:vote_scope => 'following').size %></strong> following
+        </div>
+      </div>
     </div>
   </div>
-  <div>
-    <div class="d-flex section-title align-items-center">
-      <i class="material-icons md-48">developer_board</i>
-      <div class=""> 
-        <%#= pluralize(Article.where(user_id: @user.id).count, 'Publication') %> 
-        <%= "PUBLICATION".pluralize(Article.where(user_id: @user.id).count) %> 
-        (<%= Article.where(user_id: @user.id).count %>)
+</section>
+
+<nav id="navbar-example2" class="navbar fixed-bottom navbar-light navbar-white p-0">
+  <ul class="nav nav-pills align-items-center mx-auto p-1">
+    <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Publications">
+      <a class="nav-link p-0" href="#pub" ><i class="material-icons md-36 p-2">description</i></a>
+    </li>
+    <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Comments">
+      <a class="nav-link p-0" href="#com"><i class="material-icons md-36 p-2">comment</i></a>
+    </li>
+    <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Favorites">
+      <a class="nav-link p-0" href="#fav"><i class="material-icons md-36 p-2">favorite</i></a>
+    </li>
+    <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Following">
+      <a class="nav-link p-0" href="#fol"><i class="material-icons md-36 p-2">person_pin</i></a>
+    </li>
+  </ul>
+</nav>
+  
+<section class="container p-0" style="max-width: 800px" data-target="#navbar-example2">
+  <div class="row">
+    <div class="col">
+      <div class="d-flex section-title align-items-center">
+        <i class="material-icons md-36 pr-2">description</i>
+        <div id="pub"> 
+          <%#= pluralize(Article.where(user_id: @user.id).count, 'Publication') %> 
+          <% publi = "publication".pluralize(Article.where(user_id: @user.id).count) %> 
+          <%= publi.upcase %>
+          (<%= Article.where(user_id: @user.id).count %>)
+        </div>
+      </div> 
+      <% article_shown = 3 %>
+      <% Article.where(user_id: @user.id).order(:created_at).reverse_order.first(article_shown).each do |article| %>
+        <%= render 'layouts/hcard_user_article', article: article %>
+      <% end %>
+      <% if Article.where(user_id: @user.id).count > 3 %>
+        <p>
+          <button class="btn btn-sm btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseArticle" aria-expanded="false" aria-controls="collapseExample">
+            Show all
+          </button>
+        </p>
+      <% end %>
+      <div class="collapse" id="collapseArticle">
+        <% Article.where(user_id: @user.id).order(:created_at).reverse_order.drop(article_shown).each do |article| %>
+          <%= render 'layouts/hcard_user_article', article: article %>
+        <% end %>
       </div>
-    </div> 
-    <% Article.where(user_id: @user.id).order(:created_at).reverse_order.each do |article| %>
-      <%= render 'layouts/hcard_user_article', article: article %>
-    <% end %>
-  </div> 
-</div> 
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="d-flex section-title align-items-center">
+        <i class="material-icons md-36 pr-2">comment</i>
+        <div id="com"> 
+          <%#= pluralize(Article.where(user_id: @user.id).count, 'Publication') %> 
+          <% com = "comment".pluralize(Comment.where(user_id: @user.id).count) %> 
+          <%= com.upcase %>
+          (<%= Comment.where(user_id: @user.id).count %>)
+        </div>
+      </div>
+      <% Comment.where(user_id: @user.id).order(:created_at).reverse_order.each do |comment| %>
+        <%= render 'layouts/hcard_user_comment', comment: comment %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="d-flex section-title align-items-center">
+        <i class="material-icons md-36 pr-2">favorite</i>
+        <div id="fav"> 
+          <% fav = "favorite".pluralize(@user.find_voted_items(:vote_scope => 'praise').size) %> 
+          <%= fav.upcase %>
+          (<%= @user.find_voted_items(:vote_scope => 'praise').size %>)
+        </div>
+      </div>
+      <% Article.order(:created_at).reverse_order.each do |article| %>
+        <% if @user.liked? article, vote_scope: 'praise' %>
+          <%= render 'layouts/hcard_user_article', article: article %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="d-flex section-title align-items-center">
+        <i class="material-icons md-36 pr-2">person_pin</i>
+        <div id="fol"> 
+          FOLLOWING
+          (<%= @user.find_voted_items(:vote_scope => 'following').size %>)
+        </div>
+      </div>
+      <% User.order(:full_name).reverse_order.each do |user| %>
+        <% if @user.liked? user, vote_scope: 'following' %>
+        <!--<div class="col-lg-10">-->
+        <div class="row">
+          <div class="col">
+            <div class="col-sm-auto">
+              <% if user.avatar != nil %>
+                <%= link_to user_path(user.id, full_name: user.full_name) do %>
+                  <%= image_tag(user.avatar.url(:thumb), class:"rounded-circle border border-secondary", style: "height: 60px; width: 60px;") %>
+                <% end %>
+              <% end %>
+            </div>
+            <div class="col">
+              <div class="author-profile" style="font-size: 20px"><%= user.full_name %></div>
+              <div class="author-wp-profile" style="font-size: 16px"><%= user.headline %></div>
+              <div class="author-wp-profile" style="font-size: 16px"><%= user.work_place %></div>
+              <div class="row align-items-center pt-2">
+                <div class="col-md follow-profile pt-1">
+                  <%= "X followers - " %> 
+                  <%= "X following" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--</div> -->
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</section> 

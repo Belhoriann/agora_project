@@ -1,4 +1,4 @@
-<div class="card" style="max-width: 500px; margin: 5px">
+<div class="card" style="height: 100%">
   <%= link_to image_tag("//placehold.it/720x350", class:"img-fluid"), article_path(article) %>
   <div class="card-body pb-0">
     <div class="row">
@@ -14,27 +14,12 @@
         <% end %>
       </small>
       <%#= article.cached_votes_total %>
-      <div class="col-2 bookmarking">
-        <% if user_signed_in? %>
-          <% if current_user.liked? article, vote_scope: 'bookmark' %>
-            <%= link_to unbookmark_article_path(article), remote: true, id: "unlike_#{article.id}", method: :put do %>
-              <i class="material-icons">bookmark</i>
-            <% end %>
-          <% else %>
-            <%= link_to bookmark_article_path(article), remote: true, id: "like_#{article.id}", method: :put do %>
-              <i class="material-icons">bookmark_border</i>
-            <% end %>
-          <% end %>
-        <% else %>
-          <%= link_to "", data: {toggle: "modal", target: "#modalSignup"} do %>
-            <i class="material-icons">bookmark_border</i>
-          <% end %>
-          <%= render 'layouts/modal_signup' %>
-        <% end %>
+      <div class="col-2 bookmarking" align="right">
+        <%= render 'layouts/bookmark', article: article %>
       </div> 
     </div>
     <%= link_to article_path(article), class: "card-link" do %>
-      <strong class="d-flex card-title pb-1"><%= article.title %></strong>
+      <strong class="d-flex card-title"><%= article.title %></strong>
       <small class="d-flex card-subtitle"><%= article.sub_title %></small>
     <% end %>
         <div class="card-article-body">
@@ -55,17 +40,17 @@
   </div>
   <div class="card-footer bg-transparent">
     <div class="form-inline">
-      <% author_avatar = User.find(article.user_id) %>
-      <% if author_avatar.avatar != nil %>
+      <% author = User.find(article.user_id) %>
+      <% if author.avatar != nil %>
       <div class="pr-2">
-        <%= link_to user_path(article.user_id, full_name: article.author) do %>
-          <%= image_tag(author_avatar.avatar.url(:thumb), class:"rounded-circle border border-secondary", style: "height: 60px; width: 60px;") %>
+        <%= link_to user_path(article.user_id, full_name: author.full_name) do %>
+          <%= image_tag(author.avatar.url(:thumb), class:"rounded-circle border border-secondary", style: "height: 60px; width: 60px;") %>
         <% end %>
       </div>
       <% end %>
       <div class="align-items-middle">
-        <h6 class="author"><%= link_to article.author, user_path(article.user_id, full_name: article.author) %></h6>
-        <p class="author-wp"><%= article.author_work_place %></p>
+        <div><%= link_to author.full_name, user_path(article.user_id, full_name: author.full_name), class:"author" %></div>
+        <p class="author-wp"><%= author.work_place %></p>
       </div>
     </div>
   </div>

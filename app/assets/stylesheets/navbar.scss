@@ -1,11 +1,17 @@
 // Navbar style
 .navbar  {
     //border-bottom: 1px solid #d6d6d6 !important;
-    box-shadow: 0px 1px 10px 0px rgba(0, 0, 0, 0.1);
+    padding: 0px 20px 0px 20px!important;
 }
 
-.navbar-transparent {
+.navbar-white {
+    box-shadow: 0px 1px 15px 0px rgba(0, 0, 0, 0.1);
     background-color: rgba(255, 255, 255, 1);
+}
+
+.navbar-invisible {
+    background-color: rgba(255, 255, 255, 0);
+    box-shadow: 0px 1px 15px 0px rgba(0, 0, 0, 0.0);
 }
 
 .navbar-nav-scroll {
@@ -20,7 +26,7 @@
 }
 
 .navbar-nav .nav-link {
-    font-size: 14px!important;
+    font-size: 1rem!important;
     padding-right: 5px!important;
     padding-left: 5px!important;
 }
@@ -28,5 +34,10 @@
 .dropdown-menu {
     position: absolute;
     border: none!important;
-    box-shadow: 0px 5px 20px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 5px 20px 5px rgba(0, 0, 0, 0.1)!important;
+}
+
+.dropdown-item {
+    font-size: 0.8em!important;
+    text-align: left!important;
 }

@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
 
   devise_for :users
-  resources :users, :only =>[:show]
+  resources :users, :only =>[:show] do
+    member do
+      put "follow", to: "users#follow"
+      put "unfollow", to: "users#unfollow"
+    end
+  end
   
   # Allow Desive to use DELETE for the log out route
   devise_scope :user do  
@@ -15,6 +20,7 @@ Rails.application.routes.draw do
   root 'home#index'
   get 'home/index'
   get 'home/collection'
+  get 'home/bookmarks'
 
   resources :articles do 
     resources :comments
@@ -29,6 +35,10 @@ Rails.application.routes.draw do
   
   resources :comments do
     resources :comments
+    member do
+      put "bookmark", to: "comments#bookmark_comment"
+      put "unbookmark", to: "comments#unbookmark_comment"
+    end
   end
   
   resources :categories do

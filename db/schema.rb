@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180117141049) do
+ActiveRecord::Schema.define(version: 20180123001451) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
@@ -38,22 +37,21 @@ ActiveRecord::Schema.define(version: 20180117141049) do
     t.integer  "cached_weighted_praise_total",     default: 0
     t.float    "cached_weighted_praise_average",   default: 0.0
     t.integer  "comments_count",                   default: 0,   null: false
+    t.index ["cached_scoped_praise_votes_down"], name: "index_articles_on_cached_scoped_praise_votes_down"
+    t.index ["cached_scoped_praise_votes_score"], name: "index_articles_on_cached_scoped_praise_votes_score"
+    t.index ["cached_scoped_praise_votes_total"], name: "index_articles_on_cached_scoped_praise_votes_total"
+    t.index ["cached_scoped_praise_votes_up"], name: "index_articles_on_cached_scoped_praise_votes_up"
+    t.index ["cached_votes_down"], name: "index_articles_on_cached_votes_down"
+    t.index ["cached_votes_score"], name: "index_articles_on_cached_votes_score"
+    t.index ["cached_votes_total"], name: "index_articles_on_cached_votes_total"
+    t.index ["cached_votes_up"], name: "index_articles_on_cached_votes_up"
+    t.index ["cached_weighted_average"], name: "index_articles_on_cached_weighted_average"
+    t.index ["cached_weighted_praise_average"], name: "index_articles_on_cached_weighted_praise_average"
+    t.index ["cached_weighted_praise_score"], name: "index_articles_on_cached_weighted_praise_score"
+    t.index ["cached_weighted_praise_total"], name: "index_articles_on_cached_weighted_praise_total"
+    t.index ["cached_weighted_score"], name: "index_articles_on_cached_weighted_score"
+    t.index ["cached_weighted_total"], name: "index_articles_on_cached_weighted_total"
   end
-
-  add_index "articles", ["cached_scoped_praise_votes_down"], name: "index_articles_on_cached_scoped_praise_votes_down"
-  add_index "articles", ["cached_scoped_praise_votes_score"], name: "index_articles_on_cached_scoped_praise_votes_score"
-  add_index "articles", ["cached_scoped_praise_votes_total"], name: "index_articles_on_cached_scoped_praise_votes_total"
-  add_index "articles", ["cached_scoped_praise_votes_up"], name: "index_articles_on_cached_scoped_praise_votes_up"
-  add_index "articles", ["cached_votes_down"], name: "index_articles_on_cached_votes_down"
-  add_index "articles", ["cached_votes_score"], name: "index_articles_on_cached_votes_score"
-  add_index "articles", ["cached_votes_total"], name: "index_articles_on_cached_votes_total"
-  add_index "articles", ["cached_votes_up"], name: "index_articles_on_cached_votes_up"
-  add_index "articles", ["cached_weighted_average"], name: "index_articles_on_cached_weighted_average"
-  add_index "articles", ["cached_weighted_praise_average"], name: "index_articles_on_cached_weighted_praise_average"
-  add_index "articles", ["cached_weighted_praise_score"], name: "index_articles_on_cached_weighted_praise_score"
-  add_index "articles", ["cached_weighted_praise_total"], name: "index_articles_on_cached_weighted_praise_total"
-  add_index "articles", ["cached_weighted_score"], name: "index_articles_on_cached_weighted_score"
-  add_index "articles", ["cached_weighted_total"], name: "index_articles_on_cached_weighted_total"
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer  "user_id"
@@ -81,18 +79,18 @@ ActiveRecord::Schema.define(version: 20180117141049) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "",    null: false
-    t.string   "encrypted_password",     default: "",    null: false
+    t.string   "email",                               default: "",    null: false
+    t.string   "encrypted_password",                  default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,     null: false
+    t.integer  "sign_in_count",                       default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
     t.string   "full_name"
     t.string   "headline"
     t.string   "work_place"
@@ -101,11 +99,24 @@ ActiveRecord::Schema.define(version: 20180117141049) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.boolean  "admin",                  default: false
+    t.boolean  "admin",                               default: false
+    t.integer  "cached_scoped_following_votes_total", default: 0
+    t.integer  "cached_scoped_following_votes_score", default: 0
+    t.integer  "cached_scoped_following_votes_up",    default: 0
+    t.integer  "cached_scoped_following_votes_down",  default: 0
+    t.integer  "cached_weighted_following_score",     default: 0
+    t.integer  "cached_weighted_following_total",     default: 0
+    t.float    "cached_weighted_following_average",   default: 0.0
+    t.index ["cached_scoped_following_votes_down"], name: "index_users_on_cached_scoped_following_votes_down"
+    t.index ["cached_scoped_following_votes_score"], name: "index_users_on_cached_scoped_following_votes_score"
+    t.index ["cached_scoped_following_votes_total"], name: "index_users_on_cached_scoped_following_votes_total"
+    t.index ["cached_scoped_following_votes_up"], name: "index_users_on_cached_scoped_following_votes_up"
+    t.index ["cached_weighted_following_average"], name: "index_users_on_cached_weighted_following_average"
+    t.index ["cached_weighted_following_score"], name: "index_users_on_cached_weighted_following_score"
+    t.index ["cached_weighted_following_total"], name: "index_users_on_cached_weighted_following_total"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
   create_table "votes", force: :cascade do |t|
     t.integer  "votable_id"
@@ -117,9 +128,8 @@ ActiveRecord::Schema.define(version: 20180117141049) do
     t.integer  "vote_weight"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope"
+    t.index ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope"
   end
-
-  add_index "votes", ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope"
-  add_index "votes", ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope"
 
 end

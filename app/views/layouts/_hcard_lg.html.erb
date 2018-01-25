@@ -1,12 +1,13 @@
-<div class="card mb-4" style="min-width: 100%">
+<div class="card mb-3" style="min-width: 100%">
   <div class="row">
     <div class="col-md p-0">
     <%= link_to image_tag("//placehold.it/720x350", class:"thumb-bookmark img-fluid"), article_path(article) %>
     </div>
   <div class="col-md-8">
     <div class="d-flex flex-column">
-      <div class="form-inline p-2">
+      <div class="form-inline pl-2 pt-2 pr-2 pb-0">
         <small class="text-muted">
+          <i class="far fa-clock"></i>
           <%= article.created_at.strftime("%B %d, %Y") %> -
           <% cat_icon = category_icon(Category.find(article.category_id).name) %>
           <% cat_icon_color = category_icon_color(Category.find(article.category_id).name) %>
@@ -16,23 +17,8 @@
             | <%= link_to "Edit", edit_article_path(article) %>
           <% end %>
         </small>
-        <div class="bm-icon-cat bookmarking ml-auto"> <!-- "bookmarking" is used as a marker for the like/unlike.js files -->
-          <% if user_signed_in? %>
-            <% if current_user.liked? article, vote_scope: "bookmark" %>
-              <%= link_to unbookmark_article_path(article), remote: true, id: "unlike_#{article.id}", method: :put do %>
-                <i class="material-icons">bookmark</i>
-              <% end %>
-            <% else %>
-              <%= link_to bookmark_article_path(article), remote: true, id: "like_#{article.id}", method: :put do %>
-                <i class="material-icons">bookmark_border</i>
-              <% end %>
-            <% end %>
-          <% else %>
-            <%= link_to "", data: {toggle: "modal", target: "#modalSignup"} do %>
-              <i class="material-icons">bookmark_border</i>
-            <% end %>
-            <%= render 'layouts/modal_signup' %>
-          <% end %>
+        <div class="bm-icon-cat ml-auto">
+          <%= render 'layouts/bookmark', article: article %>
         </div>    
       </div>  
       <div class="d-flex flex-column p-2">
@@ -47,16 +33,14 @@
       </div>
       <div class="d-flex flex-row align-items-center pt-2">
         <div class="p-2">
-          <% author_avatar = User.find(article.user_id) %>
-          <% if author_avatar.avatar != nil %>
-            <%= link_to user_path(article.user_id, full_name: article.author) do %>
-              <%= image_tag(author_avatar.avatar.url(:thumb), class:"rounded-circle border border-secondary", style: "height: 60px; width: 60px;") %>
-            <% end %>
+          <% @user = User.find_by(id: article.user_id) %>
+          <%= link_to user_path(article.user_id, full_name: article.author) do %>
+            <%= render 'layouts/user_avatar', user: @user, size: 60 %>
           <% end %>
         </div>
         <div class="align-items-middle">
-          <h5 class="author"><%= link_to article.author, user_path(article.user_id, full_name: article.author) %></h5>
-          <p class="author"><%= article.author_work_place %></p>
+          <div><%= link_to article.author, user_path(article.user_id, full_name: article.author), class:"author" %></div>
+          <p class="author-wp"><%= article.author_work_place %></p>
         </div>
         <div class="ml-auto p-2">
           <div>

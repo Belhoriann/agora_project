@@ -24,7 +24,7 @@ gem 'tinymce-rails'
 gem 'acts_as_votable', '~> 0.11.1'
 
 # Easy file attachment management for ActiveRecord
-gem "paperclip", "~> 5.0.0"
+gem 'paperclip', '~> 5.1'
 
 # Comment system
 #gem 'acts_as_commentable', '~> 4.0', '>= 4.0.2'

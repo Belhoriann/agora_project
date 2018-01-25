@@ -18,4 +18,24 @@ class UsersController < ApplicationController
     @user.update( :admin => false )
     redirect_to :back
   end
+  
+  def follow
+    @user = User.find(params[:id])
+    @user.liked_by current_user, vote_scope: 'following'
+
+    respond_to do |format|
+    format.html { redirect_to :back }
+    format.js
+    end
+  end  
+  
+  def unfollow
+    @user = User.find(params[:id])
+    @user.unliked_by current_user, vote_scope: 'following'
+    
+    respond_to do |format|
+    format.html { redirect_to :back }
+    format.js
+    end
+  end
 end

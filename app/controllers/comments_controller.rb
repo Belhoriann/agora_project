@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   before_action :find_commentable
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
-  # before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update, :destroy]
   before_action :authenticate_user!, except: [:show]
 
   # GET /comments
@@ -64,6 +64,26 @@ class CommentsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def bookmark_comment
+    @comment = Comment.find(params[:id])
+    @comment.liked_by current_user, vote_scope: 'bookmark_comment'
+
+    respond_to do |format|
+    format.html { redirect_to :back }
+    format.js
+    end
+  end  
+  
+  def unbookmark_comment
+    @comment = Comment.find(params[:id])
+    @comment.unliked_by current_user, vote_scope: 'bookmark_comment'
+    
+    respond_to do |format|
+    format.html { redirect_to :back }
+    format.js
+    end
+  end 
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -85,7 +105,7 @@ class CommentsController < ApplicationController
       if user_signed_in?
         @my_comment = current_user.comments.find_by(id: params[:id])
         if @my_comment == nil
-          redirect_to comments_path, notice: "You are not the author of this comment."
+          redirect_to :back, alert: "You are not the author of this comment." unless current_user.admin?
         end
       end
     end

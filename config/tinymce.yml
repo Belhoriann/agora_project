@@ -7,7 +7,7 @@ paste_merge_formats: true
 content_css : "app/assets/stylesheets/application.css"
 paste_retain_style_properties: all
 toolbar:
-  - undo | redo | formatselect | hr bold italic underline strikethrough alignleft aligncenter alignjustify alignright bullist numlist outdent indent | link unlink | image | preview | searchreplace
+undo | redo | formatselect | hr bold italic underline strikethrough alignleft aligncenter alignjustify alignright bullist numlist outdent indent | link unlink | image | preview | searchreplace
   
 plugins:
   - link

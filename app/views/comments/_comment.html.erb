@@ -1,23 +1,34 @@
 <div class="card mb-3">
-  <div class="card-header">
+  <div class="card-header p-2">
     <% commenter = User.find_by(id: comment.user_id) %>
     <% if commenter != nil %> 
-      <strong><%= commenter.full_name %></strong>
+      <div class="d-flex flex-row p-0 align-items-center">
+        <div class="pr-2 align-items-center"><%= render 'layouts/user_avatar', user: commenter, size: 40 %></div>
+        <div class="d-flex flex-column">
+          <%= link_to commenter.full_name, user_path(comment.user_id, full_name: commenter.full_name), class:"author" %>
+          <div class="date-sm"><i class="far fa-clock pr-1" style="color: grey"></i><%= time_ago_in_words(comment.created_at) %> ago</div>
+        </div>
+        <div class="ml-auto">
+          <%= render 'layouts/bookmark_comment', comment: comment %>
+        </div>
+      </div>
     <% end %> 
-    <small>- <%= time_ago_in_words(comment.created_at) %> ago</small>
   </div>
   
   <div class="card-body">
     <%= comment.body %>
   </div>
   
-  <div class="card-footer text-right">
-    <small><%= link_to "Edit", edit_article_comment_path(@article, comment) %></small>
-    <small>- <%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %> -</small>
-    <button class="btn btn-sm btn-outline-primary" type="button" data-toggle="collapse" data-target="#<%= comment.id %>" aria-expanded="false" aria-controls="collapseExample">
-      Reply
-    </button>
-    <div class="collapse mt-3" id="<%= comment.id %>">
+  <div class="card-footer p-1 bg-tran text-right">
+    <% if user_signed_in? %>
+      <% if current_user.id == comment.user_id or current_user.admin? %>
+        <small><%= link_to "Edit", edit_article_comment_path(@article, comment) %></small>
+        <small>- <%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %> -</small>
+      <% end %>
+      <button class="btn btn-sm btn-outline-primary" type="button" data-toggle="collapse" data-target="#<%= comment.id %>" aria-expanded="false" aria-controls="collapseExample">
+        Reply
+      </button>
+      <div class="collapse mt-3" id="<%= comment.id %>">
         <% if user_signed_in? %>
           <%= form_for [comment, Comment.new] do |f| %>
           <%= f.text_area :body, placeholder: "Add a Reply", class: "form-control mb-3" %>
@@ -26,8 +37,14 @@
           <%= f.text_field :article_id, value: comment.article_id, type: "hidden" %>
           <% end %>
         <% end %>      
-    </div>
-
+      </div>
+      <% else %>
+        <%= link_to new_user_session_path do %>
+          <button class="btn btn-sm btn-outline-primary" type="button">
+            Login to reply
+          </button>
+        <% end %>
+    <% end %>
   </div>
 </div>
 

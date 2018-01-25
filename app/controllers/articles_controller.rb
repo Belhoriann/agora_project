@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy]
-  #before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update, :destroy]
   before_action :authenticate_user!, except: [:show, :index]
 
   # GET /articles
@@ -13,6 +13,7 @@ class ArticlesController < ApplicationController
   # GET /articles/1
   # GET /articles/1.json
   def show
+    @user = User.find(@article.user_id)
   end
 
   # GET /articles/new
@@ -127,7 +128,7 @@ class ArticlesController < ApplicationController
       if user_signed_in?
         @my_article = current_user.articles.find_by(id: params[:id])
         if @my_article == nil
-          redirect_to articles_path, notice: "You are not the author of this article."
+          redirect_to :back, alert: "You are not the author of this article." unless current_user.admin?
         end
       end
     end

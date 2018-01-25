@@ -21,6 +21,7 @@ module ApplicationHelper
         case category
         when "Physics" then "fab fa-react"
         when "Chemistry" then "fas fa-flask"
+        when "Communications" then "fas fa-terminal"
         when "Biology" then "fas fa-leaf"
         when "Cosmology" then "fab fa-superpowers"
         when "Computer Science" then "fas fa-code"
@@ -45,6 +46,7 @@ module ApplicationHelper
         case category
         when "Physics" then "RoyalBlue"
         when "Chemistry" then "PaleVioletRed"
+        when "Communications" then "Blue"
         when "Biology" then "Lime"
         when "Cosmology" then "Orange"
         when "Computer Science" then "grey"

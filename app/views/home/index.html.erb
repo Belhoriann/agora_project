@@ -5,7 +5,7 @@
 <section>
   <%= render 'home/categories' %>
 </section>
-<section class="container" style="max-width: 1400px">
+<section class="container p-0" style="max-width: 1400px">
   <div class="row section-title align-items-end pb-2">
     <div class="col-auto">FEATURED</div>
     <!--<div class="col section-title-sm">Whet Your Curiosity</div>-->
@@ -44,36 +44,74 @@
     </div>
   </div>
 </section>
-<section class="container" style="max-width: 1400px">
+<div class="container" style="max-width: 1400px;">
   <div class="row section-title align-items-end pb-3">
     <div class="col-auto">TRENDING</div>
     <!--<div class="col section-title-sm">Popular articles</div>-->
   </div>
-  <div class="d-flex flex-row dragscroll" style="overflow-x: auto; min-height:510px">
+  <div class="row">
     <%# Article.order(:cached_scoped_praise_votes_total => :desc).first(3).each do |article| %>
     <% Article.order('cached_scoped_praise_votes_total + comments_count DESC').first(3).each do |article| %>
-      <%= render 'layouts/vcard_trending', article: article %>    
+      <div class="col-lg pb-2">
+        <%= render 'layouts/vcard_trending', article: article %>    
+      </div>
     <% end %>
   </div>
-</section>    
+</div>    
 
 <br><br />
 
 <!--JUMBOTRON!-->
-<div class="jumbotron jumbotron-fluid p-4">
-  <div class="container" align="center">
-    <h1 class="display-4">Your research meets the world</h1>
-    <h3 class="lead">You are a scientist, an engineer or a student? Share your knowledge by writing engaging articles.</h3>
-    <% if user_signed_in? %>
-        <%= button_to "Start Writing", new_article_path, class: "btn btn-outline-light mt-4", :method => :get %>      
-    <% else %>
-        <%= button_to "Sign Up & Start Writing", new_user_registration_path, class: "btn btn-outline-light mt-4", :method => :get %>
-    <% end %>
+<% unless user_signed_in? %>
+  <div class="jumbotron jumbotron-fluid p-4">
+    <div class="container p-0" align="center">
+      <h1 class="display-4">Your research meets the world</h1>
+      <h3 class="lead">You are a scientist, an engineer or a student? Share your knowledge by writing engaging articles.</h3>
+      <% if user_signed_in? %>
+          <%= button_to "Start Writing", new_article_path, class: "btn btn-outline-light mt-4", :method => :get %>      
+      <% else %>
+          <%= button_to "Sign Up & Start Writing", new_user_registration_path, class: "btn btn-outline-light mt-4", :method => :get %>
+      <% end %>
+    </div>
   </div>
-</div>
+<% end %>
 <!--JUMBOTRON!-->
 
-<div class="container-fluid" style="max-width: 1400px">
+<!--FEED-->
+<section class="container" style="max-width: 1400px">
+  <div class="row">
+    <div class="col-md p-0">
+      <div class="row section-title align-items-end pb-3">
+        <div class="col-auto">LATEST ARTICLES</div>
+        <!--<div class="col section-title-sm">The State of the Art</div>-->
+      </div>
+      <% Article.order('created_at DESC').first(6).each do |article| %>
+        <%= render 'layouts/hcard_sm', article: article, class:"mb-2" %>
+      <% end %>
+    </div>
+    <div class="col-md-auto">
+      <div class="row section-title align-items-end pb-3 pl-3">
+        <div class="col-auto">TOPICS</div>
+        <!--<div class="col section-title-sm">The State of the Art</div>-->
+      </div>
+      <% @categories = Category.all %>
+      <% @categories.order(:name).each do |cat| %>
+        <div class="p-1 form-inline">
+          <% cat_icon = category_icon(Category.find(cat.id).name) %> <!--category_icon is a helper method inside application_helper-->
+          <% cat_icon_color = category_icon_color(Category.find(cat.id).name) %> <!--category_icon_color is a helper method inside application_helper-->
+          <%= button_to category_path(cat.id), method: :get, class:"btn btn-cat btn-outline-dark" do %>
+            <i class="<%= cat_icon %>" style="color:<%= cat_icon_color %>"></i>
+            <strong><%= Category.find(cat.id).name %></strong>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
+<!--FEED-->
+
+<!--FEED BY CATEGORY-->
+<div class="container p-0" style="max-width: 1400px">
   <div class="row section-title align-items-end pb-3">
     <div class="col-auto">LATEST ARTICLES</div>
     <!--<div class="col section-title-sm">The State of the Art</div>-->
@@ -97,7 +135,4 @@
     <% end %>
   </div>
 </div>
-
-<%#= link_to "UBM",  bookmark,  method: :delete, id: bookmark.id, data: { confirm: 'Are you sure?', remote: true }, class: "btn btn-danger btn-sm", role: "button" %> 
-<%# if Bookmark.find_by(:user_id => current_user.id, :article_id => article.id) == nil %>
-<%#= link_to "BM", bookmarks_path(:user_id => current_user.id, :article_id => article.id), :method => :post, class: "btn btn-primary btn-sm", role: "button" %>
+<!--FEED BY CATEGORY-->

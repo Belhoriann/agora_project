@@ -3,11 +3,14 @@
 // AJAX for updating the vote count and the icon for bookmarking
 
 // Get the id of the article unliked
-var unliked_article = $("#unlike_<%= @article.id %>");
+// var unliked_article = $("#unlike_<%= @article.id %>");
 
 // Go outside of the loops and div to find the place where the vote count is and update it
 // unliked_article.parent().parent().parent().find(".vote-count").html("Bookmarked <%= @article.votes_for.size.to_s %> times");
 
 // Replace the unbookmark button by the bookmark one
 //unliked_article.closest('.bookmarking').html('<%= button_to "Bookmark", bookmark_article_path(@article), remote: true, id: "like_#{@article.id}", method: :put, class: "btn btn-primary btn-sm" %>');
-unliked_article.closest('.bookmarking').html('<%= link_to bookmark_article_path(@article), remote: true, id: "like_#{@article.id}", data: {toggle:"tooltip", placement:"top"}, title:"Bookmark article", method: :put do %><i class="material-icons">bookmark_border</i><% end %>');
+// unliked_article.closest('.bookmarking').html('<%= link_to bookmark_article_path(@article), remote: true, id: "like_#{@article.id}", data: {toggle:"tooltip", placement:"top"}, title:"Bookmark article", method: :put do %><i class="material-icons">bookmark_border</i><% end %>');
+
+$('.bookmark-article-<%= @article.id %>').show();
+$('.unbookmark-article-<%= @article.id %>').hide();

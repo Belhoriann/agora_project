@@ -1,0 +1,30 @@
+<% if user_signed_in? %>
+  <% if current_user.liked? article, vote_scope: 'bookmark' %>
+    <div class="unbookmark-article-<%= article.id %>">
+      <%= link_to unbookmark_article_path(article), remote: true, data: {toggle:"tooltip", placement:"top"}, title:"Unbookmark article", method: :put do %>
+        <i class="material-icons">bookmark</i>
+      <% end %>
+    </div>
+    <div class="bookmark-article-<%= article.id %>" style="display: none;">
+      <%= link_to bookmark_article_path(article), remote: true, data: {toggle:"tooltip", placement:"top"}, title:"Bookmark article", method: :put do %>
+        <i class="material-icons">bookmark_border</i>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="unbookmark-article-<%= article.id %>" style="display: none;">
+      <%= link_to unbookmark_article_path(article), remote: true, data: {toggle:"tooltip", placement:"top"}, title:"Unbookmark article", method: :put do %>
+        <i class="material-icons">bookmark</i>
+      <% end %>
+    </div>
+    <div class="bookmark-article-<%= article.id %>">
+      <%= link_to bookmark_article_path(article), remote: true, data: {toggle:"tooltip", placement:"top"}, title:"Bookmark article", method: :put do %>
+        <i class="material-icons">bookmark_border</i>
+      <% end %>
+    </div>
+  <% end %>
+<% else %>
+  <%= link_to "", data: {toggle: "modal", target: "#modalSignup"} do %>
+    <i class="material-icons" data-toggle="tooltip" data-placement="top" title="Bookmark">bookmark_border</i>
+  <% end %>
+  <%= render 'layouts/modal_signup' %>
+<% end %>

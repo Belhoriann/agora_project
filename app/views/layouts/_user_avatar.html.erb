@@ -1,0 +1,5 @@
+<div class="p-1" align="center">
+  <%= link_to user_path(user.id, full_name: user.full_name) do %>
+    <%= image_tag(user.avatar.url(:thumb), class:"rounded-circle border border-secondary", style: "height: #{size}px; width: #{size}px;") %>
+  <% end %>
+</div>
