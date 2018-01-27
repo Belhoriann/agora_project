@@ -4,7 +4,7 @@
     <div class="card error-explanation">
       <ul class="list-group">
         <li class="list-group-item list-group-item-warning">
-          Your article contains <%= pluralize(@article.errors.count, "error") %>.
+          Your lacks <%= pluralize(@article.errors.count, "element") %>.
         </li>
       <% @article.errors.messages.values.each do |msg| %>
         <% msg.each do |m| %>

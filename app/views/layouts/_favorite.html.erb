@@ -1,0 +1,37 @@
+<% if user_signed_in? %>
+  <% if current_user.liked? @article, vote_scope: 'praise' %>
+    <div class="unfavorite-article-<%= @article.id %>">
+      <%= link_to downvote_article_path(@article), remote: true, data: {toggle:"tooltip", placement:"top"}, title:"Like Article", method: :put do %>
+        <i class="material-icons red p-1">favorite</i>
+      <% end %>
+    </div>
+    <div class="favorite-article-<%= @article.id %>" style="display: none;">
+      <%= link_to upvote_article_path(@article), remote: true, data: {toggle:"tooltip", placement:"top"}, title:"Like Article", method: :put do %>
+        <i class="material-icons red p-1">favorite_border</i>
+      <% end %>
+    </div>
+    <div class="praise-count">
+      <%= @article.find_votes_for(:vote_scope => "praise").size %>
+    </div>
+  <% else %>
+    <div class="favorite-article-<%= @article.id %>">
+      <%= link_to upvote_article_path(@article), remote: true, data: {toggle:"tooltip", placement:"top"}, title:"Like Article", method: :put do %>
+        <i class="material-icons red p-1">favorite_border</i>
+      <% end %>
+    </div>
+    <div class="unfavorite-article-<%= @article.id %>" style="display: none;">
+      <%= link_to downvote_article_path(@article), remote: true, data: {toggle:"tooltip", placement:"top"}, title:"Like Article", method: :put do %>
+        <i class="material-icons red p-1">favorite</i>
+      <% end %>
+    </div>
+    <div class="praise-count">
+      <%= @article.find_votes_for(:vote_scope => "praise").size.to_s %>
+    </div>
+  <% end %>
+<% else %>
+  <%= link_to "", data: {toggle: "modal", target: "#modalSignup"} do %>
+    <i class="material-icons red p-1" data-toggle="tooltip" data-placement="top" title="Like Article">favorite</i>
+  <% end %>
+  <div class="praise-count"><%= @article.find_votes_for(:vote_scope => 'praise').size.to_s %></div>
+  <%= render 'layouts/modal_signup' %>
+<% end %>

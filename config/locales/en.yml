@@ -33,3 +33,5 @@ en:
               blank: "Please right an article."
             category_id:
               blank: "Please choose a category."
+            thumbnail:
+              blank: "Please upload a thumbnail."

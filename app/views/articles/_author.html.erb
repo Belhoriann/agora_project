@@ -7,7 +7,6 @@
   <div>
     <div><%= link_to @user.full_name, user_path(@user.id, full_name: @user.full_name), class:"author" %></div>
     <p class="author-wp"><%= @user.work_place %></p>
-    <p class="author-wp"><%= @article.created_at.strftime("%B %d, %Y") %></p>
   </div>
   <div class="pl-4">
     <% if user_signed_in? %>

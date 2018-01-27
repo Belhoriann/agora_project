@@ -5,7 +5,7 @@
 <section>
   <%= render 'home/categories' %>
 </section>
-<section class="container p-0" style="max-width: 1400px">
+<section class="container" style="max-width: 1400px">
   <div class="row section-title align-items-end pb-2">
     <div class="col-auto">FEATURED</div>
     <!--<div class="col section-title-sm">Whet Your Curiosity</div>-->
@@ -44,22 +44,8 @@
     </div>
   </div>
 </section>
-<div class="container" style="max-width: 1400px;">
-  <div class="row section-title align-items-end pb-3">
-    <div class="col-auto">TRENDING</div>
-    <!--<div class="col section-title-sm">Popular articles</div>-->
-  </div>
-  <div class="row">
-    <%# Article.order(:cached_scoped_praise_votes_total => :desc).first(3).each do |article| %>
-    <% Article.order('cached_scoped_praise_votes_total + comments_count DESC').first(3).each do |article| %>
-      <div class="col-lg pb-2">
-        <%= render 'layouts/vcard_trending', article: article %>    
-      </div>
-    <% end %>
-  </div>
-</div>    
 
-<br><br />
+<br>
 
 <!--JUMBOTRON!-->
 <% unless user_signed_in? %>
@@ -80,7 +66,7 @@
 <!--FEED-->
 <section class="container" style="max-width: 1400px">
   <div class="row">
-    <div class="col-md p-0">
+    <div class="col-md">
       <div class="row section-title align-items-end pb-3">
         <div class="col-auto">LATEST ARTICLES</div>
         <!--<div class="col section-title-sm">The State of the Art</div>-->
@@ -90,7 +76,7 @@
       <% end %>
     </div>
     <div class="col-md-auto">
-      <div class="row section-title align-items-end pb-3 pl-3">
+      <div class="row section-title align-items-end pb-3 pl-2">
         <div class="col-auto">TOPICS</div>
         <!--<div class="col section-title-sm">The State of the Art</div>-->
       </div>
@@ -101,7 +87,7 @@
           <% cat_icon_color = category_icon_color(Category.find(cat.id).name) %> <!--category_icon_color is a helper method inside application_helper-->
           <%= button_to category_path(cat.id), method: :get, class:"btn btn-cat btn-outline-dark" do %>
             <i class="<%= cat_icon %>" style="color:<%= cat_icon_color %>"></i>
-            <strong><%= Category.find(cat.id).name %></strong>
+            <span class="author"><%= Category.find(cat.id).name %></span>
           <% end %>
         </div>
       <% end %>
@@ -111,7 +97,7 @@
 <!--FEED-->
 
 <!--FEED BY CATEGORY-->
-<div class="container p-0" style="max-width: 1400px">
+<div class="container" style="max-width: 1400px">
   <div class="row section-title align-items-end pb-3">
     <div class="col-auto">LATEST ARTICLES</div>
     <!--<div class="col section-title-sm">The State of the Art</div>-->

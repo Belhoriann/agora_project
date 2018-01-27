@@ -1,5 +1,5 @@
 <div class="card card-featured mb-2">
-  <%= link_to image_tag("//placehold.it/720x350", class:"thumb-featured-lg img-fluid"), article_path(article) %>
+  <%= link_to image_tag(article.thumbnail.url(:large), class:"thumb-featured-lg img-fluid"), article_path(article) %>
   <div class="card-body">
     <div class="row">
       <small class="col text-muted">

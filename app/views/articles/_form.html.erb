@@ -21,7 +21,7 @@
     tinymce.remove();
     tinymce.init({
         selector: 'textarea',
-        height : 300,
+        height : 400,
         menubar: false,
         branding: false,
         browser_spellcheck : true,
@@ -46,15 +46,28 @@
   
   <br>
   
-  <div class="d-flex justify-content-center">
-    <%= select_tag(:category_id, options_for_select(@categories), :prompt => "Select Category", class: "custom-select") %>
-    <button type="submit" class="btn btn-primary ml-3">Publish</button>
-    <%= f.text_field :user_id, value: current_user.id, type: "hidden" %>
-    <%#= f.text_field :author, value: current_user.full_name, type: "hidden" %>
-    <%#= f.text_field :author_work_place, value: current_user.work_place, type: "hidden" %>
+  <div class="form-row">
+    <div class="col-auto author-sm mx-auto pb-2">For your article to be published, you have to associate it with a topic and a thumbnail.</div>
+    <div class="form-group col-md-6">
+      <div>
+        <%= select_tag(:category_id, options_for_select(@categories.sort), :prompt => "Select Topic", class: "custom-select") %>
+      </div>
+    </div>
+      
+    <div class="form-group col-md-6">
+      <%= f.file_field :thumbnail, class:"form-group custom-file" %>
+      <span class="custom-file-control"></span>
+    </div>
   </div>
   
-  <br></br>
+  <div class="row">
+  <button type="submit" class="btn btn-primary mx-auto">Publish</button>
+  </div>
+  <%= f.text_field :user_id, value: current_user.id, type: "hidden" %>
+  <%#= f.text_field :author, value: current_user.full_name, type: "hidden" %>
+  <%#= f.text_field :author_work_place, value: current_user.work_place, type: "hidden" %>
+  
+  <br>
   
   <%= render "articles/error" %>
 

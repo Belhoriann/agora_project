@@ -6,7 +6,7 @@
 var downvoted_article = $(".unfavorite-article-<%= @article.id %>");
 
 // Go outside of the loops and div to find the place where the vote count is and update it
-downvoted_article.parent().parent().find(".praise-count").html("<%= @article.votes_for(:vote_scope => 'praise').size.to_s %>");
+downvoted_article.parent().parent().find(".praise-count").html("<%= @article.find_votes_for(:vote_scope => 'praise').size.to_s %>");
 
 // Hide and show the right div with the class "favorite-article-<%= @article.id %>"
 $('.favorite-article-<%= @article.id %>').show();

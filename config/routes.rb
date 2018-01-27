@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   get 'home/index'
   get 'home/collection'
   get 'home/bookmarks'
+  get 'search/results'
 
   resources :articles do 
     resources :comments

@@ -1,0 +1,42 @@
+<div class="d-flex align-items-center">
+  <% if @user.avatar != nil %>
+  <div class="pr-2">
+    <%= render 'layouts/user_avatar', user: @user, size: 60 %>
+  </div>
+  <% end %>
+  <div>
+    <%= link_to user_path(@user.id, full_name: @user.full_name), class:"d-flex align-items-end pb-2" do %>
+      <div class="author"><%= @user.full_name %></div>
+      <div class="author-wp">&nbsp-&nbsp<%= @user.work_place %></div>
+    <% end %>
+    <div class="author-wp">Bio:&nbsp<%= @user.headline %></div>
+  </div>
+  <div class="pl-4">
+    <% if user_signed_in? %>
+      <% unless current_user == @user %>
+        <% if current_user.liked? @user, vote_scope: 'following' %>
+          <div class="col-sm-auto follow-profile pt-1 unfollow-button">
+            <%= link_to "Following", unfollow_user_path(@user), remote: true, class:"btn btn-sm btn-info", method: :put %>
+          </div>
+          <div class="col-sm-auto follow-profile pt-1 follow-button" style="display:none">
+            <%= link_to "Follow", follow_user_path(@user), remote: true, class:"btn btn-sm btn-outline-info", method: :put %>
+          </div>
+        <% else %>
+          <div class="col-sm-auto follow-profile pt-1 follow-button">
+            <%= link_to "Follow", follow_user_path(@user), remote: true, class:"btn btn-sm btn-outline-info", method: :put %>
+          </div>
+          <div class="col-sm-auto follow-profile pt-1 unfollow-button" style="display:none">
+            <%= link_to "Following", unfollow_user_path(@user), remote: true, class:"btn btn-sm btn-info", method: :put %>
+          </div>
+        <% end %>
+      <% end %>
+    <% else %>
+      <div class="col-sm-auto follow-profile pt-1">
+      <%= link_to "", data: {toggle: "modal", target: "#modalSignup"} do %>
+        <button type="button" class="btn btn-sm btn-outline-info">Follow</button>
+      <% end %>
+      </div>
+      <%= render 'layouts/modal_signup' %>
+    <% end %>
+  </div>
+</div>

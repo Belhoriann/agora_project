@@ -1,23 +1,32 @@
-<div id="navscroll" style="height: 60px"> <!-- id "navscroll" is used in navbar.js for hide/show logic -->
-  <nav id="mainnavbar" class="navbar fixed-top navbar-expand navbar-light navbar-white"> <!-- id "banner" is used in navbar.js for hide/show logic -->
+<div id="navscroll" style="height: 50px"> <!-- id "navscroll" is used in navbar.js for hide/show logic -->
+  <nav id="mainnavbar" class="navbar fixed-top navbar-expand navbar-light navbar-white d-flex justify-content-between align-items-center" style="height: 55px"> <!-- id "banner" is used in navbar.js for hide/show logic -->
     <div id="banner" class="container p-0" style="max-width: 1400px">
       <div>
         <%= link_to "AGORA", root_path, class: "navbar-brand" %>
       </div>  
-      <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
-        <!--<span class="navbar-toggler-icon"></span>-->
-      <!--</button>-->
-      <!--<div class="collapse navbar-collapse" id="navbarSupportedContent">-->
-        <ul class="d-flex flex-row navbar-nav ml-auto align-items-center">
-          <li class="nav-item">
-            <%= link_to categories_path, class: "nav-link", data: {toggle:"tooltip", placement:"bottom"}, title:"Topics" do %>
-              <i class="material-icons p-1">apps</i>
-            <% end %>
-          </li>
+      <div>
+        <%= form_tag(search_results_path, :method => "get", id: "search-form") do %>
+          <div class="input-group input-group-sm">
+          <%#= text_field_tag :search, params[:search], placeholder: "Search...", class:"form-control" %>
+          <%= text_field_tag :q, params[:q], placeholder: "Search...", class:"form-control" %>
+          <span class="input-group-btn">
+             <%= button_tag "", class:"btn btn-secondary p-1", :name => nil do %>
+                <i class="material-icons" style="color: white; vertical-align: bottom">search</i>
+             <% end %> 
+           </span>
+          </div>
+        <% end %>
+      </div>
+      <ul class="navbar-nav d-flex flex-row align-items-center">
+        <!--<li class="nav-item">-->
+          <%#= link_to categories_path, class: "nav-link", data: {toggle:"tooltip", placement:"bottom"}, title:"Topics" do %>
+            <!--<i class="material-icons p-1">apps</i>-->
+          <%# end %>
+        <!--</li>-->
         <% if user_signed_in? %>
           <%= link_to "Write", new_article_path, class: "btn btn-sm btn-outline-success m-2" %>
           <li class="dropdown">
-            <ul class="navbar-nav p-2">
+            <ul class="navbar-nav p-1">
               <li class="dropdown-toggle profile-picture-navbar"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
                 <%= image_tag(current_user.avatar.url(:thumb)) %>
               </li>
@@ -51,44 +60,43 @@
             </ul>
           </li>
         <% else %>
-        <div class="dropdown">
-          <button class="dropdown-toggle btn btn-sm btn-outline-primary" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
-            Login
-          </button>
-          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-            <div class="dropdown-menu dropdown-menu-right pb-0" aria-labelledby="navbarDropdown" style="width: 15em;">
-              <form class="form-group">
-                <div class="px-2">
-                  <%= f.email_field :email, autofocus: true, class: "form-control form-control-sm mb-2", placeholder: "Email" %>
-                </div>
-                <div class="px-2">
-                  <%= f.password_field :password, autocomplete: "off", class: "form-control form-control-sm", placeholder: "Password" %>
-                </div>
-                <div class="form-check pt-2 px-2">
-                  <button type="submit" class="btn btn-sm btn-primary">Sign in</button>
-                  <label class="form-check-label pl-2">
-                    <% if devise_mapping.rememberable? %>
-                    <div class="form-check">
-                      <%= f.check_box :remember_me %>
-                      <%= f.label :remember_me, class:"author-sm" %>
-                    </div>
-                  <% end %>
-                  </label>
-                </div>
-              </form>
-              <div class="card-footer p-2" align="center">
-                <div>
-                  <%= link_to "Forgot your password?", new_password_path(resource_name), class:"author-sm" %><br />
-                  <%= link_to "Create Account", new_registration_path(resource_name), class:"author-sm" %><br />
+          <div class="dropdown">
+            <button class="dropdown-toggle btn btn-sm btn-outline-primary" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+              Login
+            </button>
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+              <div class="dropdown-menu dropdown-menu-right pb-0" aria-labelledby="navbarDropdown" style="width: 15em;">
+                <form class="form-group">
+                  <div class="px-2">
+                    <%= f.email_field :email, autofocus: true, class: "form-control form-control-sm mb-2", placeholder: "Email" %>
+                  </div>
+                  <div class="px-2">
+                    <%= f.password_field :password, autocomplete: "off", class: "form-control form-control-sm", placeholder: "Password" %>
+                  </div>
+                  <div class="form-check pt-2 px-2">
+                    <button type="submit" class="btn btn-sm btn-primary">Sign in</button>
+                    <label class="form-check-label pl-2">
+                      <% if devise_mapping.rememberable? %>
+                      <div class="form-check">
+                        <%= f.check_box :remember_me %>
+                        <%= f.label :remember_me, class:"author-sm" %>
+                      </div>
+                    <% end %>
+                    </label>
+                  </div>
+                </form>
+                <div class="card-footer p-2" align="center">
+                  <div>
+                    <%= link_to "Forgot your password?", new_password_path(resource_name), class:"author-sm" %><br />
+                    <%= link_to "Create Account", new_registration_path(resource_name), class:"author-sm" %><br />
+                  </div>
                 </div>
               </div>
-            </div>
           </div>
           <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-outline-success btn-sm ml-2" %>
           <% end %>
-          <% end %>
-        </ul>
-      <!--</div>-->
+        <% end %>
+      </ul>
     </div>
   </nav>
 </div>

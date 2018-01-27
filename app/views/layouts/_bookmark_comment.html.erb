@@ -2,29 +2,29 @@
   <% if current_user.liked? comment, vote_scope: 'bookmark_comment' %>
     <div class="unbookmark-comment-<%= comment.id %>">
       <%= link_to unbookmark_comment_path(comment), remote: true, data: {toggle:"tooltip", placement:"top"}, title:"Unbookmark comment", method: :put do %>
-        <i class="material-icons">bookmark</i>
+        <i class="material-icons bookmark">bookmark</i>
       <% end %>
     </div>
     <div class="bookmark-comment-<%= comment.id %>" style="display: none;">
       <%= link_to bookmark_comment_path(comment), remote: true, data: {toggle:"tooltip", placement:"top"}, title:"Bookmark comment", method: :put do %>
-        <i class="material-icons">bookmark_border</i>
+        <i class="material-icons bookmark">bookmark_border</i>
       <% end %>
     </div>
   <% else %>
     <div class="unbookmark-comment-<%= comment.id %>" style="display: none;">
       <%= link_to unbookmark_comment_path(comment), remote: true, data: {toggle:"tooltip", placement:"top"}, title:"Unbookmark comment", method: :put do %>
-        <i class="material-icons">bookmark</i>
+        <i class="material-icons bookmark">bookmark</i>
       <% end %>
     </div>
     <div class="bookmark-comment-<%= comment.id %>">
       <%= link_to bookmark_comment_path(comment), remote: true, data: {toggle:"tooltip", placement:"top"}, title:"Bookmark comment", method: :put do %>
-        <i class="material-icons">bookmark_border</i>
+        <i class="material-icons bookmark">bookmark_border</i>
       <% end %>
     </div>
   <% end %>
 <% else %>
   <%= link_to "", data: {toggle: "modal", target: "#modalSignup"} do %>
-    <div data-toggle="tooltip" data-placement="top" title="Bookmark"><i class="material-icons">bookmark_border</i></div>
+    <div data-toggle="tooltip" data-placement="top" title="Bookmark"><i class="material-icons bookmark">bookmark_border</i></div>
   <% end %>
   <%= render 'layouts/modal_signup' %>
 <% end %>

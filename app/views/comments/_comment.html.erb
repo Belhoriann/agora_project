@@ -1,5 +1,5 @@
 <div class="card mb-3">
-  <div class="card-header p-2">
+  <div class="card-header p-2" style="border-left: 2px solid blue">
     <% commenter = User.find_by(id: comment.user_id) %>
     <% if commenter != nil %> 
       <div class="d-flex flex-row p-0 align-items-center">
@@ -19,7 +19,7 @@
     <%= comment.body %>
   </div>
   
-  <div class="card-footer p-1 bg-tran text-right">
+  <div class="card-footer p-1 bg-transparent text-right">
     <% if user_signed_in? %>
       <% if current_user.id == comment.user_id or current_user.admin? %>
         <small><%= link_to "Edit", edit_article_comment_path(@article, comment) %></small>
@@ -31,8 +31,8 @@
       <div class="collapse mt-3" id="<%= comment.id %>">
         <% if user_signed_in? %>
           <%= form_for [comment, Comment.new] do |f| %>
-          <%= f.text_area :body, placeholder: "Add a Reply", class: "form-control mb-3" %>
-          <%= f.submit "Post Reply", class:"btn btn-success"  %>
+          <%= f.text_area :body, placeholder: "Add a Reply", class: "form-control mb-2" %>
+          <%= f.submit "Post Reply", class:"btn btn-sm btn-success"  %>
           <%= f.text_field :user_id, value: current_user.id, type: "hidden" %>
           <%= f.text_field :article_id, value: comment.article_id, type: "hidden" %>
           <% end %>

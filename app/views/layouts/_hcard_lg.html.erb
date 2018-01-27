@@ -1,59 +1,59 @@
 <div class="card mb-3" style="min-width: 100%">
   <div class="row">
     <div class="col-md p-0">
-    <%= link_to image_tag("//placehold.it/720x350", class:"thumb-bookmark img-fluid"), article_path(article) %>
+      <%= link_to image_tag(article.thumbnail.url(:large), class:"thumb-featured-lg img-fluid"), article_path(article) %>
     </div>
-  <div class="col-md-8">
-    <div class="d-flex flex-column">
-      <div class="form-inline pl-2 pt-2 pr-2 pb-0">
-        <small class="text-muted">
-          <i class="far fa-clock"></i>
-          <%= article.created_at.strftime("%B %d, %Y") %> -
-          <% cat_icon = category_icon(Category.find(article.category_id).name) %>
-          <% cat_icon_color = category_icon_color(Category.find(article.category_id).name) %>
-          <i class="<%= cat_icon %>" style="color:<%= cat_icon_color %>"></i>
-          <%= link_to Category.find(article.category_id).name, category_path(article.category_id) %>
-          <% if user_signed_in? && current_user.id == article.user_id %>
-            | <%= link_to "Edit", edit_article_path(article) %>
-          <% end %>
-        </small>
-        <div class="bm-icon-cat ml-auto">
-          <%= render 'layouts/bookmark', article: article %>
-        </div>    
-      </div>  
-      <div class="d-flex flex-column p-2">
-        <%= link_to article_path(article), class: "card-link" do %>
-          <div class="card-title"><%= article.title %></div>
-          <div class="card-subtitle"><%= article.sub_title %></div>
-        <% end %>
-      </div>
-      <div class="card-article-body p-2 mb-2">
-        <%= truncate strip_tags(article.body), length: 200 %>
-        <%= link_to 'Read more', article_path(article) %> 
-      </div>
-      <div class="d-flex flex-row align-items-center pt-2">
-        <div class="p-2">
-          <% @user = User.find_by(id: article.user_id) %>
-          <%= link_to user_path(article.user_id, full_name: article.author) do %>
-            <%= render 'layouts/user_avatar', user: @user, size: 60 %>
-          <% end %>
-        </div>
-        <div class="align-items-middle">
-          <div><%= link_to article.author, user_path(article.user_id, full_name: article.author), class:"author" %></div>
-          <p class="author-wp"><%= article.author_work_place %></p>
-        </div>
-        <div class="ml-auto p-2">
-          <div>
-            <i class="fas fa-heart"></i>
-            <small class="pr-2 vote-count"><%= article.find_votes_for(:vote_scope => 'praise').size.to_s %></small>
+    <div class="col-md-8">
+      <div class="d-flex flex-column">
+        <div class="form-inline p-2">
+          <div class="date-sm">
+            <i class="far fa-clock"></i>
+            <%= article.created_at.strftime("%B %d, %Y") %> -
+            <% cat_icon = category_icon(Category.find(article.category_id).name) %>
+            <% cat_icon_color = category_icon_color(Category.find(article.category_id).name) %>
+            <i class="<%= cat_icon %>" style="color:<%= cat_icon_color %>"></i>
+            <%= link_to Category.find(article.category_id).name, category_path(article.category_id) %>
+            <% if user_signed_in? && current_user.id == article.user_id %>
+              | <%= link_to "Edit", edit_article_path(article) %>
+            <% end %>
           </div>
-          <div>
-            <i class="fas fa-comment-alt"></i>
-            <small class="pr-2 vote-count"><%= comment_count(article) %></small>
-          </div> 
+          <div class="bm-icon-cat ml-auto">
+            <%= render 'layouts/bookmark', article: article %>
+          </div>    
+        </div>  
+        <div class="d-flex flex-column p-2">
+          <%= link_to article_path(article), class: "card-link" do %>
+            <div class="card-title"><%= article.title %></div>
+            <div class="card-subtitle"><%= article.sub_title %></div>
+          <% end %>
+        </div>
+        <div class="card-article-body p-2 mb-2">
+          <%= truncate strip_tags(article.body), length: 200 %>
+          <%= link_to 'Read more', article_path(article) %> 
+        </div>
+        <div class="d-flex flex-row align-items-center pt-2">
+          <div class="p-2">
+            <% @user = User.find_by(id: article.user_id) %>
+            <%= link_to user_path(article.user_id, full_name: article.author) do %>
+              <%= render 'layouts/user_avatar', user: @user, size: 60 %>
+            <% end %>
+          </div>
+          <div class="align-items-center">
+            <div><%= link_to @user.full_name, user_path(article.user_id, full_name: @user.full_name), class:"author" %></div>
+            <p class="author-wp"><%= article.author_work_place %></p>
+          </div>
+          <div class="ml-auto p-2">
+            <div>
+              <i class="fas fa-heart"></i>
+              <small class="pr-2 vote-count"><%= article.find_votes_for(:vote_scope => 'praise').size.to_s %></small>
+            </div>
+            <div>
+              <i class="fas fa-comment-alt"></i>
+              <small class="pr-2 vote-count"><%= comment_count(article) %></small>
+            </div> 
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </div>

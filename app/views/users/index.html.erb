@@ -1,2 +1,7 @@
-<h1>Users#index</h1>
-<p>Find me in app/views/users/index.html.erb</p>
+<% if @users.blank? %>
+  <h4>There are no user containing the term <%= params[:search] %>.</h4>
+<% end %>
+
+<br>
+
+<!-- <%= link_to 'New user', new_user_path %> -->

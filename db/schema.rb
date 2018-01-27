@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180123001451) do
+ActiveRecord::Schema.define(version: 20180126152518) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
@@ -37,6 +37,10 @@ ActiveRecord::Schema.define(version: 20180123001451) do
     t.integer  "cached_weighted_praise_total",     default: 0
     t.float    "cached_weighted_praise_average",   default: 0.0
     t.integer  "comments_count",                   default: 0,   null: false
+    t.string   "thumbnail_file_name"
+    t.string   "thumbnail_content_type"
+    t.integer  "thumbnail_file_size"
+    t.datetime "thumbnail_updated_at"
     t.index ["cached_scoped_praise_votes_down"], name: "index_articles_on_cached_scoped_praise_votes_down"
     t.index ["cached_scoped_praise_votes_score"], name: "index_articles_on_cached_scoped_praise_votes_score"
     t.index ["cached_scoped_praise_votes_total"], name: "index_articles_on_cached_scoped_praise_votes_total"

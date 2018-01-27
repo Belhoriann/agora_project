@@ -8,6 +8,12 @@ class ArticlesController < ApplicationController
   def index
     @articles = Article.all
     @categories = Category.all
+    
+    if params[:search]
+      @articles = Article.search(params[:search]).order("created_at DESC")
+    else
+      @articles = Article.all.order("created_at DESC")
+    end
   end
 
   # GET /articles/1
@@ -121,7 +127,7 @@ class ArticlesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def article_params
-      params.require(:article).permit(:title, :sub_title, :body, :author, :author_work_place, :user_id, :category_id)
+      params.require(:article).permit(:title, :sub_title, :body, :author, :author_work_place, :user_id, :category_id, :thumbnail)
     end
     
     def correct_user
