@@ -1,0 +1,26 @@
+// Code for the author avatar image and name
+.profile-picture {
+    background-color: white;
+    border: 1px solid #d9d9d9;
+    border-radius: 30px;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    height: 60px;
+    width: 60px;
+    overflow: hidden;
+    text-align: center;
+    img { width: 100% }
+}
+
+.profile-picture-navbar {
+    background-color: white;
+    border: 1px solid #d9d9d9;
+    border-radius: 20px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    height: 45px;
+    width: 45px;
+    overflow: hidden;
+    text-align: center;
+    img { width: 100% }
+}

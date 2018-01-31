@@ -1,10 +1,32 @@
+<script>
+  $(document).ready(function() {
+    // Set the height of the col containing the thumbnail to the height of the card body (flex-column)
+    if($(window).innerWidth() > 768) {
+      $('#hcard-sm-img-<%= article.id %>')[0].style.height = $('#hcard-sm-body-<%= article.id %>').height() + 'px';
+    }
+    // Dynamicaly change the height of the col depending of the window width
+    var width = $(window).width();
+    $(window).on('resize', function() {
+      if ($(this).width() != width) {
+        width = $(this).width();
+      }
+      if(width > 768) {
+        $('#hcard-sm-img-<%= article.id %>')[0].style.height = $('#hcard-sm-body-<%= article.id %>').height() + 'px';
+      }
+      else {
+        $('#hcard-sm-img-<%= article.id %>')[0].style.height = "150px";
+      }
+    });
+  });
+</script>
+
 <div class="card mb-3" style="min-width: 100%;">
   <div class="row">
-    <div class="col-lg-4 p-0" style="max-height: 240px">
+    <div id="hcard-sm-img-<%= article.id %>" class="col-lg-4 p-0" style="">
       <%= link_to image_tag(article.thumbnail.url(:large), class:"thumb-featured-lg img-fluid"), article_path(article) %>
     </div>
     <div class="col-lg">
-      <div class="d-flex flex-column">
+      <div id="hcard-sm-body-<%= article.id %>" class="d-flex flex-column">
         <div class="form-inline p-2">
           <div class="date-sm">
             <i class="far fa-clock"></i>

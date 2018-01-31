@@ -1,6 +1,6 @@
 /* global $ */
 
-$(document).ready(function() {
+$(document).on('turbolinks:load', function() {
   var banner_height = $("#banner").height();
   var navbar = $("#mainnavbar");
   var lastScrollTop = 0;

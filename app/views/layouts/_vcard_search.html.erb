@@ -1,0 +1,51 @@
+<div class="card mb-3">
+  <%= link_to image_tag(article.thumbnail.url(:large), class:"thumbnail-sm img-fluid"), article_path(article) %>
+  <div class="card-body p-3">
+    <div class="row">
+      <small class="col text-muted">
+        <% cat_icon = category_icon(Category.find(article.category_id).name) %>
+        <% cat_icon_color = category_icon_color(Category.find(article.category_id).name) %>
+        <i class="<%= cat_icon %>" style="color:<%= cat_icon_color %>"></i>
+        <%= link_to Category.find(article.category_id).name, category_path(article.category_id) %>
+        <% if user_signed_in? && current_user.id == article.user_id %>
+          | <%= link_to "Edit", edit_article_path(article) %>
+        <% end %>
+      </small>
+      <%#= article.cached_votes_total %>
+      <div class="col-2 bookmarking" align="right">
+        <%= render 'layouts/bookmark', article: article %>
+      </div> 
+    </div>
+    <%= link_to article_path(article), class: "card-link" do %>
+      <div class="card-title"><%= article.title %></div>
+      <div class="card-subtitle pb-0"><%= article.sub_title %></div>
+    <% end %>
+  </div>
+  
+  <div class="d-flex flex-row justify-content-end p-2">
+    <div class="">
+      <i class="fas fa-heart" data-toggle="tooltip" data-placement="top" title="Likes"></i>
+      <small class="pr-2 vote-count"><%= article.find_votes_for(:vote_scope => 'praise').size.to_s %></small>
+    </div>
+    <div class="">
+      <i class="fas fa-comment-alt" data-toggle="tooltip" data-placement="top" title="Comments"></i>
+      <small class="pr-2 vote-count"><%= comment_count(article) %></small>
+    </div> 
+  </div>
+  <div class="card-footer bg-transparent pb-1 pt-1">
+    <div class="d-flex align-items-center">
+      <% author = User.find_by(id: article.user_id) %>
+      <% if author.avatar != nil %>
+      <div class="pr-2">
+        <%= link_to user_path(article.user_id, full_name: article.author) do %>
+            <%= render 'layouts/user_avatar', user: author, size: 40 %>
+          <% end %>
+      </div>
+      <% end %>
+      <div class="pb-1">
+        <%= link_to author.full_name, user_path(article.user_id, full_name: author.full_name), class:"author-sm" %>
+        <div class="author-wp-sm"><%= author.work_place %></div>
+      </div>
+    </div>
+  </div>
+</div>

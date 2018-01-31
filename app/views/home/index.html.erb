@@ -6,9 +6,8 @@
   <%= render 'home/categories' %>
 </section>
 <section class="container" style="max-width: 1400px">
-  <div class="row section-title align-items-end pb-2">
-    <div class="col-auto">FEATURED</div>
-    <!--<div class="col section-title-sm">Whet Your Curiosity</div>-->
+  <div class="d-flex section-title align-items-center">
+    <i class="material-icons pr-1">stars</i>FEATURED
   </div>
   <div class="row" style="height: 100%">
     <div class="col-lg-4" style="padding: 10px">
@@ -19,25 +18,33 @@
     <div class="col-md">
       <div class="row">
         <div class="col-sm" style="padding: 10px">
-          <% Article.order(:cached_scoped_praise_votes_total => :desc).sample(1).each do |article| %>
+         <% Article.order(:cached_scoped_praise_votes_total => :desc).each do |article| %>
+           <% if Article.offset((Date.today - Date.new(1970, 1, 1)).to_i % Article.count).first == article %>
             <%= render 'layouts/vcard_featured_compact', article: article %>  
+            <% end %>
           <% end %>
         </div>
         <div class="col-sm" style="padding: 10px">
-          <% Article.order(:cached_scoped_praise_votes_total => :desc).sample(1).each do |article| %>
-            <%= render 'layouts/vcard_featured_compact', article: article %>  
+          <% Article.order(:cached_scoped_praise_votes_total => :desc).each do |article| %>
+            <% if Article.offset((Date.today - Date.new(1971, 1, 1)).to_i % Article.count).first == article %>
+              <%= render 'layouts/vcard_featured_compact', article: article %>  
+            <% end %>
           <% end %>
         </div>
       </div>
       <div class="row p-0">
         <div class="col-sm" style="padding: 10px">
-          <% Article.order(:cached_scoped_praise_votes_total => :desc).sample(1).each do |article| %>
-            <%= render 'layouts/vcard_featured_compact', article: article %>  
+          <% Article.order(:cached_scoped_praise_votes_total => :desc).each do |article| %>
+            <% if Article.offset((Date.today - Date.new(1972, 1, 1)).to_i % Article.count).first == article %>
+              <%= render 'layouts/vcard_featured_compact', article: article %>  
+            <% end %>
           <% end %>
         </div>
         <div class="col-sm" style="padding: 10px">
-          <% Article.order(:cached_scoped_praise_votes_total => :desc).sample(1).each do |article| %>
-            <%= render 'layouts/vcard_featured_compact', article: article %>  
+          <% Article.order(:cached_scoped_praise_votes_total => :desc).each do |article| %>
+            <% if Article.offset((Date.today - Date.new(1973, 1, 1)).to_i % Article.count).first == article %>
+              <%= render 'layouts/vcard_featured_compact', article: article %>  
+            <% end %>
           <% end %>
         </div>
       </div>
@@ -67,18 +74,16 @@
 <section class="container" style="max-width: 1400px">
   <div class="row">
     <div class="col-md">
-      <div class="row section-title align-items-end pb-3">
-        <div class="col-auto">LATEST ARTICLES</div>
-        <!--<div class="col section-title-sm">The State of the Art</div>-->
+      <div class="d-flex section-title align-items-center">
+        <i class="material-icons pr-1">new_releases</i>LASTEST
       </div>
       <% Article.order('created_at DESC').first(6).each do |article| %>
         <%= render 'layouts/hcard_sm', article: article, class:"mb-2" %>
       <% end %>
     </div>
-    <div class="col-md-auto">
-      <div class="row section-title align-items-end pb-3 pl-2">
-        <div class="col-auto">TOPICS</div>
-        <!--<div class="col section-title-sm">The State of the Art</div>-->
+    <div class="col-md-auto pl-0">
+      <div class="d-flex section-title align-items-center pl-2">
+        <i class="material-icons pr-1">apps</i>TOPICS
       </div>
       <% @categories = Category.all %>
       <% @categories.order(:name).each do |cat| %>
@@ -87,7 +92,7 @@
           <% cat_icon_color = category_icon_color(Category.find(cat.id).name) %> <!--category_icon_color is a helper method inside application_helper-->
           <%= button_to category_path(cat.id), method: :get, class:"btn btn-cat btn-outline-dark" do %>
             <i class="<%= cat_icon %>" style="color:<%= cat_icon_color %>"></i>
-            <span class="author"><%= Category.find(cat.id).name %></span>
+            <strong style="font-size: 16px"><%= Category.find(cat.id).name.upcase %></strong>
           <% end %>
         </div>
       <% end %>
@@ -95,30 +100,3 @@
   </div>
 </section>
 <!--FEED-->
-
-<!--FEED BY CATEGORY-->
-<div class="container" style="max-width: 1400px">
-  <div class="row section-title align-items-end pb-3">
-    <div class="col-auto">LATEST ARTICLES</div>
-    <!--<div class="col section-title-sm">The State of the Art</div>-->
-  </div>
-  <div class="row justify-content-center">
-    <% @categories = Category.all %>
-    <% @categories.order(:name).each do |cat| %>
-      <div class="col-lg-6">
-        <div class="p-1 form-inline">
-          <% cat_icon = category_icon(Category.find(cat.id).name) %> <!--category_icon is a helper method inside application_helper-->
-          <% cat_icon_color = category_icon_color(Category.find(cat.id).name) %> <!--category_icon_color is a helper method inside application_helper-->
-          <%= button_to category_path(cat.id), method: :get, class:"btn btn-cat btn-outline-dark" do %>
-          <i class="<%= cat_icon %>" style="color:<%= cat_icon_color %>"></i>
-          <strong><%= Category.find(cat.id).name %></strong>
-          <% end %>
-        </div>
-      <% Article.where(category_id: cat.id).each do |article| %>
-        <%= render 'layouts/hcard_sm', article: article %>
-      <% end %>
-      </div> 
-    <% end %>
-  </div>
-</div>
-<!--FEED BY CATEGORY-->

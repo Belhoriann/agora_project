@@ -15,7 +15,6 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
 
-
 body { 
     //font-family: 'Vollkorn', serif!important;
     //font-family: 'Lato', sans-serif!important;
@@ -42,9 +41,10 @@ body {
 // Sur le site entier - Font-size de référence pour les valeurs en "em"
 html {
     font-size: 20px;
+    overflow-y: scroll;
 
     @media screen and (max-width: 580px) {
-        font-size: 14px;
+        font-size: 18px;
     }
 }
 
@@ -52,11 +52,7 @@ html {
     font-size: 1.5em;
     line-height: 1em;
     padding-top: 30px;
-    padding-bottom: 30px;
-
-    @media screen and (max-width: 580px) {
-        font-size: 20px;
-    }
+    padding-bottom: 10px;
 }
 
 .section-title-sm {
@@ -64,10 +60,6 @@ html {
     line-height: 0.9em;
     padding-top: 20px;
     padding-bottom: 20px;
-    
-    @media screen and (max-width: 580px) {
-        font-size: 14px;
-    }
 }
 
 // List of item without border
@@ -78,29 +70,16 @@ html {
     }
 }
 
-// Code for the author avatar image and name
-.profile-picture {
-    background-color: white;
-    border: 1px solid #d9d9d9;
-    border-radius: 30px;
-    -moz-border-radius: 30px;
-    -webkit-border-radius: 30px;
-    height: 60px;
-    width: 60px;
-    overflow: hidden;
-    text-align: center;
-    img { width: 100% }
+// Placeholder text color
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #e9e9e9!important;
 }
-
-.profile-picture-navbar {
-    background-color: white;
-    border: 1px solid #d9d9d9;
-    border-radius: 20px;
-    -moz-border-radius: 20px;
-    -webkit-border-radius: 20px;
-    height: 45px;
-    width: 45px;
-    overflow: hidden;
-    text-align: center;
-    img { width: 100% }
+::-moz-placeholder { /* Firefox 19+ */
+  color: #e9e9e9!important;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #e9e9e9!important;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: #e9e9e9!important;
 }

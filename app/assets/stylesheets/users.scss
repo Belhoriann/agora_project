@@ -3,9 +3,9 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .author-profile {
-    font-size: 2em;
+    font-size: 1.6em;
     font-weight: bold;
-    line-height: 1.3em;
+    line-height: 1.2em;
     
     @media screen and (max-width: 580px) {
         text-align: center;
@@ -14,9 +14,8 @@
 
 .author-wp-profile {
     color: grey;
-    font-weight: bold;
     font-size: 1em;
-    line-height: 1.3em;
+    line-height: 1.2em;
     
     @media screen and (max-width: 580px) {
         text-align: center;

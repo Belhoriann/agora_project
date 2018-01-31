@@ -9,7 +9,7 @@
 
   <p class="pt-0 pb-2"><%= @category.description %></p>
   
-  <% Article.where(category_id: @category.id).each do |article| %>
+  <% Article.where(category_id: @category.id).order('created_at DESC').first(5).each do |article| %>
     <%= render 'layouts/hcard_sm', article: article %>
   <% end %>
 

@@ -1,104 +1,79 @@
-<% if @articles.blank? %>
-  <h4>There are no articles containing the term <%= params[:q] %>.</h4>
-<% else %>
- <h1>Articles Found</h1>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Author</th>
-        <th>WP</th>
-        <th>Category</th>
-        <th>id</th>
-        <th colspan="4"></th>
-      </tr>
-    </thead>
+<section class="container" style="max-width: 800px">
+  <div class="d-flex section-title align-items-center">
+    <i class="material-icons md-36 p-1">search</i>
+    <div class="p-1">SEARCH</div>
+  </div>
   
-    <tbody>
-      <% @articles.each do |article| %>
-        <tr>
-          <td><%= article.title %></td>
-          <td><%= article.author %></td>
-          <td><%= article.author_work_place %></td>
-          <td><%= link_to Category.find(article.category_id).name, category_path(article.category_id) %></td>
-          <td><%= article.id %></td>
-          <td><%= link_to 'Show', article %></td>
-          <% if user_signed_in? %>
-            <%-# if article.user_id == current_user.id -%>
-              <td><%= link_to 'Edit', edit_article_path(article) %></td>
-              <td><%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            <%-# end -%>
-          <% end %>
-        </tr>
+  <div class="pt-2">
+    <%= form_tag(search_results_path, :method => "get", id: "search-form") do %>
+      <div class="input-group">
+        <%= text_field_tag :q, params[:q], placeholder: "Find articles, users, topics...", class:"form-control form-control-lg" %>
+      </div>
+    <% end %>
+  </div>
+
+  <% if @articles.blank? and @users.blank? and @categories.blank? %>
+    <div class="d-flex flex-row pt-4 pb-2 mb-4" style="border-bottom: 1px solid #e9e9e9">
+      <div class="author-sm" style="color: #d9d9d9">No results</div>
+    </div>
+  <% else %>
+    <div class="d-flex flex-row pt-4 pb-2 mb-4" style="border-bottom: 1px solid #e9e9e9">
+      <% unless @articles.blank? %>
+        <button id="articles-button" type="button" class="btn btn-sm btn-cat btn-outline-info mr-2">
+          <i class="material-icons pr-1" style="vertical-align: text-top">description</i><%= "Article".pluralize(@articles.count) %> (<%= @articles.count %>)
+        </button>
       <% end %>
-    </tbody>
-  </table>
-<% end %>
-
-<% if @categories.blank? %>
-  <h4>There are no categories containing the term <%= params[:q] %>.</h4>
-<% else %>
-  <h1>Categories Found</h1>
-
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>id</th>
-        <th colspan="4"></th>
-      </tr>
-    </thead>
-  
-    <tbody>
-      <% @categories.each do |cat| %>
-        <tr>
-          <td><%= cat.name %></td>
-          <td><%= cat.id %></td>
-          <td><%= link_to 'Show', cat %></td>
-          <% if user_signed_in? %>
-            <%-# if user.user_id == current_user.id -%>
-              <td><%= link_to 'Edit', edit_category_path(cat) %></td>
-              <td><%= link_to 'Destroy', cat, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            <%-# end -%>
-          <% end %>
-        </tr>
+      <% unless @users.blank? %>
+        <button id="users-button" type="button" class="btn btn-sm btn-cat btn-outline-info mr-2">
+          <i class="material-icons pr-1" style="vertical-align: text-top">person_pin</i><%= "User".pluralize(@users.count) %> (<%= @users.count %>)
+        </button>
+       <% end %> 
+      <% unless @categories.blank? %>  
+        <button id="topics-button" type="button" class="btn btn-sm btn-cat btn-outline-info mr-2">
+          <i class="material-icons pr-1" style="vertical-align: text-top">apps</i><%= "Topic".pluralize(@categories.count) %> (<%= @categories.count %>)
+        </button>
       <% end %>
-    </tbody>
-  </table>
-<% end %>
-
-<% if @users.blank? %>
-  <h4>There are no users containing the term <%= params[:q] %>.</h4>
-<% else %>  
-
-  <h1>Users Found</h1>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Author</th>
-        <th>WP</th>
-        <th>id</th>
-        <th colspan="4"></th>
-      </tr>
-    </thead>
+    </div>
+  <% end %>
   
-    <tbody>
+  <% unless @articles.blank? %>
+    <div id="articles">
+      <div class="row p-0">
+        <% @articles.each do |article| %>
+          <div class="col-md-6">
+            <%= render 'layouts/vcard_search', article: article %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <% unless @users.blank? %>
+    <% if @articles.blank? %>
+      <% d = "inline" %>
+    <% else %>
+      <% d = "none" %>
+    <% end %>
+    <div id="users" style="display: <%= d %>">
       <% @users.each do |user| %>
-        <tr>
-          <td><%= user.full_name %></td>
-          <td><%= user.work_place %></td>
-          <td><%= user.headline %></td>
-          <td><%= user.id %></td>
-          <td><%= link_to 'Show', user %></td>
-          <% if user_signed_in? %>
-            <%-# if user.user_id == current_user.id -%>
-              <td><%= link_to 'Edit', edit_user_registration_path(user) %></td>
-              <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            <%-# end -%>
-          <% end %>
-        </tr>
+        <% @user = User.find_by(full_name: user.full_name) %>
+        <%= render 'articles/author', size: 60 %>
       <% end %>
-    </tbody>
-  </table>
-<% end %>
+    </div>
+  <% end %>
+  <% unless @categories.blank? %>
+    <% if @articles.blank? and @users.blank? %>
+      <% d = "inline" %>
+    <% else %>
+      <% d = "none" %>
+    <% end %>
+    <div id="topics" style="display: <%= d %>">
+      <div class="row p-0">
+        <% @categories.each do |cat| %>
+          <div class="col-md-6">
+            <%= render 'layouts/vcard_category', cat: cat %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</section>

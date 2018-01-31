@@ -1,0 +1,47 @@
+<div class="container" style="max-width: 800px">
+  <div class="d-flex section-title align-items-center">
+    <i class="material-icons md-36 p-1">book</i>
+    <div class="p-1">BOOKMARKS</div>
+  </div>
+  <% art_book_size = current_user.find_voted_items(:vote_scope => 'bookmark').size %>
+  <% com_book_size = current_user.find_voted_items(:vote_scope => 'bookmark_comment').size %>
+  
+  <% if art_book_size == 0 and com_book_size == 0 %>
+    <div class="d-flex flex-row pt-4 pb-2 mb-4" style="border-bottom: 1px solid #e9e9e9">
+      <div class="author-sm" style="color: #d9d9d9">No articles or comments bookmarked yet</div>
+    </div>
+  <% else %>
+    <div class="d-flex flex-row pt-4 pb-2 mb-4" style="border-bottom: 1px solid #e9e9e9">
+      <button id="articles-button" type="button" class="btn btn-sm btn-cat btn-outline-info mr-2">
+        <i class="material-icons pr-1" style="vertical-align: text-top">description</i><%= "Article".pluralize(art_book_size) %> (<%= art_book_size %>)
+      </button>
+      <button id="comments-button" type="button" class="btn btn-sm btn-cat btn-outline-info mr-2">
+        <i class="material-icons pr-1" style="vertical-align: text-top">comment</i><%= "Comment".pluralize(com_book_size) %> (<%= com_book_size %>)
+      </button>
+    </div>
+  <% end %>
+
+  <div id="articles">
+    <% @articles.order(:created_at).reverse_order.each do |article| %>
+      <% if current_user.liked? article, vote_scope: 'bookmark' %>
+        <%= render 'layouts/vcard_bookmark', article: article %>
+      <% end %>
+    <% end %>
+  </div>  
+  
+  <% if art_book_size == 0 %>
+    <% d = "inline" %>
+  <% else %>
+    <% d = "none" %>
+  <% end %>
+
+  <div id="comments" style="display: <%= d %>">
+    <% @comments.order(:created_at).reverse_order.each do |comment| %>
+      <% if current_user.liked? comment, vote_scope: 'bookmark_comment' %>
+        <%= render 'layouts/hcard_user_comment', comment: comment %>
+      <% end %>
+    <% end %>
+   </div>
+</div>
+
+

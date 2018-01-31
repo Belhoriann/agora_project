@@ -8,12 +8,6 @@ class ArticlesController < ApplicationController
   def index
     @articles = Article.all
     @categories = Category.all
-    
-    if params[:search]
-      @articles = Article.search(params[:search]).order("created_at DESC")
-    else
-      @articles = Article.all.order("created_at DESC")
-    end
   end
 
   # GET /articles/1

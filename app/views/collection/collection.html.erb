@@ -1,0 +1,76 @@
+<section class="container" style="max-width: 800px">
+  <div class="d-flex section-title align-items-center">
+    <i class="material-icons md-36 p-1">star</i>
+    <div class="p-1">SUBSCRIPTIONS</div>
+  </div>
+  <% cat_sub_size = current_user.find_voted_items(:vote_scope => 'subscribe_category').size %>
+  <% user_sub_size = current_user.find_voted_items(:vote_scope => 'following').size %>
+  
+  <!-- No buttons if no subs -->
+  <% if cat_sub_size == 0 and user_sub_size == 0 %>
+    <div class="d-flex flex-row pt-4 pb-2 mb-4" style="border-bottom: 1px solid #e9e9e9">
+      <div class="author-sm" style="color: #d9d9d9">No subcriptions yet</div>
+    </div>
+  <% else %>
+    <div class="d-flex flex-row pt-4 pb-2 mb-4" style="border-bottom: 1px solid #e9e9e9">
+      <button id="categories-button" type="button" class="btn btn-sm btn-cat btn-outline-info mr-2">
+        <i class="material-icons pr-1" style="vertical-align: text-top">apps</i><%= "Category".pluralize(cat_sub_size) %> (<%= cat_sub_size %>)
+      </button>
+      <button id="users-button" type="button" class="btn btn-sm btn-cat btn-outline-info mr-2">
+        <i class="material-icons pr-1" style="vertical-align: text-top">person_pin</i><%= "User".pluralize(user_sub_size) %> (<%= user_sub_size %>)
+      </button>
+    </div>
+  <% end %>
+
+  <div id="categories">
+    <% @categories.order(:name).each do |cat| %>
+      <% if current_user.liked? cat, vote_scope: 'subscribe_category' %>
+        <div class="p-1 form-inline">
+          <% cat_icon = category_icon(@categories.find(cat.id).name) %> <!--category_icon is a helper method inside application_helper-->
+          <% cat_icon_color = category_icon_color(@categories.find(cat.id).name) %> <!--category_icon_color is a helper method inside application_helper-->
+          <%= button_to category_path(cat.id), method: :get, class:"btn btn-cat btn-outline-dark" do %>
+          <i class="<%= cat_icon %>" style="color:<%= cat_icon_color %>"></i>
+          <strong><%= @categories.find(cat.id).name.upcase %></strong>
+          <% end %>
+        </div>
+        <div class="row">
+          <% if @articles.where(category_id: cat.id).empty? %>
+            <div class="col-md-6 pb-3 author-sm text-muted">
+              No article in <%= cat.name %> yet.
+            </div>
+          <% else %>
+            <% @articles.where(category_id: cat.id).order(:created_at).reverse_order.first(4).each do |article| %>
+              <div class="col-md-6 pb-3">
+                <%= render 'layouts/vcard_trending', article: article %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <% if cat_sub_size == 0 %>
+    <% d = "visible" %>
+  <% else %>
+    <% d = "hidden" %>
+  <% end %>
+  
+  <script>
+    $(document).on('turbolinks:load', function() {
+      if ("<%= d %>" == "hidden") {
+        $('#users').delay(1).hide(0);
+      }
+    });
+  </script>
+
+  <div id="users" style="visibility: <%= d %>">
+    <% @users.order(:full_name).reverse_order.each do |user| %>
+      <% if current_user.liked? user, vote_scope: 'following' %>
+        <% @articles.where(user_id: user.id).order(:created_at).reverse_order.each do |article| %>
+          <%= render 'layouts/hcard_lg', article: article %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</section>

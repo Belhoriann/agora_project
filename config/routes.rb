@@ -19,8 +19,9 @@ Rails.application.routes.draw do
 
   root 'home#index'
   get 'home/index'
-  get 'home/collection'
-  get 'home/bookmarks'
+  get '/collection', to: "collection#collection"
+  get '/bookmarks', to: "bookmarks#bookmarks"
+  get '/dashboard', to: "dashboard#dashboard"
   get 'search/results'
 
   resources :articles do 

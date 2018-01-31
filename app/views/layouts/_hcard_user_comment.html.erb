@@ -33,7 +33,6 @@
     <% end %>
     <div class="form-inline align-items-center author-sm text-muted">
       <i class="far fa-clock p-1">&nbsp</i>
-      <div>Published&nbsp</div>
       <%= time_ago_in_words(article.created_at) %> ago in
       <% cat_icon = category_icon(Category.find(article.category_id).name) %>
       <% cat_icon_color = category_icon_color(Category.find(article.category_id).name) %>

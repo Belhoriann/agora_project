@@ -1,0 +1,35 @@
+<div class="card mb-3">
+  <div class="card-header p-2">
+    <div class="row align-items-center">
+      <div class="col-6">
+        <% cat_icon = category_icon(Category.find(cat.id).name) %>  <!--category_icon is a helper method inside application_helper-->
+        <% cat_icon_color = category_icon_color(Category.find(cat.id).name) %> <!--category_icon_color is a helper method inside application_helper-->
+        <%= link_to category_path(cat.id), class:"btn btn-cat btn-outline-dark" do %>
+          <i class="<%= cat_icon %>" style="color:<%= cat_icon_color %>"></i>
+          <strong><%= Category.find(cat.id).name %></strong>
+          <small>(<%= Article.where(category_id: cat.id).size %>)</small>
+        <% end %>
+      </div>
+      <div class="col subscribing" align="right">
+        <% if user_signed_in? %>
+          <% if current_user.liked? cat, vote_scope: 'subscribe_category' %>
+            <%= link_to unsubscribe_category_path(cat), remote: true, id: "unsub_#{cat.id}", method: :put do %>
+              <i class="material-icons md-36" data-toggle="tooltip" data-placement="top" title="Subscribe">star</i>
+            <% end %>
+          <% else %>
+            <%= link_to subscribe_category_path(cat), remote: true, id: "sub_#{cat.id}", method: :put do %>
+              <i class="material-icons md-36" data-toggle="tooltip" data-placement="top" title="Subscribe">star_border</i>
+            <% end %>
+          <% end %>
+        <% else %>
+          <%= link_to "", data: {toggle: "modal", target: "#modalSignup"} do %>
+            <i class="material-icons md-36" data-toggle="tooltip" data-placement="top" title="Subscribe">star_border</i>
+          <% end %>
+          <%= render 'layouts/modal_signup' %>
+        <% end %>
+      </div>
+    </div>
+  </div> 
+  <% cat_img = category_img(Category.find(cat.id).name) %>
+  <%= link_to image_tag(cat_img, class:"thumb-featured-sm img-fluid"), category_path(cat.id) %>
+</div>

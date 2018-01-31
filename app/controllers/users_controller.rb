@@ -5,6 +5,9 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find_by(full_name: params[:full_name])
+    @articles = Article.all
+    @comments = Comment.all
+    @users = User.all
   end
   
   def make_admin

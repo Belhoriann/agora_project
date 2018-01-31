@@ -12,8 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require jquery3
+//= require turbolinks
 //= require popper
 //= require bootstrap
 //= require tinymce

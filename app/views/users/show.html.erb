@@ -1,28 +1,28 @@
-<section class="container p-0" style="max-width: 800px">
+<section class="container" style="max-width: 800px">
   <div class="row pt-3 pb-3">
     <div class="col-sm-auto">
-      <%= render 'layouts/user_avatar', user: @user, size: 150 %>
+      <%= render 'layouts/user_avatar', user: @user, size: 130 %>
     </div>
     <div class="col-sm">
       <div class="author-profile"><%= @user.full_name %></div>
       <div class="author-wp-profile"><%= @user.headline %></div>
       <div class="author-wp-profile"><%= @user.work_place %></div>
-      <div class="row align-items-center pt-2">
+      <div class="row align-items-center pt-1">
         <% if user_signed_in? %>
           <% unless current_user == @user %>
             <% if current_user.voted_for? @user, vote_scope: 'following' %>
               <div class="col-sm-auto follow-profile pt-1 unfollow-button">
-                <%= link_to "Following", unfollow_user_path(@user), remote: true, class:"btn btn-sm btn-info", method: :put %>
+                <%= link_to "Following", unfollow_user_path(@user), remote: true, class:"btn btn-info", method: :put %>
               </div>
               <div class="col-sm-auto follow-profile pt-1 follow-button" style="display:none">
-                <%= link_to "Follow", follow_user_path(@user), remote: true, class:"btn btn-sm btn-outline-info", method: :put %>
+                <%= link_to "Follow", follow_user_path(@user), remote: true, class:"btn btn-outline-info", method: :put %>
               </div>
             <% else %>
               <div class="col-sm-auto follow-profile pt-1 follow-button">
-                <%= link_to "Follow", follow_user_path(@user), remote: true, class:"btn btn-sm btn-outline-info", method: :put %>
+                <%= link_to "Follow", follow_user_path(@user), remote: true, class:"btn btn-outline-info", method: :put %>
               </div>
               <div class="col-sm-auto follow-profile pt-1 unfollow-button" style="display:none">
-                <%= link_to "Following", unfollow_user_path(@user), remote: true, class:"btn btn-sm btn-info", method: :put %>
+                <%= link_to "Following", unfollow_user_path(@user), remote: true, class:"btn btn-info", method: :put %>
               </div>
             <% end %>
           <% end %>
@@ -44,123 +44,111 @@
   </div>
 </section>
 
-<nav id="navbar-example2" class="navbar fixed-bottom navbar-light navbar-white p-0">
-  <ul class="nav nav-pills align-items-center mx-auto p-1">
-    <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Publications">
-      <a class="nav-link p-0" href="#pub" ><i class="material-icons md-36 p-2">description</i></a>
-    </li>
-    <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Comments">
-      <a class="nav-link p-0" href="#com"><i class="material-icons md-36 p-2">comment</i></a>
-    </li>
-    <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Favorites">
-      <a class="nav-link p-0" href="#fav"><i class="material-icons md-36 p-2">favorite</i></a>
-    </li>
-    <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Following">
-      <a class="nav-link p-0" href="#fol"><i class="material-icons md-36 p-2">person_pin</i></a>
-    </li>
-  </ul>
-</nav>
+<section class="container" style="max-width: 800px" data-target="#navbar-example2">
+  <% art_size = @articles.where(user_id: @user.id).count %>
+  <% com_size = @comments.where(user_id: @user.id).count %>
+  <% fav_size = @user.find_voted_items(:vote_scope => 'praise').size %>
+  <% fol_size = @user.find_voted_items(:vote_scope => 'following').size %>
+  <% followers_size = @user.find_votes_for(:vote_scope => 'following').size %>
   
-<section class="container p-0" style="max-width: 800px" data-target="#navbar-example2">
-  <div class="row">
-    <div class="col">
-      <div class="d-flex section-title align-items-center">
-        <i class="material-icons md-36 pr-2">description</i>
-        <div id="pub"> 
-          <%#= pluralize(Article.where(user_id: @user.id).count, 'Publication') %> 
-          <% publi = "publication".pluralize(Article.where(user_id: @user.id).count) %> 
-          <%= publi.upcase %>
-          (<%= Article.where(user_id: @user.id).count %>)
-        </div>
-      </div> 
-      <% article_shown = 3 %>
-      <% Article.where(user_id: @user.id).order(:created_at).reverse_order.first(article_shown).each do |article| %>
+  <% if art_size == 0 and com_size == 0 and fav_size == 0 && fol_size == 0 %>
+    <div class="d-flex flex-row pt-4 pb-2 mb-4" style="border-bottom: 1px solid #e9e9e9">
+      <div class="author-sm" style="color: #d9d9d9">No articles, comments, favorites and following yet.</div>
+    </div>
+  <% else %>
+    <div class="d-flex flex-row pl-1 pt-4 pb-2 mb-4" style="border-bottom: 1px solid #e9e9e9; overflow: auto">
+      <button id="articles-button" type="button" class="btn btn-cat btn-sm btn-outline-info mr-2">
+        <i class="material-icons pr-1" style="vertical-align: text-bottom">description</i><%= "Article".pluralize(art_size) %> (<%= art_size %>)
+      </button>
+      <button id="comments-button" type="button" class="btn btn-cat btn-sm btn-outline-info mr-2">
+        <i class="material-icons pr-1" style="vertical-align: text-bottom">comment</i><%= "Comment".pluralize(com_size) %> (<%= com_size %>)
+      </button>
+      <button id="favorites-button" type="button" class="btn btn-cat btn-sm btn-outline-info mr-2">
+        <i class="material-icons pr-1" style="vertical-align: text-bottom">favorite</i><%= "Favorite".pluralize(fav_size) %> (<%= fav_size %>)
+      </button>
+      <button id="following-button" type="button" class="btn btn-cat btn-sm btn-outline-info mr-2">
+        <i class="material-icons pr-1" style="vertical-align: text-bottom">person_pin</i><%= "Following" %> (<%= fol_size %>)
+      </button>
+      <button id="followers-button" type="button" class="btn btn-cat btn-sm btn-outline-info mr-2">
+        <i class="material-icons pr-1" style="vertical-align: text-bottom">recent_actors</i><%= "Followers" %> (<%= followers_size %>)
+      </button>
+    </div>
+  <% end %>
+  
+  <div id="articles">
+    <% article_shown = 3 %>
+    <% @articles.where(user_id: @user.id).order(:created_at).reverse_order.first(article_shown).each do |article| %>
+      <%= render 'layouts/hcard_user_article', article: article %>
+    <% end %>
+    <% if @articles.where(user_id: @user.id).count > 3 %>
+      <p>
+        <button class="btn btn-sm btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseArticle" aria-expanded="false" aria-controls="collapseExample">
+          Show all
+        </button>
+      </p>
+    <% end %>
+    <div class="collapse" id="collapseArticle">
+      <% @articles.where(user_id: @user.id).order(:created_at).reverse_order.drop(article_shown).each do |article| %>
         <%= render 'layouts/hcard_user_article', article: article %>
       <% end %>
-      <% if Article.where(user_id: @user.id).count > 3 %>
-        <p>
-          <button class="btn btn-sm btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseArticle" aria-expanded="false" aria-controls="collapseExample">
-            Show all
-          </button>
-        </p>
-      <% end %>
-      <div class="collapse" id="collapseArticle">
-        <% Article.where(user_id: @user.id).order(:created_at).reverse_order.drop(article_shown).each do |article| %>
-          <%= render 'layouts/hcard_user_article', article: article %>
-        <% end %>
-      </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col">
-      <div class="d-flex section-title align-items-center">
-        <i class="material-icons md-36 pr-2">comment</i>
-        <div id="com"> 
-          <%#= pluralize(Article.where(user_id: @user.id).count, 'Publication') %> 
-          <% com = "comment".pluralize(Comment.where(user_id: @user.id).count) %> 
-          <%= com.upcase %>
-          (<%= Comment.where(user_id: @user.id).count %>)
-        </div>
-      </div>
-      <% Comment.where(user_id: @user.id).order(:created_at).reverse_order.each do |comment| %>
-        <%= render 'layouts/hcard_user_comment', comment: comment %>
-      <% end %>
-    </div>
+
+  <% if art_size == 0 %>
+    <% d = "inline" %>
+  <% else %>
+    <% d = "none" %>
+  <% end %>
+  <div id="comments" style="display: <%= d %>">
+    <% @comments.where(user_id: @user.id).order(:created_at).reverse_order.each do |comment| %>
+      <%= render 'layouts/hcard_user_comment', comment: comment %>
+    <% end %>
   </div>
-  <div class="row">
-    <div class="col">
-      <div class="d-flex section-title align-items-center">
-        <i class="material-icons md-36 pr-2">favorite</i>
-        <div id="fav"> 
-          <% fav = "favorite".pluralize(@user.find_voted_items(:vote_scope => 'praise').size) %> 
-          <%= fav.upcase %>
-          (<%= @user.find_voted_items(:vote_scope => 'praise').size %>)
-        </div>
-      </div>
-      <% Article.order(:created_at).reverse_order.each do |article| %>
-        <% if @user.liked? article, vote_scope: 'praise' %>
-          <%= render 'layouts/hcard_user_article', article: article %>
-        <% end %>
+  
+  <!--Necessary logic to hide hcard after the img is load-->
+  <% if art_size == 0 and com_size == 0 %>
+    <% dd = "visible" %>
+  <% else %>
+    <% dd = "hidden" %>
+  <% end %>
+  <script>
+    $( document ).on('turbolinks:load', function() {
+      if ("<%= dd %>" == "hidden") {
+        $('#favorites').delay(1).hide(0);
+      }
+    });
+  </script>
+  <div id="favorites" style="visibility: <%= dd %>"> 
+    <% @articles.order(:created_at).reverse_order.each do |article| %>
+      <% if @user.liked? article, vote_scope: 'praise' %>
+        <%= render 'layouts/hcard_lg', article: article %>
       <% end %>
-    </div>
+    <% end %>
   </div>
-  <div class="row">
-    <div class="col">
-      <div class="d-flex section-title align-items-center">
-        <i class="material-icons md-36 pr-2">person_pin</i>
-        <div id="fol"> 
-          FOLLOWING
-          (<%= @user.find_voted_items(:vote_scope => 'following').size %>)
-        </div>
-      </div>
-      <% User.order(:full_name).reverse_order.each do |user| %>
-        <% if @user.liked? user, vote_scope: 'following' %>
-        <!--<div class="col-lg-10">-->
-        <div class="row">
-          <div class="col">
-            <div class="col-sm-auto">
-              <% if user.avatar != nil %>
-                <%= link_to user_path(user.id, full_name: user.full_name) do %>
-                  <%= image_tag(user.avatar.url(:thumb), class:"rounded-circle border border-secondary", style: "height: 60px; width: 60px;") %>
-                <% end %>
-              <% end %>
-            </div>
-            <div class="col">
-              <div class="author-profile" style="font-size: 20px"><%= user.full_name %></div>
-              <div class="author-wp-profile" style="font-size: 16px"><%= user.headline %></div>
-              <div class="author-wp-profile" style="font-size: 16px"><%= user.work_place %></div>
-              <div class="row align-items-center pt-2">
-                <div class="col-md follow-profile pt-1">
-                  <%= "X followers - " %> 
-                  <%= "X following" %>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!--</div> -->
-        <% end %>
+  
+  <% if art_size == 0 and com_size == 0 and fav_size == 0 %>
+    <% ddd = "inline" %>
+  <% else %>
+    <% ddd = "none" %>
+  <% end %>
+  <div id="following" style="display: <%= ddd %>">
+    <% @users.order(:full_name).reverse_order.each do |user| %>
+      <% if @user.liked? user, vote_scope: 'following' %>
+        <%= render 'users/profile', user: user, size: 60 %>
       <% end %>
-    </div>
+    <% end %>
+  </div>
+  
+  <% if art_size == 0 and com_size == 0 and fav_size == 0 and followers_size %>
+    <% dddd = "inline" %>
+  <% else %>
+    <% dddd = "none" %>
+  <% end %>
+  <div id="followers" style="display: <%= dddd %>">
+    <% @users.order(:full_name).reverse_order.each do |user| %>
+      <% if user.liked? @user, vote_scope: 'following' %>
+        <%= render 'users/profile', user: user, size: 60 %>
+      <% end %>
+    <% end %>
   </div>
 </section> 
