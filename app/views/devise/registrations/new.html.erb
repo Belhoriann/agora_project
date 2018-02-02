@@ -3,33 +3,32 @@
     <div class="card-header">
       <h4 class="text-center text-success">Signing Up</h4>
     </div>
-    <div class="card-body">
+    <div class="card-body p-3">
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <%= devise_error_messages! %>
-      <div class="form-group">
+      <div class="form-group was-validated">
         <div class="form-row">
           <div class="form-group col-md-6">
             <div>
-              <%= f.text_field :full_name, autofocus: true, class: "form-control form-control-md", placeholder: "Full name" %>
+              <%= f.text_field :full_name, autofocus: true, class: "form-control form-control-md", placeholder: "Full name", required: true %>
             </div>
           </div>
-            
-          <div class="form-group col-md-6">
-            <%= f.file_field :avatar, class:"form-group custom-file col-md-6" %>
-            <span class="custom-file-control"></span>
+          <div class="custom-file col-md-6">
+            <%= f.file_field :avatar, multiple: true, name: 'avatar', class:"custom-file-input", required: true %>
+            <span class="custom-file-label">Profile picture...</span>
           </div>
         </div>
 
         <div>
-            <%= f.text_field :headline, autofocus: true, class: "form-control form-control-md mb-3", placeholder: "Write a small bio..." %>
+            <%= f.text_field :headline, autofocus: true, class: "form-control form-control-md mb-3", placeholder: "Position/job/activity", required: true %>
         </div>
         
         <div>
-            <%= f.text_field :work_place, autofocus: true, class: "form-control form-control-md mb-3", placeholder: "Workplace - e.g.: University of Sherbrooke, Neel Institute..." %>
+            <%= f.text_field :work_place, autofocus: true, class: "form-control form-control-md mb-3", placeholder: "Workplace - e.g.: University of Sherbrooke, Neel Institute...", required: true %>
         </div>
     
         <div>
-            <%= f.email_field :email, autofocus: true, class: "form-control form-control-md mb-3", placeholder: "Email" %>
+            <%= f.email_field :email, autofocus: true, class: "form-control form-control-md mb-3", placeholder: "Email", required: true %>
         </div>
       
         <div class="form-row">
@@ -37,11 +36,11 @@
             <% if @minimum_password_length %>
             <% pw_length = @minimum_password_length %>
             <% end %>
-            <%= f.password_field :password, autocomplete: "off", class: "form-control form-control-md", placeholder: "Password - #{pw_length} characters minimum" %>
+            <%= f.password_field :password, autocomplete: "off", class: "form-control form-control-md", placeholder: "Password - #{pw_length} characters minimum", required: true %>
           </div>
         
           <div class="form-group col-md-6">
-            <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control form-control-md", placeholder: "Password confirmation" %>
+            <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control form-control-md", placeholder: "Password confirmation", required: true %>
           </div>
         </div>
       

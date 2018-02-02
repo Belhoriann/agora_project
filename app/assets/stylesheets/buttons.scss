@@ -5,3 +5,19 @@
 .btn-sm {
     font-size: 0.8em!important;
 }
+
+.btn:disabled {
+    color: grey!important;
+    opacity: 0.50!important;
+}
+
+/*.btn-outline-info {
+    color: #576be5!important;
+    border: none!important;
+}
+
+.btn-outline-info:hover {
+    color: #ffffff!important;
+    background-color: #576be5!important;
+    border-color: #576be5!important;
+}*/

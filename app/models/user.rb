@@ -9,8 +9,8 @@ class User < ActiveRecord::Base
      acts_as_votable
      
      # Belongings
-     has_many :articles
-     has_many :comments
+     has_many :articles, dependent: :destroy
+     has_many :comments, dependent: :destroy
      
      # Avatar system
      has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100#" }, :default_url => "/assets/:style/missing.jpg"

@@ -49,10 +49,6 @@
             <div class="card-subtitle"><%= article.sub_title %></div>
           <% end %>
         </div>
-        <!--<div class="card-article-body p-2 mb-2">-->
-          <%#= truncate strip_tags(article.body), length: 200 %>
-          <%#= link_to 'Read more', article_path(article) %> 
-        <!--</div>-->
         <div class="d-flex flex-row align-items-center pt-2">
           <div class="p-2">
             <% author = User.find_by(id: article.user_id) %>

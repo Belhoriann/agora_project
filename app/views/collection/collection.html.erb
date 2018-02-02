@@ -13,12 +13,29 @@
     </div>
   <% else %>
     <div class="d-flex flex-row pt-4 pb-2 mb-4" style="border-bottom: 1px solid #e9e9e9">
-      <button id="categories-button" type="button" class="btn btn-sm btn-cat btn-outline-info mr-2">
-        <i class="material-icons pr-1" style="vertical-align: text-top">apps</i><%= "Category".pluralize(cat_sub_size) %> (<%= cat_sub_size %>)
-      </button>
-      <button id="users-button" type="button" class="btn btn-sm btn-cat btn-outline-info mr-2">
-        <i class="material-icons pr-1" style="vertical-align: text-top">person_pin</i><%= "User".pluralize(user_sub_size) %> (<%= user_sub_size %>)
-      </button>
+      <% if cat_sub_size != 0 %>
+        <button id="categories-button" type="button" class="btn btn-sm btn-cat btn-outline-info active mr-2">
+          <i class="material-icons pr-1" style="vertical-align: text-top">apps</i><%= "Category".pluralize(cat_sub_size) %> (<%= cat_sub_size %>)
+        </button>
+      <% else %>
+      <button id="categories-button" type="button" class="btn btn-sm btn-cat btn-outline-info mr-2" disabled>
+          <i class="material-icons pr-1" style="vertical-align: text-top">apps</i><%= "Category".pluralize(cat_sub_size) %> (<%= cat_sub_size %>)
+        </button>
+      <% end %>
+      
+      <% if user_sub_size != 0 and cat_sub_size == 0 %>
+        <button id="users-button" type="button" class="btn btn-sm btn-cat btn-outline-info active mr-2">
+          <i class="material-icons pr-1" style="vertical-align: text-top">person_pin</i><%= "People".pluralize(user_sub_size) %> (<%= user_sub_size %>)
+        </button>
+      <% elsif user_sub_size != 0 %>
+        <button id="users-button" type="button" class="btn btn-sm btn-cat btn-outline-info mr-2">
+          <i class="material-icons pr-1" style="vertical-align: text-top">person_pin</i><%= "People".pluralize(user_sub_size) %> (<%= user_sub_size %>)
+        </button>
+      <% else %>
+        <button id="users-button" type="button" class="btn btn-sm btn-cat btn-outline-info mr-2" disabled>
+          <i class="material-icons pr-1" style="vertical-align: text-top">person_pin</i><%= "People".pluralize(user_sub_size) %> (<%= user_sub_size %>)
+        </button>
+      <% end %>
     </div>
   <% end %>
 
@@ -65,11 +82,9 @@
   </script>
 
   <div id="users" style="visibility: <%= d %>">
-    <% @users.order(:full_name).reverse_order.each do |user| %>
-      <% if current_user.liked? user, vote_scope: 'following' %>
-        <% @articles.where(user_id: user.id).order(:created_at).reverse_order.each do |article| %>
-          <%= render 'layouts/hcard_lg', article: article %>
-        <% end %>
+    <% @articles.order(:created_at).reverse_order.each do |article| %>
+      <% if current_user.liked? @users.find_by(id: article.user_id), vote_scope: 'following' %>
+        <%= render 'layouts/hcard_lg', article: article %>
       <% end %>
     <% end %>
   </div>

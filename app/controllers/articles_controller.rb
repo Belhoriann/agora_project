@@ -8,6 +8,12 @@ class ArticlesController < ApplicationController
   def index
     @articles = Article.all
     @categories = Category.all
+    
+    if params[:tag]
+      @articles = Article.tagged_with(params[:tag])
+    else
+      @articles = Article.all
+    end
   end
 
   # GET /articles/1
@@ -37,7 +43,7 @@ class ArticlesController < ApplicationController
 
     respond_to do |format|
       if @article.save
-        format.html { redirect_to @article, notice: 'Article was successfully created.' }
+        format.html { redirect_to @article } #, notice: 'Article was successfully created.' }
         format.json { render :show, status: :created, location: @article }
       else
         format.html { render :new }
@@ -54,7 +60,7 @@ class ArticlesController < ApplicationController
 
     respond_to do |format|
       if @article.update(article_params)
-        format.html { redirect_to @article, notice: 'Article was successfully updated.' }
+        format.html { redirect_to @article } #, notice: 'Article was successfully updated.' }
         format.json { render :show, status: :ok, location: @article }
       else
         format.html { render :edit }
@@ -68,7 +74,7 @@ class ArticlesController < ApplicationController
   def destroy
     @article.destroy
     respond_to do |format|
-      format.html { redirect_to articles_url, notice: 'Article was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Article was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -121,7 +127,7 @@ class ArticlesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def article_params
-      params.require(:article).permit(:title, :sub_title, :body, :author, :author_work_place, :user_id, :category_id, :thumbnail)
+      params.require(:article).permit(:title, :sub_title, :body, :author, :author_work_place, :user_id, :category_id, :thumbnail, :all_tags)
     end
     
     def correct_user

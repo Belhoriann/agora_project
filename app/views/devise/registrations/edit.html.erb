@@ -14,11 +14,8 @@
             </div>
           </div>
           <div class="form-group col-md-6">
-            <%#= f.file_field :avatar %>
-            <div class="custom-file" style="display: block;">
-              <input type="file" id="avatar" name="user[avatar]" class="custom-file-input">
-              <span class="custom-file-control"></span>
-            </div>
+            <%= f.file_field :avatar, class:"form-group custom-file col-md-6" %>
+            <span class="custom-file-control"></span>
           </div>
         </div>
         <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>

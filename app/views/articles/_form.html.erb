@@ -1,12 +1,12 @@
-<div class="container" style="max-width: 820px">
+<div class="container was-validated" style="max-width: 820px">
   <%= form_for(@article) do |f| %>
   
   <div>
-    <%= f.text_field :title, class: "form-control form-control-lg border-top-0 border-left-0 border-right-0 mb-2", placeholder: "Title" %>
+    <%= f.text_field :title, class: "form-control form-control-lg border-top-0 border-left-0 border-right-0 mb-2", placeholder: "Title", required: true %>
   </div>
   
   <div>
-    <%= f.text_field :sub_title, class: "form-control form-control-md border-top-0 border-left-0 border-right-0", placeholder: "Sub-title" %>
+    <%= f.text_field :sub_title, class: "form-control form-control-md border-top-0 border-left-0 border-right-0", placeholder: "Sub-title", required: true %>
   </div>
     
   <br>
@@ -50,13 +50,18 @@
     <div class="col-auto author-sm mx-auto pb-2">For your article to be published, you have to associate it with a topic and a thumbnail.</div>
     <div class="form-group col-md-6">
       <div>
-        <%= select_tag(:category_id, options_for_select(@categories.sort), :prompt => "Select Topic", class: "custom-select") %>
+        <%= select_tag(:category_id, options_for_select(@categories.sort), :prompt => "Select Topic", class: "custom-select", required: true) %>
       </div>
     </div>
-      
-    <div class="form-group col-md-6">
-      <%= f.file_field :thumbnail, class:"form-group custom-file" %>
-      <span class="custom-file-control"></span>
+    <div class="custom-file col-md-6 was-validated">
+      <%= f.file_field :thumbnail, class:"custom-file-input", required: true %>
+      <span class="custom-file-label">Thumbnail...</span>
+    </div>
+  </div>
+  
+  <div class="form-row">
+    <div class="form-group col-md-12">
+      <%= f.text_field :all_tags, placeholder: "Tags separated with comma", class: "form-control", required: true %>
     </div>
   </div>
   
@@ -64,8 +69,8 @@
   <button type="submit" class="btn btn-primary mx-auto">Publish</button>
   </div>
   <%= f.text_field :user_id, value: current_user.id, type: "hidden" %>
-  <%#= f.text_field :author, value: current_user.full_name, type: "hidden" %>
-  <%#= f.text_field :author_work_place, value: current_user.work_place, type: "hidden" %>
+  <%= f.text_field :author, value: current_user.full_name, type: "hidden" %>
+  <%= f.text_field :author_work_place, value: current_user.work_place, type: "hidden" %>
   
   <br>
   

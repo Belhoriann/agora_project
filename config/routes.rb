@@ -15,6 +15,7 @@ Rails.application.routes.draw do
    get '/users/:full_name', to: "users#show"
    put 'admin/:id', to: "users#make_admin"
    put 'users/:id', to: "users#remove_admin"
+   delete 'users/:id', to: "users#destroy"
   end
 
   root 'home#index'
@@ -23,6 +24,7 @@ Rails.application.routes.draw do
   get '/bookmarks', to: "bookmarks#bookmarks"
   get '/dashboard', to: "dashboard#dashboard"
   get 'search/results'
+  get 'tags/:tag', to: 'articles#index', as: "tag"
 
   resources :articles do 
     resources :comments

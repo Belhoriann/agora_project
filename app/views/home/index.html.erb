@@ -42,7 +42,7 @@
         </div>
         <div class="col-sm" style="padding: 10px">
           <% Article.order(:cached_scoped_praise_votes_total => :desc).each do |article| %>
-            <% if Article.offset((Date.today - Date.new(1973, 1, 1)).to_i % Article.count).first == article %>
+            <% if Article.offset((Date.today - Date.new(1970, 1, 2)).to_i % Article.count).first == article %>
               <%= render 'layouts/vcard_featured_compact', article: article %>  
             <% end %>
           <% end %>

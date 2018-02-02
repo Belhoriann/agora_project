@@ -12,7 +12,7 @@
     <% end %>
   </div>
 
-  <% if @articles.blank? and @users.blank? and @categories.blank? %>
+  <% if @articles.blank? and @users.blank? and @categories.blank? and @tags.blank? %>
     <div class="d-flex flex-row pt-4 pb-2 mb-4" style="border-bottom: 1px solid #e9e9e9">
       <div class="author-sm" style="color: #d9d9d9">No results</div>
     </div>
@@ -20,17 +20,22 @@
     <div class="d-flex flex-row pt-4 pb-2 mb-4" style="border-bottom: 1px solid #e9e9e9">
       <% unless @articles.blank? %>
         <button id="articles-button" type="button" class="btn btn-sm btn-cat btn-outline-info mr-2">
-          <i class="material-icons pr-1" style="vertical-align: text-top">description</i><%= "Article".pluralize(@articles.count) %> (<%= @articles.count %>)
+          <i class="material-icons pr-1" style="vertical-align: text-bottom">description</i><%= "Article".pluralize(@articles.count) %> (<%= @articles.count %>)
         </button>
       <% end %>
       <% unless @users.blank? %>
         <button id="users-button" type="button" class="btn btn-sm btn-cat btn-outline-info mr-2">
-          <i class="material-icons pr-1" style="vertical-align: text-top">person_pin</i><%= "User".pluralize(@users.count) %> (<%= @users.count %>)
+          <i class="material-icons pr-1" style="vertical-align: text-bottom">person_pin</i><%= "User".pluralize(@users.count) %> (<%= @users.count %>)
         </button>
        <% end %> 
       <% unless @categories.blank? %>  
         <button id="topics-button" type="button" class="btn btn-sm btn-cat btn-outline-info mr-2">
-          <i class="material-icons pr-1" style="vertical-align: text-top">apps</i><%= "Topic".pluralize(@categories.count) %> (<%= @categories.count %>)
+          <i class="material-icons pr-1" style="vertical-align: text-bottom">apps</i><%= "Topic".pluralize(@categories.count) %> (<%= @categories.count %>)
+        </button>
+      <% end %>
+      <% unless @tags.blank? %>  
+        <button id="tags-button" type="button" class="btn btn-sm btn-cat btn-outline-info mr-2">
+          <i class="fas fa-tags pr-1" style="vertical-align: middle"></i><%= "Tag".pluralize(@tags.count) %> (<%= @tags.count %>)
         </button>
       <% end %>
     </div>
@@ -71,6 +76,22 @@
         <% @categories.each do |cat| %>
           <div class="col-md-6">
             <%= render 'layouts/vcard_category', cat: cat %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <% unless @tags.blank? %>
+    <% if @articles.blank? and @users.blank? and @categories.blank? %>
+      <% d = "inline" %>
+    <% else %>
+      <% d = "none" %>
+    <% end %>
+    <div id="tags" style="display: <%= d %>">
+      <div class="row p-0">
+        <% @tags.each do |tag| %>
+          <div class="col-md-6">
+            <%= link_to tag.name.capitalize, tag_path(tag.name), class:"btn btn-light" %>
           </div>
         <% end %>
       </div>

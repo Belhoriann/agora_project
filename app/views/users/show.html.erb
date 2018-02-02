@@ -56,25 +56,87 @@
       <div class="author-sm" style="color: #d9d9d9">No articles, comments, favorites and following yet.</div>
     </div>
   <% else %>
+    
     <div class="d-flex flex-row pl-1 pt-4 pb-2 mb-4" style="border-bottom: 1px solid #e9e9e9; overflow: auto">
-      <button id="articles-button" type="button" class="btn btn-cat btn-sm btn-outline-info mr-2">
-        <i class="material-icons pr-1" style="vertical-align: text-bottom">description</i><%= "Article".pluralize(art_size) %> (<%= art_size %>)
-      </button>
-      <button id="comments-button" type="button" class="btn btn-cat btn-sm btn-outline-info mr-2">
-        <i class="material-icons pr-1" style="vertical-align: text-bottom">comment</i><%= "Comment".pluralize(com_size) %> (<%= com_size %>)
-      </button>
-      <button id="favorites-button" type="button" class="btn btn-cat btn-sm btn-outline-info mr-2">
-        <i class="material-icons pr-1" style="vertical-align: text-bottom">favorite</i><%= "Favorite".pluralize(fav_size) %> (<%= fav_size %>)
-      </button>
-      <button id="following-button" type="button" class="btn btn-cat btn-sm btn-outline-info mr-2">
-        <i class="material-icons pr-1" style="vertical-align: text-bottom">person_pin</i><%= "Following" %> (<%= fol_size %>)
-      </button>
-      <button id="followers-button" type="button" class="btn btn-cat btn-sm btn-outline-info mr-2">
-        <i class="material-icons pr-1" style="vertical-align: text-bottom">recent_actors</i><%= "Followers" %> (<%= followers_size %>)
-      </button>
+      <% if art_size != 0 %>
+        <button id="articles-button" type="button" class="btn btn-cat btn-sm btn-outline-info active mr-2">
+          <i class="material-icons pr-1" style="vertical-align: text-bottom">description</i><%= "Article".pluralize(art_size) %> (<%= art_size %>)
+        </button>
+      <% else %>
+        <button id="articles-button" type="button" class="btn btn-cat btn-sm btn-outline-info mr-2" disabled>
+          <i class="material-icons pr-1" style="vertical-align: text-bottom">description</i><%= "Article".pluralize(art_size) %> (<%= art_size %>)
+        </button>
+      <% end %>
+      
+      <% if com_size != 0 and art_size == 0 %>
+        <button id="comments-button" type="button" class="btn btn-cat btn-sm btn-outline-info active mr-2">
+          <i class="material-icons pr-1" style="vertical-align: text-bottom">comment</i><%= "Comment".pluralize(com_size) %> (<%= com_size %>)
+        </button>
+      <% elsif com_size != 0 %>
+         <button id="comments-button" type="button" class="btn btn-cat btn-sm btn-outline-info mr-2">
+          <i class="material-icons pr-1" style="vertical-align: text-bottom">comment</i><%= "Comment".pluralize(com_size) %> (<%= com_size %>)
+         </button>
+      <% else %>
+         <button id="comments-button" type="button" class="btn btn-cat btn-sm btn-outline-info mr-2" disabled>
+          <i class="material-icons pr-1" style="vertical-align: text-bottom">comment</i><%= "Comment".pluralize(com_size) %> (<%= com_size %>)
+         </button>
+      <% end %>
+      
+      <% if fav_size != 0 and art_size == 0 and com_size == 0 %>
+        <button id="favorites-button" type="button" class="btn btn-cat btn-sm btn-outline-info active mr-2">
+          <i class="material-icons pr-1" style="vertical-align: text-bottom">favorite</i><%= "Favorite".pluralize(fav_size) %> (<%= fav_size %>)
+        </button>
+      <% elsif fav_size != 0 %>
+         <button id="favorites-button" type="button" class="btn btn-cat btn-sm btn-outline-info mr-2">
+          <i class="material-icons pr-1" style="vertical-align: text-bottom">favorite</i><%= "Favorite".pluralize(fav_size) %> (<%= fav_size %>)
+        </button>
+      <% else %>
+         <button id="favorites-button" type="button" class="btn btn-cat btn-sm btn-outline-info mr-2" disabled>
+          <i class="material-icons pr-1" style="vertical-align: text-bottom">favorite</i><%= "Favorite".pluralize(fav_size) %> (<%= fav_size %>)
+        </button>
+      <% end %>
+      
+      <% if fol_size != 0 and art_size == 0 and com_size == 0 and fav_size == 0 %>
+        <button id="following-button" type="button" class="btn btn-cat btn-sm btn-outline-info active mr-2">
+          <i class="material-icons pr-1" style="vertical-align: text-bottom">person_pin</i><%= "Following" %> (<%= fol_size %>)
+        </button>
+      <% elsif fol_size != 0 %>
+        <button id="following-button" type="button" class="btn btn-cat btn-sm btn-outline-info mr-2">
+          <i class="material-icons pr-1" style="vertical-align: text-bottom">person_pin</i><%= "Following" %> (<%= fol_size %>)
+        </button>
+      <% else %>
+        <button id="following-button" type="button" class="btn btn-cat btn-sm btn-outline-info mr-2" disabled>
+          <i class="material-icons pr-1" style="vertical-align: text-bottom">person_pin</i><%= "Following" %> (<%= fol_size %>)
+        </button>
+      <% end %>
+      
+      <% if followers_size != 0 and art_size == 0 and com_size == 0 and fav_size == 0 and fol_size == 0  %>
+        <button id="followers-button" type="button" class="btn btn-cat btn-sm btn-outline-info active mr-2">
+          <i class="material-icons pr-1" style="vertical-align: text-bottom">recent_actors</i><%= "Followers" %> (<%= followers_size %>)
+        </button>
+      <% elsif followers_size != 0 %>
+        <button id="followers-button" type="button" class="btn btn-cat btn-sm btn-outline-info mr-2">
+          <i class="material-icons pr-1" style="vertical-align: text-bottom">recent_actors</i><%= "Followers" %> (<%= followers_size %>)
+        </button>
+      <% else %>
+        <button id="followers-button" type="button" class="btn btn-cat btn-sm btn-outline-info mr-2" disabled>
+          <i class="material-icons pr-1" style="vertical-align: text-bottom">recent_actors</i><%= "Followers" %> (<%= followers_size %>)
+        </button>
+      <% end %>
     </div>
   <% end %>
   
+  <!--ARTICLES-->
+  <!--Necessary logic to hide hcard after the img is load-->
+  <script>
+    $(document).on('turbolinks:load', function() {
+      $('#all-articles').delay(1).hide(0);
+      $('#show-all-button').click(function(){
+        $('#all-articles').css('visibility', 'visible');
+        $('#all-articles').fadeIn(100);
+      });
+    });
+  </script>
   <div id="articles">
     <% article_shown = 3 %>
     <% @articles.where(user_id: @user.id).order(:created_at).reverse_order.first(article_shown).each do |article| %>
@@ -82,18 +144,19 @@
     <% end %>
     <% if @articles.where(user_id: @user.id).count > 3 %>
       <p>
-        <button class="btn btn-sm btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseArticle" aria-expanded="false" aria-controls="collapseExample">
+        <button id="show-all-button" class="btn btn-sm btn-outline-primary">
           Show all
         </button>
       </p>
     <% end %>
-    <div class="collapse" id="collapseArticle">
+    <div id="all-articles" style="visibility: hidden">
       <% @articles.where(user_id: @user.id).order(:created_at).reverse_order.drop(article_shown).each do |article| %>
         <%= render 'layouts/hcard_user_article', article: article %>
       <% end %>
     </div>
   </div>
 
+  <!--COMMENTS-->
   <% if art_size == 0 %>
     <% d = "inline" %>
   <% else %>
@@ -105,46 +168,45 @@
     <% end %>
   </div>
   
+  <!--FAVORITE ARTICLES-->
   <!--Necessary logic to hide hcard after the img is load-->
   <% if art_size == 0 and com_size == 0 %>
-    <% dd = "visible" %>
+    <% d = "visible" %>
   <% else %>
-    <% dd = "hidden" %>
+    <% d = "hidden" %>
   <% end %>
   <script>
     $( document ).on('turbolinks:load', function() {
-      if ("<%= dd %>" == "hidden") {
-        $('#favorites').delay(1).hide(0);
+      if ("<%= d %>" == "hidden") {
+        $('#favorites').delay(0).hide(0);
       }
     });
   </script>
-  <div id="favorites" style="visibility: <%= dd %>"> 
-    <% @articles.order(:created_at).reverse_order.each do |article| %>
-      <% if @user.liked? article, vote_scope: 'praise' %>
-        <%= render 'layouts/hcard_lg', article: article %>
-      <% end %>
+  <div id="favorites" style="visibility: <%= d %>"> 
+    <% @user.find_voted_items(:vote_scope => 'praise').reverse.each do |article| %>
+      <%= render 'layouts/hcard_lg', article: article %>
     <% end %>
   </div>
   
+  <!--FOLLOWING-->
   <% if art_size == 0 and com_size == 0 and fav_size == 0 %>
-    <% ddd = "inline" %>
+    <% d = "inline" %>
   <% else %>
-    <% ddd = "none" %>
+    <% d = "none" %>
   <% end %>
-  <div id="following" style="display: <%= ddd %>">
-    <% @users.order(:full_name).reverse_order.each do |user| %>
-      <% if @user.liked? user, vote_scope: 'following' %>
-        <%= render 'users/profile', user: user, size: 60 %>
-      <% end %>
+  <div id="following" style="display: <%= d %>">
+    <% @user.find_voted_items(:vote_scope => 'following').reverse.each do |user| %>
+      <%= render 'users/profile', user: user, size: 60 %>
     <% end %>
   </div>
   
-  <% if art_size == 0 and com_size == 0 and fav_size == 0 and followers_size %>
-    <% dddd = "inline" %>
+  <!--FOLLOWERS-->
+  <% if art_size == 0 and com_size == 0 and fav_size == 0 and followers_size == 0 %>
+    <% d = "inline" %>
   <% else %>
-    <% dddd = "none" %>
+    <% d = "none" %>
   <% end %>
-  <div id="followers" style="display: <%= dddd %>">
+  <div id="followers" style="display: <%= d %>">
     <% @users.order(:full_name).reverse_order.each do |user| %>
       <% if user.liked? @user, vote_scope: 'following' %>
         <%= render 'users/profile', user: user, size: 60 %>

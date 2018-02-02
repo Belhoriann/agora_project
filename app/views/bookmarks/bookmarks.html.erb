@@ -12,12 +12,29 @@
     </div>
   <% else %>
     <div class="d-flex flex-row pt-4 pb-2 mb-4" style="border-bottom: 1px solid #e9e9e9">
-      <button id="articles-button" type="button" class="btn btn-sm btn-cat btn-outline-info mr-2">
-        <i class="material-icons pr-1" style="vertical-align: text-top">description</i><%= "Article".pluralize(art_book_size) %> (<%= art_book_size %>)
-      </button>
-      <button id="comments-button" type="button" class="btn btn-sm btn-cat btn-outline-info mr-2">
-        <i class="material-icons pr-1" style="vertical-align: text-top">comment</i><%= "Comment".pluralize(com_book_size) %> (<%= com_book_size %>)
-      </button>
+      <% if art_book_size != 0 %>
+        <button id="articles-button" type="button" class="btn btn-sm btn-cat btn-outline-info active mr-2">
+          <i class="material-icons pr-1" style="vertical-align: text-top">description</i><%= "Article".pluralize(art_book_size) %> (<%= art_book_size %>)
+        </button>
+      <% else %>
+        <button id="articles-button" type="button" class="btn btn-sm btn-cat btn-outline-info mr-2" disabled>
+          <i class="material-icons pr-1" style="vertical-align: text-top">description</i><%= "Article".pluralize(art_book_size) %> (<%= art_book_size %>)
+        </button>
+      <% end %>
+      
+      <% if com_book_size != 0 and art_book_size == 0 %>
+        <button id="comments-button" type="button" class="btn btn-sm btn-cat btn-outline-info active mr-2">
+          <i class="material-icons pr-1" style="vertical-align: text-top">comment</i><%= "Comment".pluralize(com_book_size) %> (<%= com_book_size %>)
+        </button>
+      <% elsif com_book_size != 0 %>
+        <button id="comments-button" type="button" class="btn btn-sm btn-cat btn-outline-info mr-2">
+          <i class="material-icons pr-1" style="vertical-align: text-top">comment</i><%= "Comment".pluralize(com_book_size) %> (<%= com_book_size %>)
+        </button>
+      <% else %>
+        <button id="comments-button" type="button" class="btn btn-sm btn-cat btn-outline-info mr-2" disabled>
+          <i class="material-icons pr-1" style="vertical-align: text-top">comment</i><%= "Comment".pluralize(com_book_size) %> (<%= com_book_size %>)
+        </button>
+      <% end %>
     </div>
   <% end %>
 
