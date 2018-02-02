@@ -1,10 +1,10 @@
-<div id="navscroll" style="height: 50px"> <!-- id "navscroll" is used in navbar.js for hide/show logic -->
+<div id="navscroll" style="height: 1px;"> <!-- id "navscroll" is used in navbar.js for hide/show logic -->
   <nav id="mainnavbar" class="navbar fixed-top navbar-expand navbar-light navbar-white d-flex align-items-center" style="height: 55px"> <!-- id "banner" is used in navbar.js for hide/show logic -->
     <div id="banner" class="container p-0" style="max-width: 1400px">
       <div>
         <%= link_to "AGORA", root_path, class: "navbar-brand" %>
       </div>  
-      <ul class="navbar-nav d-flex flex-row align-items-center">
+      <ul class="navbar-nav d-flex  align-items-center">
         <li class="nav-item">
           <%= link_to search_results_path, class: "nav-link", data: {toggle:"tooltip", placement:"bottom"}, title:"Search", :name => nil do %>
             <i class="material-icons" style="color: grey; vertical-align: middle">search</i>
@@ -16,7 +16,7 @@
           <% end %>
         </li>
         <% if user_signed_in? %>
-          <%#= link_to "Write", new_article_path, class: "btn btn-sm btn-outline-success m-2" %>
+          <%= link_to "Write", new_article_path, class: "btn btn-sm btn-outline-success m-2" %>
           <li class="dropdown">
             <ul class="navbar-nav p-1">
               <li class="dropdown-toggle profile-picture-navbar" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
@@ -72,11 +72,11 @@
                   <div class="px-2">
                     <%= f.password_field :password, autocomplete: "off", class: "form-control form-control-sm", placeholder: "Password" %>
                   </div>
-                  <div class="form-check pt-2 px-2">
+                  <div class="form-check justify-content-center p-2">
                     <button type="submit" class="btn btn-sm btn-primary">Sign in</button>
-                    <label class="form-check-label pl-2">
+                    <label class="form-check-label p-0">
                       <% if devise_mapping.rememberable? %>
-                      <div class="form-check">
+                      <div class="form-check p-0">
                         <%= f.check_box :remember_me %>
                         <%= f.label :remember_me, class:"author-sm" %>
                       </div>
@@ -84,7 +84,7 @@
                     </label>
                   </div>
                 </form>
-                <div class="card-footer p-2" align="center">
+                <div class="card-footer p-2">
                   <div>
                     <%= link_to "Forgot your password?", new_password_path(resource_name), class:"author-sm" %><br />
                     <%= link_to "Create Account", new_registration_path(resource_name), class:"author-sm" %><br />

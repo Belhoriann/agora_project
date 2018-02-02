@@ -2,9 +2,9 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .categories {
-    padding-top: 5px;
+    padding-top: 20px;
     padding-bottom: 15px;
-    margin-bottom: 20px;
+    //margin-bottom: 20px;
 }
 
 .category-link {
@@ -16,10 +16,20 @@
 }
 
 .btn-cat:hover {
-    //background: transparent!important;
-    //color: darkred!important;
+    //background: white!important;
+    //color: black!important;
+}
+
+.btn.btn-cat-jumbotron {
+    color: white!important;
+    border: 0px!important;
+}
+
+.btn.btn-cat-jumbotron:hover {
+    background: white!important;
+    color: black!important;
 }
 
 .category-link:hover {
-    //color: red;
+    color: black!important;
 }

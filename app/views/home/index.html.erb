@@ -2,10 +2,10 @@
 <!-- Do stuff if the user is logged --->
 <%# end %>
 
-<section>
-  <%= render 'home/categories' %>
-</section>
-<section class="container" style="max-width: 1400px">
+<!--<section>-->
+  <%#= render 'home/categories' %>
+<!--</section>-->
+<section class="container" style="max-width: 1400px; padding-top: 50px">
   <div class="d-flex section-title align-items-center">
     <i class="material-icons pr-1">stars</i>FEATURED
   </div>
@@ -26,7 +26,7 @@
         </div>
         <div class="col-sm" style="padding: 10px">
           <% Article.order(:cached_scoped_praise_votes_total => :desc).each do |article| %>
-            <% if Article.offset((Date.today - Date.new(1971, 1, 1)).to_i % Article.count).first == article %>
+            <% if Article.offset((Date.today - Date.new(1971, 2, 1)).to_i % Article.count).first == article %>
               <%= render 'layouts/vcard_featured_compact', article: article %>  
             <% end %>
           <% end %>
@@ -35,14 +35,14 @@
       <div class="row p-0">
         <div class="col-sm" style="padding: 10px">
           <% Article.order(:cached_scoped_praise_votes_total => :desc).each do |article| %>
-            <% if Article.offset((Date.today - Date.new(1972, 1, 1)).to_i % Article.count).first == article %>
+            <% if Article.offset((Date.today - Date.new(1972, 3, 1)).to_i % Article.count).first == article %>
               <%= render 'layouts/vcard_featured_compact', article: article %>  
             <% end %>
           <% end %>
         </div>
         <div class="col-sm" style="padding: 10px">
           <% Article.order(:cached_scoped_praise_votes_total => :desc).each do |article| %>
-            <% if Article.offset((Date.today - Date.new(1970, 1, 2)).to_i % Article.count).first == article %>
+            <% if Article.offset((Date.today - Date.new(1973, 4, 2)).to_i % Article.count).first == article %>
               <%= render 'layouts/vcard_featured_compact', article: article %>  
             <% end %>
           <% end %>
@@ -56,7 +56,7 @@
 
 <!--JUMBOTRON!-->
 <% unless user_signed_in? %>
-  <div class="jumbotron jumbotron-fluid p-4">
+  <div class="jumbotron jumbotron-fluid jumbotron-secondary p-4">
     <div class="container p-0" align="center">
       <h1 class="display-4">Your research meets the world</h1>
       <h3 class="lead">You are a scientist, an engineer or a student? Share your knowledge by writing engaging articles.</h3>

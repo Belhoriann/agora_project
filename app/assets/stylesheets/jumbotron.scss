@@ -1,13 +1,47 @@
-.jumbotron {
+.jumbotron-bg {
+    position: fixed;
+    width: 120%;
+    height: 500px; /*same height as jumbotron */
+    top: -1%;
+    left: -1%;
+    z-index: -1;
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+}
+.jumbotron-overlay {
+    position: fixed;
+    width: 120%;
+    height: 500px; /*same height as jumbotron */
+    top: -1%;
+    left: -1%;
+    z-index: -1;
+    background:
+    /* top, transparent black, faked with gradient */ 
+    linear-gradient(
+      rgba(0, 0, 0, 0.2), 
+      rgba(0, 0, 0, 0.7)
+    );
+}
+.jumbotron-main {
+    padding-top: 7em!important;
+    height: 500px!important; /*same height as jumbotron */
+    text-shadow: #444 0 1px 1px!important;
+    background:transparent!important;
+}
+
+.jumbotron-secondary {
     background: rgb(89, 61, 123)!important;
 }
 
 .display-4 {
-    font-size: 3rem!important;
+    font-size: 2em!important;
     color: white;
 }
 
 .lead {
-    font-size: 1rem!important;
+    font-size: 1em!important;
     color: white;
 }

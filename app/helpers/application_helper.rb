@@ -39,6 +39,7 @@ module ApplicationHelper
         when "Artificial Intelligence" then "fas fa-microchip"
         when "Geology" then "fas fa-adjust"
         when "Zoology" then "fas fa-paw"
+        when "Robotics" then "fas fa-cog"
         end
     end
     
@@ -64,6 +65,7 @@ module ApplicationHelper
         when "Artificial Intelligence" then "DarkTurquoise"
         when "Geology" then "Teal"
         when "Zoology" then "Hotpink"
+        when "Robotics" then "brown"
         end
     end
 end

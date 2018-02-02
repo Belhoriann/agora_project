@@ -22,6 +22,59 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Vollkorn" rel="stylesheet">
   </head>
   
+  <script>
+    $(document).on('turbolinks:load', function() {
+      
+      if ($(window).width() >= 768) {
+        $('#hero').css('visibility', 'visible');
+        $('.jumbotron-bg').fadeIn(100);
+        $('.jumbotron-overlay').fadeIn(100);
+        $('.jumbotron').fadeIn(100);
+        $('#categories').fadeIn(100);
+      } else {
+        $('#hero').hide();
+        $('#hero-mobile').show();
+      }
+      
+      var jumboHeight = $('.jumbotron').outerHeight();
+      function parallax(){
+          var scrolled = $(window).scrollTop();
+          $('.jumbotron-bg').css('height', (jumboHeight-scrolled) + 'px');
+          $('.jumbotron-overlay').css('height', (jumboHeight-scrolled) + 'px');
+      }
+      
+      $(window).scroll(function(e){
+          parallax();
+      });
+    });
+  </script>
+  <% if current_page?(root_path) %>
+    <% Article.offset(3).first(1).each do |article| %>
+    <div id="hero" style="visibility: hidden; height: 500px">
+      <div class="jumbotron-bg" style="background: url(<%= article.thumbnail.url(:large) %>) no-repeat center center; background-size: cover; display: none"></div>
+      <div class="jumbotron-overlay" style="display: none"></div>
+      <div class="jumbotron jumbotron-fluid jumbotron-main mb-0 pb-0" style="display: none">
+        <div class="container" style="max-width: 1400px">
+          <h1 class="display-4">DISCOVER</h1>
+          <hr class="my-2" style="border-color: white">
+          <%= link_to article_path(article), class: "card-link" do %>
+            <span class="article-title" style="color: white"><%= article.title %></span>
+            <div class="d-flex">
+              <span class="article-subtitle" style="color: white"><%= article.sub_title %></span>
+              &nbsp<%= link_to "Read", article_path(article), class:"btn btn-sm btn-outline-light" %>
+            </div>
+          <% end %>
+          <br>
+        </div>
+      </div>
+      <span id="categories" style="position: relative; top:-80px; display: none"><%= render 'home/categories_jumbotron' %></span>
+    </div>
+    <% end %>
+    <div id="hero-mobile" style="position: relative; top:60px; display: none">
+      <%= render 'home/categories_mobile' %>
+    </div>
+  <% end %>
+  
   <body data-spy="scroll">
     <%= render 'layouts/navbar' %>
     <div class="container text-center" style="max-width:800px">
