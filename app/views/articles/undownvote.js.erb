@@ -1,0 +1,13 @@
+/* global $ */ 
+
+// AJAX for updating the vote count and the icon for favorite
+
+// Get the id of the article liked
+var undownvoted_article = $(".undownvote-article-<%= @article.id %>");
+
+// Go outside of the loops and div to find the place where the vote count is and update it
+undownvoted_article.parent().parent().find(".downvote-count").html("<%= @article.get_downvotes(:vote_scope => 'praise').size.to_s %>");
+
+// Hide and show the right div with the class "favorite-article-<%= @article.id %>"
+$('.downvote-article-<%= @article.id %>').show();
+$('.undownvote-article-<%= @article.id %>').hide();

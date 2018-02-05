@@ -61,13 +61,13 @@
             <p class="author-wp"><%= author.work_place %></p>
           </div>
           <div class="ml-auto p-2">
-            <div>
-              <i class="fas fa-heart" data-toggle="tooltip" data-placement="top" title="Likes"></i>
+            <div class="d-flex align-items-center">
               <small class="pr-2 vote-count"><%= article.find_votes_for(:vote_scope => 'praise').size.to_s %></small>
+              <i class="mdi mdi-arrow-up-bold-box-outline md-24 blue" data-toggle="tooltip" data-placement="top" title="Upvotes"></i>
             </div>
-            <div>
-              <i class="fas fa-comment-alt" data-toggle="tooltip" data-placement="top" title="Comments"></i>
+            <div class="d-flex align-items-center">
               <small class="pr-2 vote-count"><%= comment_count(article) %></small>
+              <i class="mdi mdi-comment-text-outline md-24 grey" data-toggle="tooltip" data-placement="top" title="Comments"></i>
             </div> 
           </div>
         </div>

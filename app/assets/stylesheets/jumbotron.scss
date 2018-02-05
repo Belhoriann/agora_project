@@ -1,35 +1,51 @@
+.hero {
+    height: 500px; 
+}
+
 .jumbotron-bg {
     position: fixed;
-    width: 120%;
-    height: 500px; /*same height as jumbotron */
-    top: -1%;
-    left: -1%;
-    z-index: -1;
-    -webkit-filter: blur(5px);
-    -moz-filter: blur(5px);
-    -o-filter: blur(5px);
-    -ms-filter: blur(5px);
-    filter: blur(5px);
+    top: 0;
+    bottom: 0;
+    left: -20px;
+    right: 0;
+    z-index: -99;
+    width: 110%;
+    overflow-x: hidden;
+    -webkit-filter: blur(6px);
+    -moz-filter: blur(6px);
+    -o-filter: blur(6px);
+    -ms-filter: blur(6px);
+    filter: blur(6px);
 }
+
 .jumbotron-overlay {
-    position: fixed;
-    width: 120%;
-    height: 500px; /*same height as jumbotron */
-    top: -1%;
-    left: -1%;
-    z-index: -1;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 600px;
+    width: 100%;
+    z-index: -99;
     background:
     /* top, transparent black, faked with gradient */ 
     linear-gradient(
-      rgba(0, 0, 0, 0.2), 
-      rgba(0, 0, 0, 0.7)
+      rgba(20, 0, 50, 0.2), 
+      rgba(0, 0, 0, 1)
     );
 }
+
 .jumbotron-main {
-    padding-top: 7em!important;
+    padding-top: 4em!important;
     height: 500px!important; /*same height as jumbotron */
     text-shadow: #444 0 1px 1px!important;
     background:transparent!important;
+    
+    @media screen and (max-width: 768px) {
+        body { 
+            padding-top: 2em!important;
+        }
+    }
 }
 
 .jumbotron-secondary {

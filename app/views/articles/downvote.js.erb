@@ -3,11 +3,18 @@
 // AJAX for updating the vote count and the icon for favorite
 
 // Get the id of the article liked
-var downvoted_article = $(".unfavorite-article-<%= @article.id %>");
+var downvoted_article = $(".downvote-article-<%= @article.id %>");
 
 // Go outside of the loops and div to find the place where the vote count is and update it
-downvoted_article.parent().parent().find(".praise-count").html("<%= @article.find_votes_for(:vote_scope => 'praise').size.to_s %>");
+downvoted_article.parent().parent().find(".downvote-count").html("<%= @article.get_downvotes(:vote_scope => 'praise').size.to_s %>");
+downvoted_article.parent().parent().find(".upvote-count").html("<%= @article.get_upvotes(:vote_scope => 'praise').size.to_s %>");
 
 // Hide and show the right div with the class "favorite-article-<%= @article.id %>"
-$('.favorite-article-<%= @article.id %>').show();
-$('.unfavorite-article-<%= @article.id %>').hide();
+$('.downvote-article-<%= @article.id %>').hide();
+$('.undownvote-article-<%= @article.id %>').show();
+
+// Update upvote icons if article already upvoted
+if ( $('.unupvote-article-<%= @article.id %>').css('display') != 'none') {
+    $('.unupvote-article-<%= @article.id %>').hide();
+    $('.upvote-article-<%= @article.id %>').show();
+}

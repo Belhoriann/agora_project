@@ -1,0 +1,2 @@
+<i class="mdi mdi-arrow-up-bold-box-outline blue md-24 p-1" data-toggle="tooltip" data-placement="top" title="Upvotes"></i>
+<div class="upvote-count"><%= @article.get_upvotes(:vote_scope => 'praise').size.to_s %></div>

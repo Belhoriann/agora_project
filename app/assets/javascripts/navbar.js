@@ -8,7 +8,7 @@ $(document).on('turbolinks:load', function() {
   $(window).scroll(function() {
     var scroll = $(window).scrollTop();
     var currScrollTop = $(this).scrollTop();
-    if (scroll > lastScrollTop) { //banner_height && currScrollTop >= lastScrollTop) {
+    if (scroll > banner_height && currScrollTop >= lastScrollTop) {
         $('#banner').hide();
         navbar.addClass("navbar-invisible");
     } else {

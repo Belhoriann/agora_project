@@ -33,7 +33,9 @@ Rails.application.routes.draw do
       put "unbookmark", to: "articles#unlike"
       
       put "upvote", to: "articles#upvote"
+      put "unupvote", to: "articles#unupvote"
       put "downvote", to: "articles#downvote"
+      put "undownvote", to: "articles#undownvote"
     end
   end
   

@@ -12,6 +12,9 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Font Awesome Icons -->
     <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+    <link href="//cdn.materialdesignicons.com/2.1.19/css/materialdesignicons.min.css
+" media="all" rel="stylesheet" type="text/css" />
+    
     <!-- Bootstrap CSS -->
     <%= stylesheet_link_tag "application" %>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
@@ -21,63 +24,11 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Vollkorn" rel="stylesheet">
   </head>
-  
-  <script>
-    $(document).on('turbolinks:load', function() {
-      
-      if ($(window).width() >= 768) {
-        $('#hero').css('visibility', 'visible');
-        $('.jumbotron-bg').fadeIn(100);
-        $('.jumbotron-overlay').fadeIn(100);
-        $('.jumbotron').fadeIn(100);
-        $('#categories').fadeIn(100);
-      } else {
-        $('#hero').hide();
-        $('#hero-mobile').show();
-      }
-      
-      var jumboHeight = $('.jumbotron').outerHeight();
-      function parallax(){
-          var scrolled = $(window).scrollTop();
-          $('.jumbotron-bg').css('height', (jumboHeight-scrolled) + 'px');
-          $('.jumbotron-overlay').css('height', (jumboHeight-scrolled) + 'px');
-      }
-      
-      $(window).scroll(function(e){
-          parallax();
-      });
-    });
-  </script>
-  <% if current_page?(root_path) %>
-    <% Article.offset(3).first(1).each do |article| %>
-    <div id="hero" style="visibility: hidden; height: 500px">
-      <div class="jumbotron-bg" style="background: url(<%= article.thumbnail.url(:large) %>) no-repeat center center; background-size: cover; display: none"></div>
-      <div class="jumbotron-overlay" style="display: none"></div>
-      <div class="jumbotron jumbotron-fluid jumbotron-main mb-0 pb-0" style="display: none">
-        <div class="container" style="max-width: 1400px">
-          <h1 class="display-4">DISCOVER</h1>
-          <hr class="my-2" style="border-color: white">
-          <%= link_to article_path(article), class: "card-link" do %>
-            <span class="article-title" style="color: white"><%= article.title %></span>
-            <div class="d-flex">
-              <span class="article-subtitle" style="color: white"><%= article.sub_title %></span>
-              &nbsp<%= link_to "Read", article_path(article), class:"btn btn-sm btn-outline-light" %>
-            </div>
-          <% end %>
-          <br>
-        </div>
-      </div>
-      <span id="categories" style="position: relative; top:-80px; display: none"><%= render 'home/categories_jumbotron' %></span>
-    </div>
-    <% end %>
-    <div id="hero-mobile" style="position: relative; top:60px; display: none">
-      <%= render 'home/categories_mobile' %>
-    </div>
-  <% end %>
-  
+
   <body data-spy="scroll">
-    <%= render 'layouts/navbar' %>
-    <div class="container text-center" style="max-width:800px">
+  <%= render 'layouts/navbar' %>
+
+    <div class="container text-center fixed-top" style="max-width:800px; padding-top: 80px">
       <% if flash[:notice] %>
         <%= content_tag :div, class: "alert alert-success" do %>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -104,7 +55,7 @@
       $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();   
       });
-</script>
+    </script>
   </body>
   
   <footer>(Footer)</footer>

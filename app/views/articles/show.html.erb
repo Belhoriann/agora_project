@@ -1,4 +1,4 @@
-<div class="container-fluid" style="max-width: 800px">
+<div class="container-fluid" style="max-width: 800px; padding-top: 20px">
   <div class="d-flex flex-column" style="padding-top: 10px">
     <div class="date-sm pb-2">
       <%=raw tag_buttons(@article.all_tags) %>
@@ -24,12 +24,16 @@
       <i class="far fa-clock text-muted">&nbsp</i>
       <div class="article-date"><%= @article.created_at.strftime("%B %d, %Y") %>&nbsp&nbsp|&nbsp</div>
       <div class="voting d-flex align-items-center">
-        <%= render 'layouts/favorite', article: @article %>
+        <%= render 'layouts/upvotes' %>
       </div>
       <div class="d-flex align-items-center">
-        <i class="fas fa-comment-alt p-1" data-toggle="tooltip" data-placement="top" title="Comments"></i>
-        <%= comment_count(@article) %>
-      </div> 
+        <i class="mdi mdi-comment-text-outline md-24 grey p-1" data-toggle="tooltip" data-placement="top" title="Comments"></i>
+        <%= comment_count(@article) %> |
+      </div>
+      <% if @article.find_votes_for(vote_scope: 'praise').size > 0 %>
+        &nbspQR:&nbsp<%= rating(@article) %> &nbsp%
+        <%= certificate(@article) %>
+      <% end %>
     </div> 
     
     <div class="d-flex align-items-center">
@@ -46,8 +50,8 @@
   
   <div class="d-flex flex-row justify-content-center align-items-center pb-3 pt-3" style="border-bottom: 1px solid Lavender; border-top: 1px solid Lavender">
     <div class="voting d-flex align-items-center">
-      <div class="author-sm">Think this quality content? Give the author some love:&nbsp</div>
-      <%= render 'layouts/favorite', article: @article %>
+      <div class="author-sm">Think this quality content? Please rate this article:&nbsp&nbsp</div>
+      <%= render 'voting', article: @article %>
     </div>
   </div>
   <div class="align-items-center pt-3">

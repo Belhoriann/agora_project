@@ -109,9 +109,29 @@ class ArticlesController < ApplicationController
     end
   end  
   
-  def downvote
+  def unupvote
     @article = Article.find(params[:id])
     @article.unliked_by current_user, vote_scope: 'praise'
+
+    respond_to do |format|
+    format.html { redirect_to :back }
+    format.js
+    end
+  end 
+  
+  def downvote
+    @article = Article.find(params[:id])
+    @article.disliked_by current_user, vote_scope: 'praise'
+    
+    respond_to do |format|
+    format.html { redirect_to :back }
+    format.js
+    end
+  end
+  
+  def undownvote
+    @article = Article.find(params[:id])
+    @article.undisliked_by current_user, vote_scope: 'praise'
     
     respond_to do |format|
     format.html { redirect_to :back }

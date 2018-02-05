@@ -2,7 +2,7 @@
   <% if current_user.liked? @article, vote_scope: 'praise' %>
     <div class="unfavorite-article-<%= @article.id %>">
       <%= link_to downvote_article_path(@article), remote: true, data: {toggle:"tooltip", placement:"top"}, title:"Like Article", method: :put do %>
-        <i class="material-icons red p-1">favorite</i>
+        <i class="mdi mdi-arrow-up-bold-box-outline blue p-1"></i>
       <% end %>
     </div>
     <div class="favorite-article-<%= @article.id %>" style="display: none;">
@@ -30,7 +30,7 @@
   <% end %>
 <% else %>
   <%= link_to "", data: {toggle: "modal", target: "#modalSignup"} do %>
-    <i class="material-icons red p-1" data-toggle="tooltip" data-placement="top" title="Like Article">favorite</i>
+    <i class="mdi mdi-arrow-up-bold-box-outline blue md-24 p-1" data-toggle="tooltip" data-placement="top" title="Like Article"></i>
   <% end %>
   <div class="praise-count"><%= @article.find_votes_for(:vote_scope => 'praise').size.to_s %></div>
   <%= render 'layouts/modal_signup' %>

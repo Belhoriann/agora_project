@@ -1,4 +1,4 @@
-<section class="container" style="max-width: 800px">
+<section class="container" style="max-width: 800px; padding-top: 80px">
   <div class="row pt-3 pb-3">
     <div class="col-sm-auto">
       <%= render 'layouts/user_avatar', user: @user, size: 130 %>
@@ -7,6 +7,12 @@
       <div class="author-profile"><%= @user.full_name %></div>
       <div class="author-wp-profile"><%= @user.headline %></div>
       <div class="author-wp-profile"><%= @user.work_place %></div>
+      <div>
+        <% if @user.linkedin != "" %>
+          <%= link_to "https://#{@user.linkedin}", :target => "_blank" do %>
+            <i class="mdi mdi-linkedin-box md-28"></i>
+          <% end %>
+        <% end %>
       <div class="row align-items-center pt-1">
         <% if user_signed_in? %>
           <% unless current_user == @user %>

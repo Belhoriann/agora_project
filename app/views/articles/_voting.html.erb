@@ -1,0 +1,111 @@
+<% if user_signed_in? %>
+  <% if current_user.voted_up_on? @article, vote_scope: 'praise' %>
+  
+    <!--If user already upvoted, show unupvote button-->
+    <div class="unupvote-article-<%= @article.id %>">
+      <%= link_to unupvote_article_path(@article), remote: true, data: {toggle:"tooltip", placement:"top"}, title:"Remove vote", method: :put do %>
+        <i class="mdi mdi-arrow-up-bold-box blue p-1"></i>
+      <% end %>
+    </div>
+    <div class="upvote-article-<%= @article.id %>" style="display: none;">
+      <%= link_to upvote_article_path(@article), remote: true, data: {toggle:"tooltip", placement:"top"}, title:"Upvote article", method: :put do %>
+        <i class="mdi mdi-arrow-up-bold-box-outline blue p-1"></i>
+      <% end %>
+    </div>
+    
+    <div class="upvote-count">
+      <%= @article.get_upvotes(:vote_scope => "praise").size %>
+    </div>
+    
+    <!--If user already downvoted, show undownvote button-->
+    <div class="downvote-article-<%= @article.id %>">
+      <%= link_to downvote_article_path(@article), remote: true, data: {toggle:"tooltip", placement:"top"}, title:"Remove vote", method: :put do %>
+        <i class="mdi mdi-arrow-down-bold-box-outline red p-1"></i>
+      <% end %>
+    </div>
+    <div class="undownvote-article-<%= @article.id %>" style="display: none">
+      <%= link_to undownvote_article_path(@article), remote: true, data: {toggle:"tooltip", placement:"top"}, title:"Downvote article", method: :put do %>
+        <i class="mdi mdi-arrow-down-bold-box red p-1"></i>
+      <% end %>
+    </div>
+    
+    <div class="downvote-count">
+      <%= @article.get_downvotes(:vote_scope => "praise").size.to_s %>
+    </div>
+    
+  <% elsif current_user.voted_down_on? @article, vote_scope: 'praise' %>
+    <!--Show filled blue arrow if the user already up voted. If the button is pressed, show the other icon which is used to upvote if pressed again-->
+    <div class="unupvote-article-<%= @article.id %>" style="display: none;">
+      <%= link_to unupvote_article_path(@article), remote: true, data: {toggle:"tooltip", placement:"top"}, title:"Remove vote", method: :put do %>
+        <i class="mdi mdi-arrow-up-bold-box blue p-1"></i>
+      <% end %>
+    </div>
+    <div class="upvote-article-<%= @article.id %>">
+      <%= link_to upvote_article_path(@article), remote: true, data: {toggle:"tooltip", placement:"top"}, title:"Upvote article", method: :put do %>
+        <i class="mdi mdi-arrow-up-bold-box-outline blue p-1"></i>
+      <% end %>
+    </div>
+    
+    <div class="upvote-count">
+      <%= @article.get_upvotes(:vote_scope => "praise").size %>
+    </div>
+    
+    <!--Show filled red arrow if the user already up voted. If the button is pressed, show the other icon which is used to upvote if pressed again-->
+    <div class="downvote-article-<%= @article.id %>" style="display: none">
+      <%= link_to downvote_article_path(@article), remote: true, data: {toggle:"tooltip", placement:"top"}, title:"Remove vote", method: :put do %>
+        <i class="mdi mdi-arrow-down-bold-box-outline red p-1"></i>
+      <% end %>
+    </div>
+    <div class="undownvote-article-<%= @article.id %>">
+      <%= link_to undownvote_article_path(@article), remote: true, data: {toggle:"tooltip", placement:"top"}, title:"Downvote article", method: :put do %>
+        <i class="mdi mdi-arrow-down-bold-box red p-1"></i>
+      <% end %>
+    </div>
+
+    <div class="downvote-count">
+      <%= @article.get_downvotes(:vote_scope => "praise").size.to_s %>
+    </div>
+  <% else %>
+  
+    <!--Upvote. If the button is pressed, show the other icon which is used to downvote if pressed again-->
+    <div class="upvote-article-<%= @article.id %>">
+      <%= link_to upvote_article_path(@article), remote: true, data: {toggle:"tooltip", placement:"top"}, title:"Upvote article", method: :put do %>
+        <i class="mdi mdi-arrow-up-bold-box-outline blue p-1"></i>
+      <% end %>
+    </div>
+    <div class="unupvote-article-<%= @article.id %>" style="display: none;">
+      <%= link_to unupvote_article_path(@article), remote: true, data: {toggle:"tooltip", placement:"top"}, title:"Remove vote", method: :put do %>
+        <i class="mdi mdi-arrow-up-bold-box blue p-1"></i>
+      <% end %>
+    </div>
+    
+    <div class="upvote-count">
+      <%= @article.get_upvotes(:vote_scope => "praise").size.to_s %>
+    </div>
+    
+    <!--Downvote. If the button is pressed, show the other icon which is used to upvote if pressed again-->
+    <div class="downvote-article-<%= @article.id %>">
+      <%= link_to downvote_article_path(@article), remote: true, data: {toggle:"tooltip", placement:"top"}, title:"Downvote article", method: :put do %>
+        <i class="mdi mdi-arrow-down-bold-box-outline red p-1"></i>
+      <% end %>
+    </div>
+    <div class="undownvote-article-<%= @article.id %>" style="display: none">
+      <%= link_to undownvote_article_path(@article), remote: true, data: {toggle:"tooltip", placement:"top"}, title:"Remove vote", method: :put do %>
+        <i class="mdi mdi-arrow-down-bold-box red p-1"></i>
+      <% end %>
+    </div>
+    
+    <div class="downvote-count">
+      <%= @article.get_downvotes(:vote_scope => "praise").size.to_s %>
+    </div>
+  <% end %>
+  
+<% else %>
+  <%= link_to "", data: {toggle: "modal", target: "#modalSignup"} do %>
+    <i class="mdi mdi-arrow-up-bold-box-outline blue md-24" data-toggle="tooltip" data-placement="top" title="Upvote Article"></i>
+  <% end %>
+    <%= link_to "", data: {toggle: "modal", target: "#modalSignup"} do %>
+    <i class="mdi mdi-arrow-down-bold-box-outline red md-24" data-toggle="tooltip" data-placement="top" title="Downvote Article"></i>
+  <% end %>
+  <%= render 'layouts/modal_signup' %>
+<% end %>
