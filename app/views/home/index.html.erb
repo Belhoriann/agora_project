@@ -2,6 +2,24 @@
 <!-- Do stuff if the user is logged --->
 <%# end %>
 
+<script>
+  $(document).on('turbolinks:load', function() {
+    
+    if ($(window).innerWidth() > 580) {
+      $(window).scroll(function() {
+        var scroll = $(window).scrollTop() / $(window).height()*30;
+        
+        if (scroll > 0) {
+          $('.jumbotron-bg').css({"transform" : "translate(0%,-" + scroll + "%)"});
+        } else {
+          $('.jumbotron-bg').css({"transform" : "translate(0%," + scroll + "%)"});
+        }
+      });
+    }
+  });
+
+</script>
+
 <% Article.offset(12).first(1).each do |article| %>
 <section class="hero">
   <div class="jumbotron-bg" style="background: url(<%= article.thumbnail.url(:large) %>) center center; background-size: cover;"></div>
@@ -11,9 +29,9 @@
       <h1 class="display-4">DISCOVER</h1>
       <hr class="my-2" style="border-color: white">
       <%= link_to article_path(article), class: "card-link" do %>
-        <span class="article-title" style="color: white"><%= article.title %></span>
+        <span class="jumbotron-title"><%= article.title %></span>
         <div class="d-flex">
-          <span class="article-subtitle" style="color: white"><%= article.sub_title %></span>
+          <span class="jumbotron-subtitle"><%= article.sub_title %></span>
         </div>
         <%= link_to "Read", article_path(article), class:"btn btn-sm btn-outline-light" %>
       <% end %>

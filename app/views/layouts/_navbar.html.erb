@@ -1,10 +1,10 @@
 <div id="navscroll" style="height: 1px;"> <!-- id "navscroll" is used in navbar.js for hide/show logic -->
-  <nav id="mainnavbar" class="navbar fixed-top navbar-expand navbar-light navbar-white d-flex align-items-center" style="height: 55px"> <!-- id "banner" is used in navbar.js for hide/show logic -->
+  <nav id="mainnavbar" class="navbar fixed-top navbar-expand navbar-light navbar-white" style="height: 55px"> <!-- id "banner" is used in navbar.js for hide/show logic -->
     <div id="banner" class="container p-0" style="max-width: 1400px">
       <div>
         <%= link_to "AGORA", root_path, class: "navbar-brand" %>
       </div>  
-      <ul class="navbar-nav d-flex  align-items-center">
+      <ul class="navbar-nav align-items-center">
         <li class="nav-item">
           <%= link_to search_results_path, class: "nav-link", data: {toggle:"tooltip", placement:"bottom"}, title:"Search", :name => nil do %>
             <i class="material-icons" style="color: grey; vertical-align: middle">search</i>

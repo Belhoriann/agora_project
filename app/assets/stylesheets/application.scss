@@ -18,27 +18,26 @@
 // Sur le site entier - Font-size de référence pour les valeurs en "em"
 html {
     font-size: 20px;
-
     @media screen and (max-width: 580px) {
         font-size: 18px;
     }
 }
 
-body { 
 
+body {
     //font-family: 'Vollkorn', serif!important;
     //font-family: 'Lato', sans-serif!important;
     font-family: 'Open Sans', sans-serif!important;
     
     padding-top: 5em; 
-    padding-bottom: 100px;
+    //padding-bottom: 100px;
     //background-color: #f3f2f0!important;
     //color: #674a4b!important;
     
     @media screen and (max-width: 768px) {
         body { 
-            //padding-top: 20px;
-            padding-bottom: 70px;
+            padding-top: 20px;
+            //padding-bottom: 70px;
         }
     }
 }

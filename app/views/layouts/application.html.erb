@@ -12,12 +12,15 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Font Awesome Icons -->
     <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+    <!-- Material Design Icons -->
     <link href="//cdn.materialdesignicons.com/2.1.19/css/materialdesignicons.min.css
 " media="all" rel="stylesheet" type="text/css" />
-    
+    <!-- Academicons -->
+    <link rel="stylesheet" href="https://cdn.rawgit.com/jpswalsh/academicons/master/css/academicons.min.css">
     <!-- Bootstrap CSS -->
     <%= stylesheet_link_tag "application" %>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
     <!-- tinyMCE assets --> 
     <%= tinymce_assets %>
     <script type="text/javascript" src="/assets/tinymce.js"></script>
@@ -28,7 +31,7 @@
   <body data-spy="scroll">
   <%= render 'layouts/navbar' %>
 
-    <div class="container text-center fixed-top" style="max-width:800px; padding-top: 80px">
+    <div class="container text-center fixed-top" style="max-width:800px; margin-top: 80px">
       <% if flash[:notice] %>
         <%= content_tag :div, class: "alert alert-success" do %>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -44,6 +47,8 @@
     </div>
   
     <%= yield %>
+    
+    <footer style="height: 200px; padding-top: 50px; border-top: 1px solid Gainsboro; background-color: white">(Footer)</footer>
   
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -58,6 +63,6 @@
     </script>
   </body>
   
-  <footer>(Footer)</footer>
+  
   
 </html>

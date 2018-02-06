@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180131175605) do
+ActiveRecord::Schema.define(version: 20180205184536) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
@@ -154,6 +154,13 @@ ActiveRecord::Schema.define(version: 20180131175605) do
     t.integer  "cached_weighted_following_score",     default: 0
     t.integer  "cached_weighted_following_total",     default: 0
     t.float    "cached_weighted_following_average",   default: 0.0
+    t.string   "researchgate"
+    t.string   "twitter"
+    t.string   "facebook"
+    t.string   "youtube"
+    t.string   "instagram"
+    t.string   "skype"
+    t.string   "website"
     t.index ["cached_scoped_following_votes_down"], name: "index_users_on_cached_scoped_following_votes_down"
     t.index ["cached_scoped_following_votes_score"], name: "index_users_on_cached_scoped_following_votes_score"
     t.index ["cached_scoped_following_votes_total"], name: "index_users_on_cached_scoped_following_votes_total"

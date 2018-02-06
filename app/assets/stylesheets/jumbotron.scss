@@ -6,16 +6,16 @@
     position: fixed;
     top: 0;
     bottom: 0;
-    left: -20px;
+    left: 0;
     right: 0;
     z-index: -99;
-    width: 110%;
-    overflow-x: hidden;
-    -webkit-filter: blur(6px);
-    -moz-filter: blur(6px);
-    -o-filter: blur(6px);
-    -ms-filter: blur(6px);
-    filter: blur(6px);
+    height: 100vh;
+    //width: 110%;
+    //overflow-x: hidden;
+    
+    @media screen and (max-width: 580px) {
+        position: absolute;
+    }
 }
 
 .jumbotron-overlay {
@@ -41,10 +41,33 @@
     text-shadow: #444 0 1px 1px!important;
     background:transparent!important;
     
-    @media screen and (max-width: 768px) {
-        body { 
-            padding-top: 2em!important;
-        }
+    @media screen and (max-width: 580px) {
+        padding-top: 20px!important;
+    }
+}
+
+.jumbotron-title {
+    font-family: 'Vollkorn', serif!important;
+    color: white;
+    font-size: 2em;
+    font-weight: bold;
+    line-height: 1.2em;
+    padding-bottom: 5px;
+    
+    @media screen and (max-width: 580px) {
+        padding-top: 1.4em;
+    }
+}
+
+.jumbotron-subtitle {
+    font-family: 'Vollkorn', serif!important;
+    color: white;
+    font-size: 1.5em;
+    line-height: 1.2em;
+    padding-bottom: 10px;
+    
+    @media screen and (max-width: 580px) {
+        font-size: 1.2em;
     }
 }
 

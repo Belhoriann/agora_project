@@ -1,4 +1,4 @@
-<div class="container" style="padding-top: 100px">
+<div class="container" style="padding-top: 0px">
   <div class="card border-success mb-3 mx-auto" style="max-width: 700px;">
     <div class="card-header">
       <h4 class="text-success text-center mb-0">Edit Account</h4>
@@ -41,11 +41,48 @@
           </div>
         </div>
         <div class="form-group">
+          <div class="section-title-sm" align="center">Links</div>
           <div class="form-row">
             <div class="form-group col-md-12">
               <div class="d-flex align-items-center">
                 <i class="mdi mdi-linkedin-box md-24 grey"></i>
                 <%= f.text_field :linkedin, autocomplete: "off", class:"form-control form-control-md", placeholder: "LinkedIn" %>
+              </div>
+            </div>
+            <div class="form-group col-md-12">
+              <div class="d-flex align-items-center">
+                <i class="ai ai-researchgate-square grey" style="padding-left: 3px; padding-right: 3px; font-size: 21px"></i>
+                <%= f.text_field :researchgate, autocomplete: "off", class:"form-control form-control-md", placeholder: "ResearchGate" %>
+              </div>
+            </div>
+            <div class="form-group col-md-12">
+              <div class="d-flex align-items-center">
+                <i class="mdi mdi-skype md-24 grey"></i>
+                <%= f.text_field :skype, autocomplete: "off", class:"form-control form-control-md", placeholder: "Skype" %>
+              </div>
+            </div>
+            <div class="form-group col-md-12">
+              <div class="d-flex align-items-center">
+                <i class="mdi mdi-facebook-box md-24 grey"></i>
+                <%= f.text_field :facebook, autocomplete: "off", class:"form-control form-control-md", placeholder: "Facebook" %>
+              </div>
+            </div>
+            <div class="form-group col-md-12">
+              <div class="d-flex align-items-center">
+                <i class="mdi mdi-twitter-box md-24 grey"></i>
+                <%= f.text_field :twitter, autocomplete: "off", class:"form-control form-control-md", placeholder: "Twitter" %>
+              </div>
+            </div>
+            <div class="form-group col-md-12">
+              <div class="d-flex align-items-center">
+                <i class="mdi mdi-youtube-play md-24 grey"></i>
+                <%= f.text_field :youtube, autocomplete: "off", class:"form-control form-control-md", placeholder: "Youtube" %>
+              </div>
+            </div>
+            <div class="form-group col-md-12">
+              <div class="d-flex align-items-center">
+                <i class="mdi mdi-instagram md-24 grey"></i>
+                <%= f.text_field :instagram, autocomplete: "off", class:"form-control form-control-md", placeholder: "Instagram" %>
               </div>
             </div>
           </div>

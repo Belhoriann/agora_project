@@ -7,22 +7,23 @@
 .navbar-white {
     box-shadow: 0px 1px 15px 0px rgba(0, 0, 0, 0.1);
     background-color: rgba(255, 255, 255, 1);
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
 }
 
 .navbar-invisible {
-    background-color: rgba(255, 255, 255, 0)!important;
+    opacity: 0;
     box-shadow: 0px 1px 15px 0px rgba(0, 0, 0, 0.0);
 }
 
 .navbar-nav-scroll {
   display: flex;
   overflow: auto;
-  -webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling:touch;
   -ms-overflow-style: -ms-autohiding-scrollbar; 
-}
-
-.nav-item {
-  flex: 0 0 auto !important;
 }
 
 .navbar-nav .nav-link {

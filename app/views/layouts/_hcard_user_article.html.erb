@@ -56,10 +56,10 @@
             <%= link_to 'Delete', article_path(article), class: "date-sm btn btn-sm btn-outline-danger ml-1", method: :delete, data: { confirm: 'Are you sure?' } %>       
           <% end %>
           <div class="ml-auto p-2">
-            <i class="fas fa-heart" data-toggle="tooltip" data-placement="top" title="Likes"></i>
-            <small class="pr-2 vote-count"><%= article.find_votes_for(:vote_scope => 'praise').size.to_s %></small>
-            <i class="fas fa-comment-alt" data-toggle="tooltip" data-placement="top" title="Comments"></i>
-            <small class="pr-2 vote-count"><%= comment_count(article) %></small>
+            <small class="vote-count"><%= article.find_votes_for(:vote_scope => 'praise').size.to_s %></small>
+            <i class="mdi mdi-arrow-up-bold-box-outline md-24 blue" data-toggle="tooltip" data-placement="top" title="Upvotes"></i>
+            <small class="vote-count"><%= comment_count(article) %></small>
+            <i class="mdi mdi-comment-text-outline md-24 grey" data-toggle="tooltip" data-placement="top" title="Comments"></i>
           </div>
         </div>
       </div>
