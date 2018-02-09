@@ -29,7 +29,7 @@
 
 .article-body {
     color: black;
-    font-size: 1.1em;
+    font-size: 1em;
     padding-top: 30px;
     padding-bottom: 20px;
     
@@ -125,4 +125,16 @@ figure.image figcaption {
     font-size: 0.8em;
     margin: 6px 8px 6px 8px;
     text-align: center;
+}
+
+.links-title {
+    font-size: 0.95em;
+    font-weight: bold;
+    color: black;
+}
+
+.links {
+    font-size: 0.95em;
+    color: grey;
+    padding-bottom: 30px;
 }

@@ -1,6 +1,6 @@
 class Article < ActiveRecord::Base
     # Ensures that all fields are filled by the writer before posting the article
-    validates :title, :sub_title, :body, :category_id, :thumbnail, :presence => true
+    validates :title, :sub_title, :body, :category_id, :thumbnail, :all_tags, :presence => true
     
     acts_as_votable
     
@@ -29,7 +29,7 @@ class Article < ActiveRecord::Base
     end
     
     def all_tags
-        self.tags.map(&:name).join(", ")
+        self.tags.map(&:name).sort.join(", ")
     end
     
     def self.tagged_with(name)

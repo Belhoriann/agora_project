@@ -1,4 +1,4 @@
-<div class="d-flex categories mx-auto" style="overflow: auto;">
+<div class="d-flex categories mx-auto" style="overflow: auto;" data-toggle="tooltip" data-placement="top" title="Hold Shift to Scroll">
   <% @categories = Category.all %>
   <% @categories.order(:name).first(20).each do |cat| %>
     <% next if cat.id.even? %>

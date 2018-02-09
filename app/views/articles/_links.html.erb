@@ -1,0 +1,57 @@
+<div class="links">
+  <div class="d-flex align-items-center links-title mb-2">
+    <i class="material-icons p-2 grey" data-toggle="tooltip" data-placement="left" title="Complementary links">link</i>
+    Go further:
+  </div>
+  
+  <% if @article.all_tags != "" %>
+    <div class="d-flex align-items-center" style="flex-wrap: wrap">
+     <i class="fas fa-tags p-2 grey" data-toggle="tooltip" data-placement="left" title="Tags"></i><%=raw tag_buttons(@article.all_tags) %>
+    </div>
+  <% end %>
+  
+  <% if @article.doi? %>
+    <div class="d-flex align-items-center">
+      <i class="material-icons p-2 grey" data-toggle="tooltip" data-placement="left" title="Scientific article (DOI)">description</i>
+      <%= link_to "https://doi.org/#{@article.doi}", :target => "_blank" do %>
+        <%= "#{@article.doi}" %>
+      <% end %>
+    </div>
+  <% end %>
+  
+  <% if @article.website? %>
+    <div class="d-flex align-items-center">
+      <i class="material-icons p-2 grey" data-toggle="tooltip" data-placement="left" title="Website or app">language</i>
+      <%= link_to "#{@article.website.truncate(30)}", :target => "_blank" do %>
+        <% "#{@article.website}" %>
+      <% end %>
+    </div>
+  <% end %>
+  
+  <% if @article.video? %>
+    <div class="d-flex align-items-center">
+      <i class="material-icons p-2 grey" data-toggle="tooltip" data-placement="left" title="Video">ondemand_video</i>
+      <%= link_to "#{@article.video.truncate(30)}", :target => "_blank" do %>
+        <% "#{@article.video}" %>
+      <% end %>
+    </div>
+  <% end %>
+  
+  <% if @article.podcast? %>
+    <div class="d-flex align-items-center">
+      <i class="material-icons p-2 grey" data-toggle="tooltip" data-placement="left" title="Podcast">wifi_tethering</i>
+      <%= link_to "#{@article.podcast}", :target => "_blank" do %>
+        <% "#{@article.podcast.truncate(30)}" %>
+      <% end %>
+    </div>
+  <% end %>
+  
+  <% if @article.social? %>
+    <div class="d-flex align-items-center mb-4">
+      <i class="material-icons p-2 grey" data-toggle="tooltip" data-placement="left" title="Social network profile">person</i>
+      <%= link_to "#{@article.social.truncate(30)}", :target => "_blank" do %>
+        <% "#{@article.social}" %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

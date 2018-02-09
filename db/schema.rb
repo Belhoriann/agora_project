@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180205184536) do
+ActiveRecord::Schema.define(version: 20180207021816) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
@@ -48,6 +48,11 @@ ActiveRecord::Schema.define(version: 20180205184536) do
     t.integer  "cached_weighted_bookmark_score",     default: 0
     t.integer  "cached_weighted_bookmark_total",     default: 0
     t.float    "cached_weighted_bookmark_average",   default: 0.0
+    t.string   "doi"
+    t.string   "video"
+    t.string   "website"
+    t.string   "podcast"
+    t.string   "social"
     t.index ["cached_scoped_bookmark_votes_down"], name: "index_articles_on_cached_scoped_bookmark_votes_down"
     t.index ["cached_scoped_bookmark_votes_score"], name: "index_articles_on_cached_scoped_bookmark_votes_score"
     t.index ["cached_scoped_bookmark_votes_total"], name: "index_articles_on_cached_scoped_bookmark_votes_total"

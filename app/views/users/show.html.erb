@@ -7,43 +7,9 @@
       <div class="author-profile"><%= @user.full_name %></div>
       <div class="author-wp-profile"><%= @user.headline %></div>
       <div class="author-wp-profile"><%= @user.work_place %></div>
-      <div class="d-flex align-items-center">
-        <% if @user.linkedin != "" %>
-          <%= link_to "https://#{@user.linkedin}", :target => "_blank" do %>
-            <i class="mdi mdi-linkedin-box md-24 linkedin"></i>
-          <% end %>
-        <% end %>
-        <% if @user.researchgate != "" %>
-          <%= link_to "https://#{@user.researchgate}", :target => "_blank" do %>
-            <i class="ai ai-researchgate-square researchgate" style="padding-left: 3px; padding-right: 3px; font-size: 21px"></i>
-          <% end %>
-        <% end %>
-        <% if @user.skype != "" %>
-          <%= link_to "https://#{@user.skype}", :target => "_blank" do %>
-            <i class="mdi mdi-skype md-24 skype"></i>
-          <% end %>
-        <% end %>
-        <% if @user. != "" %>
-          <%= link_to "https://#{@user.facebook}", :target => "_blank" do %>
-            <i class="mdi mdi-facebook-box md-24 facebook"></i>
-          <% end %>
-        <% end %>
-        <% if @user.twitter != "" %>
-          <%= link_to "https://#{@user.twitter}", :target => "_blank" do %>
-            <i class="mdi mdi-twitter-box md-24 twitter"></i>
-          <% end %>
-        <% end %>
-        <% if @user.youtube != "" %>
-          <%= link_to "https://#{@user.youtube}", :target => "_blank" do %>
-            <i class="mdi mdi-youtube-play md-24 youtube"></i>
-          <% end %>
-        <% end %>
-        <% if @user.instagram != "" %>
-          <%= link_to "https://#{@user.instagram}", :target => "_blank" do %>
-            <i class="mdi mdi-instagram md-24 instagram"></i>
-          <% end %>
-        <% end %>
-      </div>
+      
+      <%= render 'social_links' %>
+      
       <div class="row align-items-center pt-1">
         <% if user_signed_in? %>
           <% unless current_user == @user %>

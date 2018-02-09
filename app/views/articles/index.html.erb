@@ -1,10 +1,22 @@
 
 <% if params[:tag] %>
-  <div class="container" style="max-width: 800px">
-    <div class="section-title-sm">Articles tagged in <strong style="color: MediumPurple "><%= params[:tag].capitalize %></strong></div>
-    <% @articles.each do |article| %>
-      <%= render 'layouts/hcard_sm', article: article, class:"mb-2" %>
-    <% end %>
+  <div class="container" style="max-width: 1000px">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="date-sm">TAGGED IN</div>
+        <strong class="section-title" style="color: MediumPurple;"><%= params[:tag].capitalize %></strong>
+        <div class="mt-4">
+          <% @articles.each do |article| %>
+            <%= render 'layouts/hcard_sm', article: article, class:"mb-2" %>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="date-sm mb-2">RELATED TAGS</div>
+        <% tags = Tag.find_by_name(params[:tag]).related_tags(params[:tag]) %>
+        <%=raw tag_buttons(tags) %>
+      </div>
+    </div>
   </div>
 <% else %>
 
