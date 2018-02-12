@@ -9,13 +9,38 @@
 .blue { color: #0077CC; }
 .red { color: crimson; }
 
-.linkedin { color: #0077B0; }
-.researchgate { color: #00CABB; }
-.skype { color: #00B6E9; }
-.facebook { color: #385B94; }
-.twitter { color: #00A1EE; }
-.youtube { color: #FF1D00; }
-.instagram { color: #D33984; }
+.link-button { 
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-color: grey;
+    color: grey;
+    border-radius: 9999px;
+    transition: 0.1s linear;
+    text-align: center;
+    margin-right: 5px;
+    
+    height: 40px;
+    width: 40px;
+
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+.link-icon {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+}
+
+.linkedin:hover { color: white; border-color: white; background-color: #0077B0; }
+.researchgate:hover { color: white; border-color: white; background-color: #00CABB; text-decoration: none; }
+.skype:hover { color: white; border-color: white; background-color: #00B6E9; text-decoration: none; }
+.facebook:hover { color: white; border-color: white; background-color: #385B94; text-decoration: none; }
+.twitter:hover { color: white; border-color: white; background-color: #00A1EE; text-decoration: none; }
+.youtube:hover { color: white; border-color: white; background-color: #FF1D00; text-decoration: none; }
+.instagram:hover { color: white; border-color: white; background-color: #D33984; text-decoration: none; }
 
 .md-24 { font-size: 24px; }
 .md-36 { font-size: 36px; }

@@ -1,20 +1,37 @@
-<div class="container" style="max-width: 800px">
+<script>
+  $(document).on('turbolinks:load', function() {
+    
+    if ($(window).innerWidth() > 580) {
+      $(window).scroll(function() {
+        var scroll = $(window).scrollTop() / $(window).height()*30;
+        
+        if (scroll > 0) {
+          $('.category-bg').css({"transform" : "translate(0%,-" + scroll + "%)"});
+        } else {
+          $('.category-bg').css({"transform" : "translate(0%," + scroll + "%)"});
+        }
+      });
+    }
+  });
+</script>
 
-  <div class="d-flex section-title align-items-center">
-    <% cat_icon = category_icon(@category.name) %>  <!--category_icon is a helper method inside application_helper-->
-    <% cat_icon_color = category_icon_color(@category.name) %> <!--category_icon_color is a helper method inside application_helper-->
-    <i class="<%= cat_icon %>" style="color:<%= cat_icon_color %>"></i>
-    <div class="p-2"><%= @category.name %></div>
-  </div>
+<div class="category-hero">
+  <div class="category-bg" style="background: url(<%= category_img(Category.find(@category.id).name) %>) center center; background-size: cover;"></div>
+  <div class="category-overlay"></div>
+  <div class="category-title"><%= @category.name.upcase %></div>
+  <div class="category-description"><%= @category.description %></div>
+</div>
 
-  <p class="pt-0 pb-2"><%= @category.description %></p>
+<div class="container-fluid" style="background: white">
+  <div class="container" style="max-width: 800px; min-height: 50vh; padding-top: 40px; background: white">
   
-  <% Article.where(category_id: @category.id).order('created_at DESC').first(5).each do |article| %>
-    <%= render 'layouts/hcard_sm', article: article %>
-  <% end %>
-
-  <%= link_to 'Edit', edit_category_path(@category) %> |
-  <%= link_to 'Back', categories_path %>
-      
+    <% Article.where(category_id: @category.id).order('created_at DESC').first(5).each do |article| %>
+      <%= render 'layouts/hcard_sm', article: article %>
+    <% end %>
+  
+    <%= link_to 'Edit', edit_category_path(@category) %> |
+    <%= link_to 'Back', categories_path %>
+        
+  </div>
 </div>
 

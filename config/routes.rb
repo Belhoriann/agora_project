@@ -20,6 +20,7 @@ Rails.application.routes.draw do
 
   root 'home#index'
   get 'home/index'
+  get '/about', to: "about#about"
   get '/collection', to: "collection#collection"
   get '/bookmarks', to: "bookmarks#bookmarks"
   get '/dashboard', to: "dashboard#dashboard"

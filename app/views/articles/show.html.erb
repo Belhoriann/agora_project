@@ -1,66 +1,85 @@
-<div class="container-fluid" style="max-width: 800px; padding-top: 20px">
-  <div class="d-flex flex-column" style="padding-top: 10px">
-    <div class="date-sm pb-2">
-      <%=raw tag_buttons(@article.all_tags) %>
+<div class="container-fluid" style="max-width: 700px; padding-top: 0px">
+  <div class="wrapper">
+    <div class="d-flex align-items-center pb-2 date-sm">
+      <i class="far fa-clock text-muted pr-1"></i>
+      <%= @article.created_at.strftime("%B %d, %Y") %>&nbsp&nbsp-&nbsp&nbsp
+      <% cat_icon = category_icon(Category.find(@article.category_id).name) %>
+      <% cat_icon_color = category_icon_color(Category.find(@article.category_id).name) %>
+      <i class="<%= cat_icon %> pr-1" style="color:<%= cat_icon_color %>"></i>
+      <%= link_to Category.find(@article.category_id).name, category_path(@article.category_id) %>&nbsp&nbsp-&nbsp
+      <%= @article.body.split.size %> words 
     </div>
-    <div class="d-flex justify-content-left align-items-center">
+    
+    <div class="d-flex justify-content-between align-items-start">
       <div class="article-title">
         <%= @article.title %>
+        <% if @article.find_votes_for(vote_scope: 'praise').size > 0 %>
+          <%= link_to certificate(@article), "#", data: { toggle:"tooltip", placement:"top" }, title:"Quality rating: #{rating(@article)} %", style:"font-size:0.6em" %>
+        <% end %>
       </div>
       <div class="bookmarking p-2">
         <%= render 'layouts/bookmark', article: @article %>
       </div>
       <div class="date">
-        <% if user_signed_in? and current_user.id == @article.user_id and current_user.admin? %>
-            <%= link_to 'Edit', edit_article_path(@article), class: "btn btn-sm btn-outline-primary p-1 m-1" %>
-            <%= link_to 'Delete', article_path(@article), class: "btn btn-sm btn-outline-danger p-1 m-1", method: :delete, data: { confirm: 'Are you sure?' } %>       
+        <% if user_signed_in? %>
+          <% if current_user.id == @article.user_id or current_user.admin? %>
+              <%= link_to 'Edit', edit_article_path(@article), class: "btn btn-sm btn-outline-primary p-1 m-1" %>
+              <%= link_to 'Delete', article_path(@article), class: "btn btn-sm btn-outline-danger p-1 m-1", method: :delete, data: { confirm: 'Are you sure?' } %>       
+          <% end %>
         <% end %>
       </div>
     </div>
     <div class="article-subtitle">
       <%= @article.sub_title %>
     </div>
-    <div class="d-flex flex-row align-items-center pb-2">
-      <i class="far fa-clock text-muted">&nbsp</i>
-      <div class="article-date"><%= @article.created_at.strftime("%B %d, %Y") %>&nbsp&nbsp|&nbsp</div>
-      <div class="voting d-flex align-items-center grey">
-        <%= render 'layouts/upvotes' %>
-      </div>
-     
-       <script>
-         $(document).on('turbolinks:load', function() {
-           $("#scroll-to-comment").click(function() {
-              $('html,body').animate({scrollTop: $("#comment-section").offset().top}, 400);
-           });
-         });
-       </script>
-      <%= link_to "#", id:"scroll-to-comment", style:"text-decoration: none", remote: true, data: { toggle:"tooltip", placement:"top" }, title:"Scroll to comments" do %>
-        <div class="d-flex align-items-center grey">
-          <i class="mdi mdi-comment-text-outline md-24 grey p-1"></i>
-          <%= comment_count(@article) %>
-        </div>
-      <% end %>
-    
-      <% if @article.find_votes_for(vote_scope: 'praise').size > 0 %>
-        &nbspQR:&nbsp<%= rating(@article) %> &nbsp%
-        <%= certificate(@article) %>
-      <% end %>
-    </div> 
-    
-    <div class="d-flex align-items-center">
-      <%= render 'author' %> <!-- modal rendering the avatar, the name, workplace and follow button of the author -->
-    </div>
-    <div class="article-body">
-      <%= @article.body.html_safe %>
-    </div>
   </div>
+    
+  <div class="d-flex align-items-center pb-2">
+    <script>
+      $(document).on('turbolinks:load', function() {
+        $("#scroll-to-comment").click(function() {
+          $('html,body').animate({scrollTop: $("#comment-section").offset().top}, 400);
+        });
+      });
+    </script>
+     
+    <%= link_to "#", id:"scroll-to-comment", style:"text-decoration: none", remote: true, data: { toggle:"tooltip", placement:"top" }, title:"Scroll to comments" do %>
+      <div class="d-flex align-items-center grey">
+        <i class="mdi mdi-comment-text-outline md-24 grey p-1"></i>
+        <%= comment_count(@article) %> 
+      </div>
+    <% end %>
+    
+    <div class="voting d-flex align-items-center grey">
+      <%= render 'layouts/upvotes' %>
+    </div>
+  </div> 
+  <div class="d-flex align-items-center">
+    <%= render 'author' %> <!-- modal rendering the avatar, the name, workplace and follow button of the author -->
+  </div>
+</div>
+
+<div class="container-fluid" style="max-width: 700px;">
   
+  <div class="article-body">
+    <%= image_tag(@article.thumbnail.url(:large), class:"img-fluid pb-4") %>
+    <%= @article.body.html_safe %>
+  </div>
+
   <%= render 'links' %>
   
-  <div class="d-flex flex-row justify-content-center align-items-center pb-3 pt-3" style="border-bottom: 1px solid Lavender; border-top: 1px solid Lavender">
+  <div class="d-flex flex-column justify-content-center align-items-center pb-3 pt-3" style="border-bottom: 1px solid Lavender; border-top: 1px solid Lavender">
     <div class="voting d-flex align-items-center">
-      <div class="author-sm">Think this quality content? Please rate this article:&nbsp&nbsp</div>
+      <div class="author-sm">RATE THIS ARTICLE:&nbsp&nbsp</div>
       <%= render 'voting', article: @article %>
+    </div>
+    <div class="voting d-flex align-items-center">
+       <div class="author-sm">SHARE:&nbsp&nbsp</div>
+    </div> 
+    <div class="voting d-flex align-items-center">
+      <div class="author-sm">PUBLISHED BY&nbsp</div>
+      <div class="author-sm"><%= link_to "#{User.find(@article.user_id).full_name.upcase}", user_path(@article.user_id, full_name: User.find(@article.user_id).full_name) %></div>
+      <div class="author-sm">&nbspON&nbsp</div>
     </div>
   </div>
   <div class="align-items-center pt-3">
@@ -81,6 +100,9 @@
 </section>
 
 <section id="comment-section" class="container-fluid pt-4" style="background: #FAFAFA" >
+    
+  <div class="divider" style="width: 500px; margin: auto"></div>
+
   <div class="row justify-content-center p-0">
     <div class="container" style="width: 800px">
       <% if user_signed_in? %>

@@ -138,3 +138,20 @@ figure.image figcaption {
     color: grey;
     padding-bottom: 30px;
 }
+
+.divider-article {
+  width   : 100%;
+  height  : 10px;   
+  position: relative;
+  z-index : 1;
+}
+
+.divider-article:before {
+  content : "";
+  position: absolute;
+  left    : 45%;
+  bottom  : 0;
+  height  : 1px;
+  width   : 10%;  /* or 100px */
+  border-bottom: 2px solid lightgrey;
+}

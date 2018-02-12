@@ -31,8 +31,7 @@ body {
     
     padding-top: 5em; 
     //padding-bottom: 100px;
-    //background-color: #f3f2f0!important;
-    //color: #674a4b!important;
+    color: rgb(50, 50, 50)!important;
     
     @media screen and (max-width: 768px) {
         body { 
@@ -84,6 +83,7 @@ body {
 }
 
 .divider {
-    border-top: 1px solid grey;
+    height: 2px;
+    border-top: 1px solid lightgrey;
     border-bottom: 1px solid white;
 }

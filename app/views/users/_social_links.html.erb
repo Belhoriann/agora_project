@@ -1,37 +1,37 @@
-<div class="d-flex align-items-center">
+<div class="d-flex align-items-end mt-2 mb-2">
   <% if @user.linkedin? %>
-    <%= link_to "https://#{@user.linkedin}", :target => "_blank" do %>
-      <i class="mdi mdi-linkedin-box md-24 linkedin"></i>
+    <%= link_to "https://#{@user.linkedin}", :target => "_blank", class:"linkedin link-button" do %>
+      <i class="link-icon mdi mdi-linkedin md-24"></i>
     <% end %>
   <% end %>
   <% if @user.researchgate? %>
-    <%= link_to "https://#{@user.researchgate}", :target => "_blank" do %>
-      <i class="ai ai-researchgate-square researchgate" style="padding-left: 3px; padding-right: 3px; font-size: 21px"></i>
+    <%= link_to "https://#{@user.researchgate}", :target => "_blank", class:"researchgate link-button" do %>
+      <i class="link-icon ai ai-researchgate" style="padding-left: 3px; padding-right: 3px; font-size: 24px"></i>
     <% end %>
   <% end %>
   <% if @user.skype? %>
-    <%= link_to "https://#{@user.skype}", :target => "_blank" do %>
-      <i class="mdi mdi-skype md-24 skype"></i>
+    <%= link_to "https://#{@user.skype}", :target => "_blank", class:"skype link-button" do %>
+      <i class="link-icon fab fa-skype md-24"></i>
     <% end %>
   <% end %>
   <% if @user.facebook? %>
-    <%= link_to "https://#{@user.facebook}", :target => "_blank" do %>
-      <i class="mdi mdi-facebook-box md-24 facebook"></i>
+    <%= link_to "https://#{@user.facebook}", :target => "_blank", class:"facebook link-button" do %>
+      <i class="link-icon fab fa-facebook-f md-24"></i>
     <% end %>
   <% end %>
   <% if @user.twitter? %>
-    <%= link_to "https://#{@user.twitter}", :target => "_blank" do %>
-      <i class="mdi mdi-twitter-box md-24 twitter"></i>
+    <%= link_to "https://#{@user.twitter}", :target => "_blank", class:"twitter link-button" do %>
+      <i class="link-icon fab fa-twitter md-24"></i>
     <% end %>
   <% end %>
   <% if @user.youtube? %>
-    <%= link_to "https://#{@user.youtube}", :target => "_blank" do %>
-      <i class="mdi mdi-youtube-play md-24 youtube"></i>
+    <%= link_to "https://#{@user.youtube}", :target => "_blank", class:"youtube link-button" do %>
+      <i class="link-icon fab fa-youtube md-24"></i>
     <% end %>
   <% end %>
   <% if @user.instagram? %>
-    <%= link_to "https://#{@user.instagram}", :target => "_blank" do %>
-      <i class="mdi mdi-instagram md-24 instagram"></i>
+    <%= link_to "https://#{@user.instagram}", :target => "_blank", class:"instagram link-button" do %>
+      <i class="link-icon fab fa-instagram md-24"></i>
     <% end %>
   <% end %>
 </div>

@@ -7,16 +7,9 @@
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <%= devise_error_messages! %>
       <div class="form-group was-validated">
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <div>
-              <%= f.text_field :full_name, autofocus: true, class: "form-control form-control-md", placeholder: "Full name", required: true %>
-            </div>
-          </div>
-          <div class="custom-file col-md-6">
-            <%= f.file_field :avatar, multiple: true, name: 'avatar', class:"custom-file-input", required: true %>
-            <span class="custom-file-label">Profile picture...</span>
-          </div>
+       
+        <div>
+          <%= f.text_field :full_name, autofocus: true, class: "form-control form-control-md mb-3", placeholder: "Full name", required: true %>
         </div>
 
         <div>
@@ -31,23 +24,12 @@
             <%= f.email_field :email, autofocus: true, class: "form-control form-control-md mb-3", placeholder: "Email", required: true %>
         </div>
       </div>
-        
-        <div class="form-group">
-          <div class="form-row">
-            <div class="form-group col-md-12">
-              <div class="d-flex align-items-center">
-                <i class="mdi mdi-linkedin-box md-24 grey"></i>
-                <%= f.text_field :linkedin, autocomplete: "off", class:"form-control form-control-md", placeholder: "LinkedIn", required: false %>
-              </div>
-            </div>
-          </div>
-        </div>
-      
+            
       <div class="form-group was-validated mb-0">
         <div class="form-row">
           <div class="form-group col-md-6">
             <% if @minimum_password_length %>
-            <% pw_length = @minimum_password_length %>
+              <% pw_length = @minimum_password_length %>
             <% end %>
             <%= f.password_field :password, autocomplete: "off", class: "form-control form-control-md", placeholder: "Password - #{pw_length} characters minimum", required: true %>
           </div>
@@ -57,11 +39,61 @@
           </div>
         </div>
       </div>
-      
-        <div>
-          <button type="submit" class="btn btn-success">Sign Up</button>
+        
+      <div class="custom-file was-validated mb-3">
+        <%= f.file_field :avatar, multiple: true, name: 'avatar', class:"custom-file-input", required: true %>
+        <span class="custom-file-label">Profile picture...</span>
+      </div>
+
+      <div class="section-title-sm" align="center">Links</div>
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <div class="d-flex align-items-center">
+            <i class="mdi mdi-linkedin-box md-24 grey"></i>
+            <%= f.text_field :linkedin, autocomplete: "off", class:"form-control form-control-md", placeholder: "LinkedIn", required: false %>
+          </div>
+        </div>
+        <div class="form-group col-md-12">
+          <div class="d-flex align-items-center">
+            <i class="ai ai-researchgate-square grey" style="padding-left: 3px; padding-right: 3px; font-size: 21px"></i>
+            <%= f.text_field :researchgate, autocomplete: "off", class:"form-control form-control-md", placeholder: "ResearchGate" %>
+          </div>
+        </div>
+        <div class="form-group col-md-12">
+          <div class="d-flex align-items-center">
+            <i class="mdi mdi-skype md-24 grey"></i>
+            <%= f.text_field :skype, autocomplete: "off", class:"form-control form-control-md", placeholder: "Skype" %>
+          </div>
+        </div>
+        <div class="form-group col-md-12">
+          <div class="d-flex align-items-center">
+            <i class="mdi mdi-facebook-box md-24 grey"></i>
+            <%= f.text_field :facebook, autocomplete: "off", class:"form-control form-control-md", placeholder: "Facebook" %>
+          </div>
+        </div>
+        <div class="form-group col-md-12">
+          <div class="d-flex align-items-center">
+            <i class="mdi mdi-twitter-box md-24 grey"></i>
+            <%= f.text_field :twitter, autocomplete: "off", class:"form-control form-control-md", placeholder: "Twitter" %>
+          </div>
+        </div>
+        <div class="form-group col-md-12">
+          <div class="d-flex align-items-center">
+            <i class="mdi mdi-youtube-play md-24 grey"></i>
+            <%= f.text_field :youtube, autocomplete: "off", class:"form-control form-control-md", placeholder: "Youtube" %>
+          </div>
+        </div>
+        <div class="form-group col-md-12">
+          <div class="d-flex align-items-center">
+            <i class="mdi mdi-instagram md-24 grey"></i>
+            <%= f.text_field :instagram, autocomplete: "off", class:"form-control form-control-md", placeholder: "Instagram" %>
+          </div>
         </div>
       </div>
+      <div>
+        <button type="submit" class="btn btn-success">Sign Up</button>
+      </div>
+    </div>
     <% end %>
     </div>
   </div>

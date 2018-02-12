@@ -7,6 +7,64 @@
     //margin-bottom: 20px;
 }
 
+.category-hero {
+    height: 120px;
+    max-width: 100%;
+    margin-bottom: 100px;
+}
+
+.category-bg {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -99;
+    height: 100vh;
+}
+
+.category-overlay {
+    position: absolute;
+    top: 1px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 600px;
+    width: 100%;
+    z-index: -99;
+    background:
+    /* top, transparent black, faked with gradient */ 
+    linear-gradient(
+      rgba(20, 0, 50, 0.4), 
+      rgba(0, 0, 0, 0.4)
+    );
+}
+
+.category-title {
+    font-family: 'Vollkorn', sans-serif;
+    position: absolute;
+    text-align: center;
+    left: 0;
+    width: 100%;
+    font-size: 3em;
+    padding-top: 20px;
+    color: white;
+    z-index: -99;
+}
+
+.category-description {
+    font-family: 'Lato', sans-serif;
+    position: absolute;
+    text-align: center;
+    left: 0;
+    padding-top: 80px;
+    width: 100%;
+    font-size: 1.2em;
+    font-weight: lighter;
+    color: white;
+    z-index: -99;
+}
+
 .category-link {
     //color: black;
 }

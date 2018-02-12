@@ -14,11 +14,11 @@ module ArticlesHelper
     # Determine which certificate must be drawn depending of the article rating
     def certificate(article)
         if rating(article).between?(90,100)
-            content_tag(:i, "", class:"fas fa-certificate gold")
+            content_tag(:i, "", class:"mdi mdi-certificate gold")
         elsif rating(article).between?(80,89)
-            content_tag(:i, "", class:"fas fa-certificate silver")
+            content_tag(:i, "", class:"mdi mdi-certificate silver")
         elsif rating(article).between?(70,79) 
-            content_tag(:i, "", class:"fas fa-certificate bronze")
+            content_tag(:i, "", class:"mdi mdi-certificate bronze")
         end
     end
 end

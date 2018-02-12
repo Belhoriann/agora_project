@@ -71,6 +71,14 @@
   font-size: 0.7em;
 }
 
+/*.img-fluid {
+  transition: transform 10s
+}
+
+.img-fluid:hover {
+  transform: scale(1.5)
+}*/
+
 // Fit image in the card, regarding of the card's height
 .thumb-category {
     object-fit: cover;
