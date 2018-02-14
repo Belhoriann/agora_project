@@ -22,7 +22,7 @@ module ApplicationHelper
         when "Physics" then "fab fa-react"
         when "Chemistry" then "fas fa-flask"
         when "Communications" then "fas fa-terminal"
-        when "Biology" then "fas fa-leaf"
+        when "Biology" then "fas fa-paw"
         when "Cosmology" then "fab fa-superpowers"
         when "Computer Science" then "fas fa-code"
         when "Technology" then "fas fa-code-branch"
@@ -38,7 +38,6 @@ module ApplicationHelper
         when "Cryptocurrency" then "fab fa-btc"
         when "Artificial Intelligence" then "fas fa-microchip"
         when "Geology" then "fas fa-adjust"
-        when "Zoology" then "fas fa-paw"
         when "Robotics" then "fas fa-cog"
         end
     end
@@ -48,7 +47,7 @@ module ApplicationHelper
         when "Physics" then "RoyalBlue"
         when "Chemistry" then "PaleVioletRed"
         when "Communications" then "Blue"
-        when "Biology" then "Lime"
+        when "Biology" then "Hotpink"
         when "Cosmology" then "Orange"
         when "Computer Science" then "grey"
         when "Technology" then "blue"
@@ -64,7 +63,6 @@ module ApplicationHelper
         when "Cryptocurrency" then "DarkCyan"
         when "Artificial Intelligence" then "DarkTurquoise"
         when "Geology" then "Teal"
-        when "Zoology" then "Hotpink"
         when "Robotics" then "brown"
         end
     end

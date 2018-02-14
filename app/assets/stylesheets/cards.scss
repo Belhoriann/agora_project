@@ -82,7 +82,7 @@
 // Fit image in the card, regarding of the card's height
 .thumb-category {
     object-fit: cover;
-    min-height: 100%;
+    max-height: 200px;
     min-width: 100%;
 }
 

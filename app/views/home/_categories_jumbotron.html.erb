@@ -1,7 +1,7 @@
-<div class="d-flex categories mx-auto" style="overflow: auto;" data-toggle="tooltip" data-placement="top" title="Hold Shift to Scroll">
+<div class="d-flex categories mx-auto" style="overflow: auto;">
   <% @categories = Category.all %>
-  <% @categories.order(:name).first(20).each do |cat| %>
-    <% next if cat.id.even? %>
+  <% @categories.order(:name).each do |cat| %>
+    <%# next if cat.id.even? %>
     <div class="mx-auto">
       <% cat_icon = category_icon(Category.find(cat.id).name) %> <!--category_icon is a helper method inside application_helper-->
       <% cat_icon_color = category_icon_color(Category.find(cat.id).name) %> <!--category_icon_color is a helper method inside application_helper-->
@@ -18,10 +18,10 @@
       <% end %>
     </div>
   <% end %>
-  <div class="mx-auto">
-    <%= link_to categories_path, class:"btn btn-cat-jumbotron btn-outline-dark" do %>
-      <i class="fas fa-plus"></i>
-      <span style="font-size: 16px;"><%= "MORE" %></span>
-    <% end %>
-  </div>
+  <!--<div class="mx-auto">-->
+    <%#= link_to categories_path, class:"btn btn-cat-jumbotron btn-outline-dark" do %>
+      <!--<i class="fas fa-plus"></i>-->
+      <span style="font-size: 16px;"><%#= "MORE" %></span>
+    <%# end %>
+  <!--</div>-->
 </div>

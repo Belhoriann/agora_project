@@ -1,9 +1,12 @@
 module CategoriesHelper
   def category_img(category)
     case(category)
-      when "Aerospace" then "http://leandesign.com/wp/wp-content/uploads/2013/07/aerospace-banner-03.jpg"
-      when "Physics" then "https://ak3.picdn.net/shutterstock/videos/13176443/thumb/1.jpg"
-      when "Communications" then "http://www.mobileworld.it/wp-content/uploads/2016/05/reti-mobili-final-istock-4-800x461.jpg"
+      when "Agricultural Sciences" then "http://metcranes.com/wp-content/uploads/2015/10/agricultural-processing.jpg"
+      when "Engineering & Technology" then "http://www.stl-horizon.com/wp-content/uploads/2017/05/technology-591103f20ff18.jpg"
+      when "Humanities" then "https://www.collegechoice.net/wp-content/uploads/2017/11/arts-humanities-1.jpg"
+      when "Medical & Health Sciences" then "https://news.uthscsa.edu/wp-content/uploads/2016/03/3d-render-dna-structure.jpg"
+      when "Natural Sciences" then "https://majors.missouri.edu/wp-content/uploads/physics-astronomy.jpg"
+      when "Social Sciences" then "http://agu.ac.ug/wp-content/uploads/2017/04/20120314-qxasncwh2y7aaxcddexfxy18ay.jpg"
     else
       "//placehold.it/720x350"
     end

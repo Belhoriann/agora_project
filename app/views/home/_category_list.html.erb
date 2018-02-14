@@ -1,0 +1,11 @@
+<% @categories = Category.all %>
+<% @categories.order(:name).each do |cat| %>
+  <div class="p-1 form-inline">
+    <% cat_icon = category_icon(Category.find(cat.id).name) %> <!--category_icon is a helper method inside application_helper-->
+    <% cat_icon_color = category_icon_color(Category.find(cat.id).name) %> <!--category_icon_color is a helper method inside application_helper-->
+    <%= button_to category_path(cat.id), method: :get, class:"btn btn-cat btn-outline-dark" do %>
+      <i class="<%= cat_icon %>" style="color:<%= cat_icon_color %>"></i>
+      <strong style="font-size: 16px"><%= Category.find(cat.id).name.upcase %></strong>
+    <% end %>
+  </div>
+<% end %>

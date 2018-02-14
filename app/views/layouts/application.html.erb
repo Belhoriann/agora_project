@@ -48,12 +48,14 @@
   
     <%= yield %>
     
-    <footer style="height: 150px; padding-top: 50px; border-top: 1px solid Gainsboro; background-color: #f9fafa">
-      <div class="container" style="max-width: 800px">
-        <%= link_to "About", about_path, class:"footer-link" %>
-      </div>
-    </footer>
-    <footer style="height: 50px; padding-top: 20px; background-color: darkgrey">(Footer2)</footer>
+    <% unless current_page?(search_results_path) %>
+      <footer style="height: 150px; padding-top: 50px; border-top: 1px solid Gainsboro; background-color: #f9fafa">
+        <div class="container" style="max-width: 800px">
+          <%= link_to "About", about_path, class:"footer-link" %>
+        </div>
+      </footer>
+      <footer style="height: 50px; padding-top: 20px; background-color: darkgrey">(Footer2)</footer>
+    <% end %>
     
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

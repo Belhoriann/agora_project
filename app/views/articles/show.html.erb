@@ -68,7 +68,7 @@
 
   <%= render 'links' %>
   
-  <div class="d-flex flex-column justify-content-center align-items-center pb-3 pt-3" style="border-bottom: 1px solid Lavender; border-top: 1px solid Lavender">
+  <div class="d-flex flex-column justify-content-center align-items-center pb-3 pt-3" style="border-top: 1px solid Lavender;">
     <div class="voting d-flex align-items-center">
       <div class="author-sm">RATE THIS ARTICLE:&nbsp&nbsp</div>
       <%= render 'voting', article: @article %>
@@ -80,11 +80,12 @@
       <div class="author-sm">PUBLISHED BY&nbsp</div>
       <div class="author-sm"><%= link_to "#{User.find(@article.user_id).full_name.upcase}", user_path(@article.user_id, full_name: User.find(@article.user_id).full_name) %></div>
       <div class="author-sm">&nbspON&nbsp</div>
+      <div class="author-sm"><%= @article.created_at.strftime("%B %d, %Y").upcase %></div>
     </div>
   </div>
-  <div class="align-items-center pt-3">
-    <%= render 'users/profile', user: @user %> <!-- modal rendering the avatar, the name, workplace and follow button of the author -->
-  </div>
+  <!--<div class="align-items-center pt-3">-->
+    <%#= render 'users/profile', user: @user %> <!-- modal rendering the avatar, the name, workplace and follow button of the author -->
+  <!--</div>-->
 </div>
 
 <br>
@@ -103,7 +104,7 @@
     
   <div class="divider" style="width: 500px; margin: auto"></div>
 
-  <div class="row justify-content-center p-0">
+  <div class="row justify-content-center pt-4">
     <div class="container" style="width: 800px">
       <% if user_signed_in? %>
         <%= render 'form_comment' %>

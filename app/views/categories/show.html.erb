@@ -1,3 +1,4 @@
+<!--Script for parallax effect on tablet and desktop-->
 <script>
   $(document).on('turbolinks:load', function() {
     
@@ -14,24 +15,38 @@
     }
   });
 </script>
+<!--Script for parallax effect on tablet and desktop-->
 
+<!--Hero-->
 <div class="category-hero">
   <div class="category-bg" style="background: url(<%= category_img(Category.find(@category.id).name) %>) center center; background-size: cover;"></div>
   <div class="category-overlay"></div>
   <div class="category-title"><%= @category.name.upcase %></div>
   <div class="category-description"><%= @category.description %></div>
 </div>
+<!--Hero-->
+
 
 <div class="container-fluid" style="background: white">
-  <div class="container" style="max-width: 800px; min-height: 50vh; padding-top: 40px; background: white">
-  
-    <% Article.where(category_id: @category.id).order('created_at DESC').first(5).each do |article| %>
-      <%= render 'layouts/hcard_sm', article: article %>
-    <% end %>
-  
-    <%= link_to 'Edit', edit_category_path(@category) %> |
-    <%= link_to 'Back', categories_path %>
-        
+  <div class="container" style="max-width: 1000px; min-height: 50vh; padding-top: 40px; background: white">
+    <div class="row">
+      <div class="col-md-8">
+      <% Article.where(category_id: @category.id).order('created_at DESC').first(5).each do |article| %>
+        <%= render 'layouts/hcard_sm', article: article %>
+      <% end %>
+      </div>
+      <div class="col-md-4">
+        <div class="date-sm mb-2">RELATED TAGS</div>
+        <%# tags = article.ame(params[:tag]).related_tags(params[:tag]) %>
+        <%# tags = Tag.find_by_name(params[:tag]).related_tags(params[:tag]) %>
+        <% Article.where(category_id: @category.id).each do |article| %>
+          <%=raw tag_buttons(article.all_tags) %>
+        <% end %>
+      </div>
+    </div> 
+    <% if user_signed_in? && current_user.admin? %>      
+      <%= link_to 'Edit Category', edit_category_path(@category), class:"btn btn-sm btn-outline-primary mb-2" %>
+    <% end %>  
   </div>
 </div>
 

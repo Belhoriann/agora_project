@@ -1,41 +1,3 @@
-<nav id="navbar-example2" class="navbar fixed-bottom navbar-light navbar-white p-0">
-  <ul class="nav nav-pills align-items-center mx-auto p-1">
-    <li class="nav-item" data-toggle="tooltip" data-placement="top" title="A like Aerospace">
-      <a class="nav-link p-2" href="#a" >A</i></a>
-    </li>
-    <li class="nav-item" data-toggle="tooltip" data-placement="top" title="B like Biology">
-      <a class="nav-link p-2" href="#b">B</i></a>
-    </li>
-    <li class="nav-item" data-toggle="tooltip" data-placement="top" title="C like Cosmology">
-      <a class="nav-link p-2" href="#c">C</i></a>
-    </li>
-    <li class="nav-item" data-toggle="tooltip" data-placement="top" title="E like Energy">
-      <a class="nav-link p-2" href="#e">E</i></a>
-    </li>
-    <li class="nav-item" data-toggle="tooltip" data-placement="top" title="G like Geology">
-      <a class="nav-link p-2" href="#g">G</i></a>
-    </li>
-    <li class="nav-item" data-toggle="tooltip" data-placement="top" title="H like Health">
-      <a class="nav-link p-2" href="#h">H</i></a>
-    </li>
-    <li class="nav-item" data-toggle="tooltip" data-placement="top" title="M like Mathematics">
-      <a class="nav-link p-2" href="#m">M</i></a>
-    </li>
-    <li class="nav-item" data-toggle="tooltip" data-placement="top" title="N like Nanotechnology">
-      <a class="nav-link p-2" href="#n">N</i></a>
-    </li>
-    <li class="nav-item" data-toggle="tooltip" data-placement="top" title="P like Physics">
-      <a class="nav-link p-2" href="#p">P</i></a>
-    </li>
-    <li class="nav-item" data-toggle="tooltip" data-placement="top" title="T like Technology">
-      <a class="nav-link p-2" href="#t">T</i></a>
-    </li>
-    <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Z like Zoology">
-      <a class="nav-link p-2" href="#z">Z</i></a>
-    </li>
-  </ul>
-</nav>
-
 <div class="container-fluid" style="max-width: 1400px; min-width: 320px">
   <div class="d-flex section-title align-items-center">
     <i class="material-icons md-36 p-1">apps</i>
@@ -44,9 +6,8 @@
   <div class="row">
     <% @categories = Category.all %>
     <% @categories.order(:name).each do |cat| %>
-    <div class="col-lg-4 col-md-6">
-      <% scrollspy_id = set_scrollspy_id(Category.find(cat.id).name) %>
-      <div class="card mb-4" id="<%= scrollspy_id %>">
+    <div class="col-lg-6 col-md-6">
+      <div class="card mb-4">
         <div class="card-header p-2">
           <div class="row align-items-center">
             <div class="col-6">
@@ -79,17 +40,24 @@
           </div>
         </div> 
         <% cat_img = category_img(Category.find(cat.id).name) %>
-        <%= link_to image_tag(cat_img, class:"thumb-featured-sm img-fluid"), category_path(cat.id) %>
+        <%= link_to image_tag(cat_img, class:"thumb-category img-fluid"), category_path(cat.id) %>
+        <div class="card-footer p-2" style="background: transparent">
+          <div class="date-sm mb-2">RELATED TAGS</div>
+          <% Article.where(category_id: cat.id).each do |article| %>
+            <%=raw tag_buttons(article.all_tags) %>
+          <% end %>
+        </div>
       </div>
     </div>
     <% end %>
   </div>
   
+  <br></br>
   <% if user_signed_in? && current_user.admin? %>
     <%= link_to 'New Category', new_category_path, class:"btn btn-primary" %>
     
     <br></br>
-    
+
     <table>
       <thead>
         <tr>
