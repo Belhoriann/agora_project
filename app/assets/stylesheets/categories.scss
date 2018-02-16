@@ -8,9 +8,13 @@
 }
 
 .category-hero {
-    height: 120px;
+    height: 180px;
     max-width: 100%;
     margin-bottom: 100px;
+    
+    @media screen and (max-width: 580px) {
+        height: 130px;
+    }
 }
 
 .category-bg {
@@ -29,14 +33,14 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 600px;
+    height: 500px;
     width: 100%;
     z-index: -99;
     background:
     /* top, transparent black, faked with gradient */ 
     linear-gradient(
       rgba(40, 20, 70, 0.6), 
-      rgba(0, 0, 0, 0.5)
+      rgba(0, 0, 0, 0.8)
     );
 }
 
@@ -45,19 +49,28 @@
     position: absolute;
     text-align: center;
     left: 0;
+    padding-top: 30px;
     width: 100%;
     font-size: 3em;
     color: white;
-    z-index: -99;
+    text-shadow: 0 0 10px #242424;
+    
+    @media screen and (max-width: 1024px) {
+        padding: 30px;
+    }
     
     @media screen and (max-width: 768px) {
-        padding-top: 10px;
-        font-size: 2em;
+        padding-top: 30px;
+        font-size: 2.2em;
     }
     
     @media screen and (max-width: 580px) {
         padding-top: 40px;
-        font-size: 1.5em;
+        font-size: 1.3em;
+    }
+    
+    @media screen and (max-width: 320px) {
+        font-size: 1.1em;
     }
 }
 
@@ -66,25 +79,29 @@
     position: absolute;
     text-align: center;
     left: 0;
-    padding: 80px 200px 0 200px;
+    padding: 110px 200px 0 200px;
     width: 100%;
     font-size: 1em;
     //font-weight: lighter;
     color: white;
-    z-index: -99;
+    text-shadow: 0 0 10px #242424;
     
     @media screen and (max-width: 1024px) {
-        padding: 80px 100px 0 100px;
+        padding: 110px 100px 0 100px;
     }
     
     @media screen and (max-width: 768px) {
-        padding: 60px 100px 0 100px;
+        padding: 90px 100px 0 100px;
         font-size: 0.9em;
     }
     
     @media screen and (max-width: 580px) {
-        padding: 80px 20px 0 20px;
+        padding: 80px 5px 0 5px;
         font-size: 0.8em;
+    }
+    
+    @media screen and (max-width: 320px) {
+        padding: 70px 5px 0 5px;
     }
 }
 

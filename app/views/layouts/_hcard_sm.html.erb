@@ -30,7 +30,7 @@
         <div class="form-inline p-2">
           <div class="date-sm">
             <i class="far fa-clock"></i>
-            <%= article.created_at.strftime("%B %d, %Y") %> -
+            <%= article.created_at.strftime("%b %d, %Y") %> -
             <% cat_icon = category_icon(Category.find(article.category_id).name) %>
             <% cat_icon_color = category_icon_color(Category.find(article.category_id).name) %>
             <i class="<%= cat_icon %>" style="color:<%= cat_icon_color %>"></i>

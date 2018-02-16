@@ -25,7 +25,14 @@ Rails.application.routes.draw do
   get '/bookmarks', to: "bookmarks#bookmarks"
   get '/dashboard', to: "dashboard#dashboard"
   get 'search/results'
+  
   get 'tags/:tag', to: 'articles#index', as: "tag"
+
+  
+  resources :tags do 
+    get '/tags', to: 'tags#index'
+    delete '/tags/:id', to: 'tags#destroy'
+  end
 
   resources :articles do 
     resources :comments
@@ -39,7 +46,7 @@ Rails.application.routes.draw do
       put "undownvote", to: "articles#undownvote"
     end
   end
-  
+
   resources :comments do
     resources :comments
     member do

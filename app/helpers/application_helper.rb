@@ -19,51 +19,23 @@ module ApplicationHelper
     
     def category_icon(category)
         case category
-        when "Physics" then "fab fa-react"
-        when "Chemistry" then "fas fa-flask"
-        when "Communications" then "fas fa-terminal"
-        when "Biology" then "fas fa-paw"
-        when "Cosmology" then "fab fa-superpowers"
-        when "Computer Science" then "fas fa-code"
-        when "Technology" then "fas fa-code-branch"
-        when "Mathematics" then "fas fa-superscript"
-        when "Aerospace" then "fas fa-rocket"
-        when "Health" then "fas fa-medkit"
-        when "Archeology" then "fas fa-university"
-        when "Environment" then "fas fa-globe"
-        when "Neuroscience" then "fas fa-user-circle"
-        when "Nanotechnology" then "far fa-dot-circle"
-        when "Energy" then "fas fa-bolt"
-        when "Transport" then "fas fa-car"   
-        when "Cryptocurrency" then "fab fa-btc"
-        when "Artificial Intelligence" then "fas fa-microchip"
-        when "Geology" then "fas fa-adjust"
-        when "Robotics" then "fas fa-cog"
+            when "Agricultural Sciences" then "fab fa-pagelines"
+            when "Engineering & Technology" then "fas fa-cog"
+            when "Humanities" then "fas fa-book"
+            when "Medical & Health Sciences" then "fas fa-medkit"
+            when "Natural Sciences" then "fab fa-react"
+            when "Social Sciences" then "fas fa-user-circle"
         end
     end
     
     def category_icon_color(category)
         case category
-        when "Physics" then "RoyalBlue"
-        when "Chemistry" then "PaleVioletRed"
-        when "Communications" then "Blue"
-        when "Biology" then "Hotpink"
-        when "Cosmology" then "Orange"
-        when "Computer Science" then "grey"
-        when "Technology" then "blue"
-        when "Mathematics" then "HotPink"
-        when "Aerospace" then "Tomato"
-        when "Health" then "Red"
-        when "Archeology" then "LightCoral"
-        when "Environment" then "DeepSkyBlue"
-        when "Neuroscience" then "Coral"
-        when "Nanotechnology" then "SlateBlue"
-        when "Energy" then "GoldenRod"
-        when "Transport" then "lightseagreen"
-        when "Cryptocurrency" then "DarkCyan"
-        when "Artificial Intelligence" then "DarkTurquoise"
-        when "Geology" then "Teal"
-        when "Robotics" then "brown"
+            when "Agricultural Sciences" then "ForestGreen "
+            when "Engineering & Technology" then "Brown"
+            when "Humanities" then "GoldenRod"
+            when "Medical & Health Sciences" then "Red"
+            when "Natural Sciences" then "lightseagreen"
+            when "Social Sciences" then "PaleVioletRed"
         end
     end
 end

@@ -8,7 +8,7 @@ class Article < ActiveRecord::Base
     belongs_to :category
     
     has_many :taggings
-    has_many :tags, through: :taggings
+    has_many :tags, through: :taggings, dependent: :destroy
     
     has_many :comments, as: :commentable, dependent: :destroy
     
@@ -29,7 +29,7 @@ class Article < ActiveRecord::Base
     end
     
     def all_tags
-        self.tags.map(&:name).sort.join(", ")
+        self.tags.map(&:name).sort.join(", ").downcase
     end
     
     def self.tagged_with(name)

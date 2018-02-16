@@ -42,9 +42,9 @@
         <% cat_img = category_img(Category.find(cat.id).name) %>
         <%= link_to image_tag(cat_img, class:"thumb-category img-fluid"), category_path(cat.id) %>
         <div class="card-footer p-2" style="background: transparent">
-          <div class="date-sm mb-2">RELATED TAGS</div>
-          <% Article.where(category_id: cat.id).each do |article| %>
-            <%=raw tag_buttons(article.all_tags) %>
+          <div class="date-sm">RELATED TOPICS</div>
+          <% if related_tags_category(cat) != nil %>
+            <%=raw tag_links(related_tags_category(cat)) %> <!-- Helper method present in categories_helper file -->
           <% end %>
         </div>
       </div>

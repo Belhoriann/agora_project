@@ -4,13 +4,18 @@
       <div>
         <%= link_to "AGORA", root_path, class: "navbar-brand" %>
       </div>  
-      <ul class="navbar-nav d-flex  align-items-center">
-        <li class="nav-item">
-          <%= link_to search_results_path, class: "nav-link", data: {toggle:"tooltip", placement:"bottom"}, title:"Search", :name => nil do %>
-            <i class="material-icons" style="color: grey; vertical-align: middle">search</i>
-          <% end %>
-        </li>
-        <li class="nav-item mr-1">
+      <ul class="navbar-nav d-flex align-items-center">
+        <%= form_tag(search_results_path, :method => "get", id: "search-form") do %>
+          <div class="input-group navbar-search pr-1">
+            <%= text_field_tag :q, params[:q], placeholder: "Search", class:"form-control form-control-sm" %>
+          </div>
+        <% end %>
+        <!--<li class="nav-item">-->
+          <%#= link_to search_results_path, class: "nav-link", data: {toggle:"tooltip", placement:"bottom"}, title:"Search", :name => nil do %>
+            <!--<i class="material-icons" style="color: grey; vertical-align: middle">search</i>-->
+          <%# end %>
+        <!--</li>-->
+        <li class="nav-item mr-1 ml-1">
           <%= link_to categories_path, class: "nav-link", data: {toggle:"tooltip", placement:"bottom"}, title:"Topics" do %>
             <i class="material-icons" style="color: grey; vertical-align: middle">apps</i>
           <% end %>

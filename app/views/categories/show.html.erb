@@ -28,19 +28,17 @@
 
 
 <div class="container-fluid" style="background: white">
-  <div class="container" style="max-width: 1000px; min-height: 50vh; padding-top: 40px; background: white">
-    <div class="row">
-      <div class="col-md-8">
+  <div class="container" style="max-width: 1000px; min-height: 50vh; padding-top: 30px; background: white">
+    <div class="row p-0">
+      <div class="col-md-8 order-2 order-md-1 p-0">
       <% Article.where(category_id: @category.id).order('created_at DESC').first(5).each do |article| %>
         <%= render 'layouts/hcard_sm', article: article %>
       <% end %>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-4 order-1 order-md-2 mb-3">
+        <% if related_tags_category(@category) != nil %>
         <div class="date-sm mb-2">RELATED TAGS</div>
-        <%# tags = article.ame(params[:tag]).related_tags(params[:tag]) %>
-        <%# tags = Tag.find_by_name(params[:tag]).related_tags(params[:tag]) %>
-        <% Article.where(category_id: @category.id).each do |article| %>
-          <%=raw tag_buttons(article.all_tags) %>
+          <%=raw tag_buttons(related_tags_category(@category)) %>  <!-- Helper method present in categories_helper file -->
         <% end %>
       </div>
     </div> 

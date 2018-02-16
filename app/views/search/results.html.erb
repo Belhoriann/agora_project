@@ -88,10 +88,10 @@
       <% d = "none" %>
     <% end %>
     <div id="tags" style="display: <%= d %>">
-      <div class="row p-0">
+      <div class="row pl-2">
         <% @tags.each do |tag| %>
-          <div class="col-md-6">
-            <%= link_to tag.name.capitalize, tag_path(tag.name), class:"btn btn-light" %>
+          <div class="p-1">
+            <%= link_to tag.name, tag_path(tag.name), class:"btn btn-light" %>
           </div>
         <% end %>
       </div>

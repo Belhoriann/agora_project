@@ -12,28 +12,33 @@ module CategoriesHelper
     end
   end
   
-  def set_scrollspy_id(category)
-    case(category)
-      when "Aerospace" then "a"
-      when "Archeology" then "a"
-      when "Artificial Intelligence" then "a"
-      when "Biology" then "b"
-      when "Chemistry" then "c"
-      when "Communications" then "c"
-      when "Cosmology" then "c"
-      when "Computer Science" then "c"
-      when "Cryptocurrency" then "c"
-      when "Energy" then "e"
-      when "Environment" then "e"
-      when "Geology" then "g"
-      when "Health" then "h"
-      when "Mathematics" then "m"
-      when "Neuroscience" then "n"
-      when "Nanotechnology" then "n"
-      when "Physics" then "p"
-      when "Transport" then "t"
-      when "Technology" then "t"
-      when "Zoology" then "z"
+  def related_tags_category(category)
+
+    # Declaration of an empty array which will store all related tags
+    related_tags_category_array = Array.new
+    
+    Article.where(category_id: category.id).each do |article|
+      t = 0
+      tags_count = article.tags.size
+      
+      while t < tags_count
+          related_tags_category_array.push(article.all_tags.split(',')[t].strip)
+          t += 1
+      end
     end
+
+    # Remove redundant tags
+    i = 0
+    while i < related_tags_category_array.length
+        if related_tags_category_array.count(related_tags_category_array[i]) > 1
+            redundant_name = related_tags_category_array[i]
+            related_tags_category_array.delete(related_tags_category_array[i])
+            related_tags_category_array.push(redundant_name)
+        end
+        i += 1
+    end
+    
+    # Return the final array with the related tags, tranformed into a string with commas
+    related_tags_category_array.map(&:inspect).sort_by(&:downcase).join(', ').gsub!('"', '')
   end
 end

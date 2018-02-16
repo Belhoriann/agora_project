@@ -22,8 +22,16 @@
 .navbar-nav-scroll {
   display: flex;
   overflow: auto;
-  -webkit-overflow-scrolling:touch;
+  -webkit-overflow-scrolling: touch;
   -ms-overflow-style: -ms-autohiding-scrollbar; 
+}
+
+.navbar-search {
+    max-width: 300px!important;
+}
+
+.nav-item {
+  flex: 0 0 auto !important;
 }
 
 .navbar-nav .nav-link {

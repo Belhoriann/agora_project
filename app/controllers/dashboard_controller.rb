@@ -4,6 +4,7 @@ class DashboardController < ApplicationController
     def dashboard
         @articles = Article.all
         @categories = Category.all
+        @tags = Tag.all
         @users = User.all
     end
     
