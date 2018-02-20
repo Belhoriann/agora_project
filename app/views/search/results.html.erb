@@ -7,7 +7,7 @@
   <div class="pt-2">
     <%= form_tag(search_results_path, :method => "get", id: "search-form") do %>
       <div class="input-group">
-        <%= text_field_tag :q, params[:q], placeholder: "Find articles, users, topics...", class:"form-control form-control-lg" %>
+        <%= text_field_tag :q, params[:q], autofocus: true, placeholder: "Find articles, users, topics...", class:"form-control form-control-lg" %>
       </div>
     <% end %>
   </div>
@@ -61,7 +61,7 @@
     <div id="users" style="display: <%= d %>">
       <% @users.each do |user| %>
         <% @user = User.find_by(full_name: user.full_name) %>
-        <%= render 'articles/author', size: 60 %>
+        <%= render 'articles/author_full', size: 60 %>
       <% end %>
     </div>
   <% end %>

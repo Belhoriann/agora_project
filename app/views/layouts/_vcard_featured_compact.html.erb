@@ -22,10 +22,11 @@
       <strong class="d-flex card-title"><%= article.title %></strong>
       <small class="d-flex card-subtitle"><%= article.sub_title %></small>
     <% end %>
+  </div>
+  <div class="card-footer bg-transparent">
     <div class="mt-auto">
-      <% author = User.find(article.user_id) %>
-      <div><%= link_to author.full_name, user_path(article.user_id, full_name: author.full_name), class:"author-sm" %></div>
-      <p class="author-wp-sm"><%= author.work_place %></p>
+      <% @user = User.find_by(id: article.user_id) %>
+      <%= render "articles/author_full", size: 60 %>
     </div>
   </div>
 </div>

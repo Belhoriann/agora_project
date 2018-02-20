@@ -3,9 +3,19 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .author-profile {
-    font-size: 1.6em;
+    font-size: 1.5em;
     font-weight: bold;
-    line-height: 1.2em;
+    line-height: 1.5em;
+    
+    @media screen and (max-width: 580px) {
+        text-align: center;
+    }
+}
+
+.author-headline-profile {
+    color: grey;
+    font-size: 1em;
+    line-height: 1.5em;
     
     @media screen and (max-width: 580px) {
         text-align: center;
@@ -13,9 +23,10 @@
 }
 
 .author-wp-profile {
-    color: grey;
+    color: slateblue;
+    font-weight: bold;
     font-size: 1em;
-    line-height: 1.2em;
+    line-height: 1.5em;
     
     @media screen and (max-width: 580px) {
         text-align: center;
@@ -31,4 +42,10 @@
     @media screen and (max-width: 580px) {
         text-align: center;
     } 
+}
+
+.author-links-profile {
+        @media screen and (max-width: 580px) {
+        justify-content: center;
+    }
 }

@@ -6,7 +6,7 @@
   <div class="row">
     <% @categories = Category.all %>
     <% @categories.order(:name).each do |cat| %>
-    <div class="col-lg-6 col-md-6">
+    <div class="col-lg-6">
       <div class="card mb-4">
         <div class="card-header p-2">
           <div class="row align-items-center">
@@ -39,8 +39,14 @@
             </div>
           </div>
         </div> 
-        <% cat_img = category_img(Category.find(cat.id).name) %>
-        <%= link_to image_tag(cat_img, class:"thumb-category img-fluid"), category_path(cat.id) %>
+        <div class="card-body p-0" style="height: 200px"> 
+          <% cat_img = category_img(Category.find(cat.id).name) %>
+          <%= link_to category_path(cat.id) do %>
+            <div class="category-bg-card" style="background: url(<%= category_img(Category.find(cat.id).name) %>) center center; background-size: cover;"></div>
+            <div class="category-overlay-card"></div>
+            <div class="category-description-card p-2"><%= cat.description %></div> 
+          <% end %>
+        </div>
         <div class="card-footer p-2" style="background: transparent">
           <div class="date-sm">RELATED TOPICS</div>
           <% if related_tags_category(cat) != nil %>

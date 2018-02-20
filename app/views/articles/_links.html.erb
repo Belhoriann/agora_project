@@ -1,17 +1,17 @@
 <div class="links">
-  <div class="d-flex align-items-center links-title mb-2">
-    <i class="material-icons p-2 grey" data-toggle="tooltip" data-placement="left" title="Complementary links">link</i>
-    Go further:
+  <div class="d-flex align-items-center links-title mb-3">
+    <i class="material-icons pl-2 pr-2 grey" data-toggle="tooltip" data-placement="left" title="Complementary links">link</i>
+    Complementary material to go further:
   </div>
   
   <% if @article.all_tags != "" %>
-    <div class="d-flex align-items-center" style="flex-wrap: wrap">
+    <div class="d-flex align-items-center mb-1" style="flex-wrap: wrap">
      <i class="fas fa-tags p-2 grey" data-toggle="tooltip" data-placement="left" title="Tags"></i><%=raw tag_buttons(@article.all_tags) %>
     </div>
   <% end %>
   
   <% if @article.doi? %>
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center mb-1">
       <i class="material-icons p-2 grey" data-toggle="tooltip" data-placement="left" title="Scientific article (DOI)">description</i>
       <%= link_to "https://doi.org/#{@article.doi}", :target => "_blank" do %>
         <%= "#{@article.doi}" %>
@@ -20,28 +20,28 @@
   <% end %>
   
   <% if @article.website? %>
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center mb-1">
       <i class="material-icons p-2 grey" data-toggle="tooltip" data-placement="left" title="Website or app">language</i>
-      <%= link_to "#{@article.website.truncate(30)}", :target => "_blank" do %>
-        <% "#{@article.website}" %>
+      <%= link_to "https://#{@article.website.gsub("https://", "")}", :target => "_blank" do %>
+        <% "#{@article.website.truncate(40)}" %>
       <% end %>
     </div>
   <% end %>
   
   <% if @article.video? %>
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center mb-1">
       <i class="material-icons p-2 grey" data-toggle="tooltip" data-placement="left" title="Video">ondemand_video</i>
-      <%= link_to "#{@article.video.truncate(30)}", :target => "_blank" do %>
-        <% "#{@article.video}" %>
+      <%= link_to "https://#{@article.video.gsub("https://", "")}", :target => "_blank" do %>
+        <% "#{@article.video.truncate(40)}" %>
       <% end %>
     </div>
   <% end %>
   
   <% if @article.podcast? %>
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center mb-1">
       <i class="material-icons p-2 grey" data-toggle="tooltip" data-placement="left" title="Podcast">wifi_tethering</i>
-      <%= link_to "#{@article.podcast}", :target => "_blank" do %>
-        <% "#{@article.podcast.truncate(30)}" %>
+      <%= link_to "https://#{@article.podcast.gsub("https://", "")}", :target => "_blank" do %>
+        <% "#{@article.podcast.truncate(40)}" %>
       <% end %>
     </div>
   <% end %>
@@ -49,8 +49,8 @@
   <% if @article.social? %>
     <div class="d-flex align-items-center mb-4">
       <i class="material-icons p-2 grey" data-toggle="tooltip" data-placement="left" title="Social network profile">person</i>
-      <%= link_to "#{@article.social.truncate(30)}", :target => "_blank" do %>
-        <% "#{@article.social}" %>
+      <%= link_to "https://#{@article.social.gsub("https://", "")}", :target => "_blank" do %>
+        <% "#{@article.social.truncate(30)}" %>
       <% end %>
     </div>
   <% end %>

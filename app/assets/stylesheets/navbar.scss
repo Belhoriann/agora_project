@@ -27,7 +27,23 @@
 }
 
 .navbar-search {
-    max-width: 300px!important;
+    font-size: 0.75em!important;
+    width: 400px!important;
+    transition: all 0.2s ease-in-out!important;
+    
+    @media screen and (max-width: 1024px) {
+        width: 300px!important;
+    }
+}
+
+.navbar-search:focus {
+    width: 700px!important;
+    @media screen and (max-width: 1024px) {
+        width: 500px!important;
+    }
+    @media screen and (max-width: 768px) {
+        width: 400px!important;
+    }
 }
 
 .nav-item {

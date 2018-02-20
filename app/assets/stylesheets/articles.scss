@@ -38,7 +38,7 @@
     padding-bottom: 20px;
     
     @media screen and (max-width: 580px) {
-        font-size: 1.2em;
+        font-size: 1.1em;
     }
 }
 
@@ -60,29 +60,46 @@
 }
 
 .author {
-  font-size: 0.8em;
-  font-weight: bold;
-  line-height: 1.2em;
-  color: black;
-  margin: 0px;
-  padding-top: 0px;
-  padding-bottom: 0px;
+    font-size: 0.8em;
+    font-weight: bold;
+    line-height: 1.3em;
+    color: black;
+    -webkit-transition: .25s color;
+    transition: .25s color;
+}
+
+.author:hover {
+    color: royalblue;
+    text-decoration: none;
+  
+}
+
+.author-profile:hover {
+    text-decoration: none;
+    color: royalblue;
 }
 
 .author-sm {
-  font-size: 0.7em;
-  font-weight: bold;
-  color: black;
-  margin: 0px;
-  padding-top: 0px;
+    font-size: 0.7em;
+    font-weight: bold;
+    color: black;
+}
+
+.author-headline {
+    font-size: 0.8em;
+    line-height: 1.3em;
+    font-weight: bold;
+    color: grey;
+  
+    @media screen and (max-width: 580px) {
+    font-size: 0.9em;
+    }
 }
 
 .author-wp {
   font-size: 0.8em;
-  line-height: 1.2em;
+  line-height: 1.3em;
   color: grey;
-  margin: 0px;
-  padding-top: 0px;
   
     @media screen and (max-width: 580px) {
     font-size: 0.9em;

@@ -51,14 +51,8 @@
         </div>
         <div class="d-flex flex-row align-items-center pt-2">
           <div class="p-2">
-            <% author = User.find_by(id: article.user_id) %>
-            <%= link_to user_path(article.user_id, full_name: author.full_name) do %>
-              <%= render 'layouts/user_avatar', user: author, size: 60 %>
-            <% end %>
-          </div>
-          <div class="align-items-middle">
-            <div><%= link_to author.full_name, user_path(article.user_id, full_name: author.full_name), class:"author" %></div>
-            <p class="author-wp"><%= author.work_place %></p>
+            <% @user = User.find_by(id: article.user_id) %>
+            <%= render "articles/author_full", size: 60 %>
           </div>
           <div class="ml-auto p-2">
             <div class="d-flex align-items-center">

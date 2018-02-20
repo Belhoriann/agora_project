@@ -1,16 +1,16 @@
-<section class="container" style="max-width: 800px; padding-top: 20px">
+<section class="container" style="max-width: 800px; padding-top: 10px;">
   <div class="row pt-3 pb-3">
     <div class="col-sm-auto">
-      <%= render 'layouts/user_avatar', user: @user, size: 130 %>
+      <%= render 'layouts/user_avatar', user: @user, size: 140 %>
     </div>
     <div class="col-sm">
       <div class="author-profile"><%= @user.full_name %></div>
-      <div class="author-wp-profile"><%= @user.headline %></div>
+      <div class="author-headline-profile"><%= @user.headline %></div>
       <div class="author-wp-profile"><%= @user.work_place %></div>
-      
       <%= render 'social_links' %>
-      
-      <div class="row align-items-center pt-1">
+    </div>
+    <div class="col-sm"> 
+      <div class="row align-items-center">
         <% if user_signed_in? %>
           <% unless current_user == @user %>
             <% if current_user.voted_for? @user, vote_scope: 'following' %>
@@ -37,10 +37,10 @@
           </div>
           <%= render 'layouts/modal_signup' %>
         <% end %>
-        <div class="col-md follow-profile pt-1">
-          <strong><%= @user.find_votes_for(:vote_scope => 'following').size %></strong>
-          <%=  "follower".pluralize(@user.find_votes_for(:vote_scope => 'following').size) %> -
-          <strong><%= @user.find_voted_items(:vote_scope => 'following').size %></strong> following
+        <!--<div class="col-md follow-profile pt-2">-->
+          <!--<strong><%#= @user.find_votes_for(:vote_scope => 'following').size %></strong>-->
+          <%#=  "follower".pluralize(@user.find_votes_for(:vote_scope => 'following').size) %>
+          <!--<strong><%#= @user.find_voted_items(:vote_scope => 'following').size %></strong> following-->
         </div>
       </div>
     </div>

@@ -82,9 +82,17 @@
   </script>
 
   <div id="users" style="visibility: <%= d %>">
-    <% @articles.order(:created_at).reverse_order.each do |article| %>
-      <% if current_user.liked? @users.find_by(id: article.user_id), vote_scope: 'following' %>
-        <%= render 'layouts/hcard_lg', article: article %>
+    <% current_user.find_voted_items(:vote_scope => 'following').reverse.each do |user| %>
+      <% if @articles.where(user_id: user.id).order(:created_at).count == 0 %>
+        <div class="d-flex align-items-center pb-4">
+          <%= render 'layouts/user_avatar', user: user, size: 60 %>
+          <%= link_to user.full_name, user_path(user.id, full_name: user.full_name), class:"author pl-2" %>
+          <span class="author" style="color: #d9d9d9">&nbspdid not right any article yet</span> 
+        </div>
+      <% else %>
+        <% @articles.where(user_id: user.id).order(:created_at).reverse_order.each do |article| %>
+          <%= render 'layouts/hcard_lg', article: article %>
+        <% end %>
       <% end %>
     <% end %>
   </div>
