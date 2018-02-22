@@ -6,7 +6,7 @@
       <% cat_icon = category_icon(Category.find(@article.category_id).name) %>
       <% cat_icon_color = category_icon_color(Category.find(@article.category_id).name) %>
       <i class="<%= cat_icon %> pr-1" style="color:<%= cat_icon_color %>"></i>
-      <%= link_to Category.find(@article.category_id).name, category_path(@article.category_id) %>
+      <%= link_to Category.find(@article.category_id).name, category_path(@article.category_id), class:"link" %>
       <%#= @article.body.split.size %> <!--words--> 
     </div>
     
@@ -61,8 +61,9 @@
 
 <div class="container-fluid" style="max-width: 700px;">
   
+  <%= image_tag(@article.thumbnail.url(:large), class:"img-fluid article-figure pb-1 pt-4") %>
+  
   <div class="article-body">
-    <%= image_tag(@article.thumbnail.url(:large), class:"img-fluid pb-4") %>
     <%= @article.body.html_safe %>
   </div>
 
@@ -81,7 +82,7 @@
    <div class="d-flex flex-column justify-content-center align-items-center pt-3" style="border-top: 1px solid Lavender;">
     <div class="voting d-flex align-items-center">
       <div class="author-sm">PUBLISHED BY&nbsp</div>
-      <div class="author-sm"><%= link_to "#{User.find(@article.user_id).full_name.upcase}", user_path(@article.user_id, full_name: User.find(@article.user_id).full_name) %></div>
+      <div class="author-sm"><%= link_to "#{User.find(@article.user_id).full_name.upcase}", user_path(@article.user_id, full_name: User.find(@article.user_id).full_name), class:"link" %></div>
       <div class="author-sm">&nbspON&nbsp</div>
       <div class="author-sm"><%= @article.created_at.strftime("%B %d, %Y").upcase %></div>
     </div>
@@ -94,54 +95,76 @@
 <br>
 
 <section class="container-fluid pt-4" style="background: #FAFAFA; border-top: 1px solid Lavender;">
-  <div class="d-flex mx-auto" style="max-width: 1400px; overflow-x: auto; overflow-y: visible">
-    <div class="col-lg-4 pb-2">
-      <% i = 0 %>
-      <% while i <= @article.all_tags.split(", ").length - 1 %>
-        <% Article.tagged_with(@article.all_tags.split(", ")[i]).each do |article| %>  
-          <% if article != nil && article.id != @article.id %>
-            Also tagged in <%= link_to @article.all_tags.split(", ")[i], tag_path(@article.all_tags.split(", ")[i]) %> 
+  <div class="d-flex mx-auto" style="max-width: 1200px; overflow-x: auto; overflow-y: visible">
+    <% first_article = "" %>
+    <% second_article = "" %>
+    <% third_article = "" %>
+    
+    <% i = 0 %>
+    <% while i <= @article.all_tags.split(", ").length - 1 %>
+      <% Article.tagged_with(@article.all_tags.split(", ")[i]).each do |article| %>  
+        <% if article != nil && article.id != @article.id %>
+          <div class="col-lg-4">
+            <div class="date-sm mb-2">ALSO TAGGED IN <%= link_to @article.all_tags.split(", ")[i].upcase, tag_path(@article.all_tags.split(", ")[i]), class:"link" %></div>
             <%= render 'layouts/vcard_trending', article: article %>
-            <% i = @article.all_tags.split(", ").length %>
-            <% break %>
-          <% else %>
-            <% i = i + 1 %>
-          <% end %>
+          </div>
+          <% first_article = article %>
+          <% i = @article.all_tags.split(", ").length %>
+          <% break %>
+        <% else %>
+          <% i = i + 1 %>
         <% end %>
       <% end %>
-    </div>
-    <div class="col-lg-4 pb-2">
+    <% end %>
+    <% while first_article == "" %>
+      <% Article.where(category_id: Category.all.sample.id).sample(1).each do |article| %>
+        <% if article != nil && article.id != @article.id %>
+          <div class="col-lg-4">
+            <div class="date-sm mb-2">DISCOVER</div>
+              <%= render 'layouts/vcard_trending', article: article %>
+            </div>
+          <% first_article = article %>
+        <% else %>
+          <% first_article == "" %>
+        <% end %>
+      <% end %>
+    <% end %>
+
     <% article_picked = false %>
     <% while article_picked == false %>
       <% Article.where(category_id: @article.category_id).sample(1).each do |article| %>  
-        <% if article.id != @article.id %>
-          Also published in <%= link_to Category.find(@article.category_id).name, category_path(Category.find(@article.category_id)) %> 
-          <%= render 'layouts/vcard_trending', article: article %>
+        <% if article.id != @article.id && article != first_article %>
+          <div class="col-lg-4 p-0">
+            <div class="date-sm mb-2">ALSO IN <%= link_to Category.find(@article.category_id).name.upcase, category_path(Category.find(@article.category_id)), class:"link"  %></div>
+            <%= render 'layouts/vcard_trending', article: article %>
+          </div>
           <% article_picked = true %>
+          <% second_article = article %>
         <% else %>
           <% article_picked = false %>
         <% end %>
       <% end %>
     <% end %>
-    </div>
-    <div class="col-lg-4 pb-2">
-    <% article_picked = false %>
-    <% while article_picked == false %>
-      <% Article.where(user_id: @article.user_id).sample(1).each do |article| %>  
-        <% if article.id != @article.id %>
-          Also written by <%= link_to User.find(@article.user_id).full_name, user_path(User.find(@article.user_id), full_name: User.find(@article.user_id).full_name) %> 
+    
+  <% article_picked = false %>
+  <% while article_picked == false %>
+    <% Article.where(user_id: @article.user_id).sample(1).each do |article| %>  
+      <% if article.id != @article.id && article != first_article && article != second_article %>
+        <div class="col-lg-4">
+          <div class="date-sm mb-2">ALSO WRITTEN BY <%= link_to User.find(@article.user_id).full_name.upcase, user_path(User.find(@article.user_id), full_name: User.find(@article.user_id).full_name), class:"link"  %></div>
           <%= render 'layouts/vcard_trending', article: article %>
-          <% article_picked = true %>
-        <% else %>
-          <% article_picked = false %>
-        <% end %>
+        </div>
+        <% article_picked = true %>
+      <% else %>
+        <% article_picked = false %>
       <% end %>
     <% end %>
-    </div>
+  <% end %>
+    
   </div>
 </section>
 
-<section id="comment-section" class="container-fluid pt-4" style="background: #FAFAFA" >
+<section id="comment-section" class="container-fluid pt-3" style="background: #FAFAFA; padding-bottom: 200px" >
     
   <div class="divider" style="max-width: 500px; margin: auto"></div>
 

@@ -4,7 +4,7 @@ module ArticlesHelper
     end
     
     def tag_links(tags)
-        tags.split(",").map{|tag| link_to tag.strip.capitalize, tag_path(tag.strip), class:"date-sm" }.join(" - ") 
+        tags.split(",").map{|tag| link_to tag.strip.capitalize, tag_path(tag.strip), class:"link date-sm" }.join(" - ") 
     end
     
     def rating(article)

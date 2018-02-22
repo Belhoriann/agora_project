@@ -4,11 +4,9 @@
 
 <script>
   $(document).on('turbolinks:load', function() {
-    
     if ($(window).innerWidth() > 580) {
       $(window).scroll(function() {
         var scroll = $(window).scrollTop() / $(window).height()*30;
-        
         if (scroll > 0) {
           $('.jumbotron-bg').css({"transform" : "translate(0%,-" + scroll + "%)"});
         } else {
@@ -17,7 +15,6 @@
       });
     }
   });
-
 </script>
 
 <% Article.offset(4).first(1).each do |article| %>
@@ -25,9 +22,9 @@
   <div class="jumbotron-bg" style="background: url(<%= article.thumbnail.url(:large) %>) center center; background-size: cover;"></div>
   <div class="jumbotron-overlay"></div>
   <div class="jumbotron jumbotron-fluid jumbotron-main mb-0 pb-0">
-    <div class="container" style="max-width: 1400px">
+    <div class="jumbotron-box">
       <h1 class="display-4">DISCOVER</h1>
-      <hr class="my-2" style="border-color: white">
+      <hr class="my-2" style="border-color: lightgrey">
       <%= link_to article_path(article), class: "card-link" do %>
         <span class="jumbotron-title"><%= article.title %></span>
         <div class="d-flex">
@@ -43,7 +40,7 @@
 <% end %>
 
 <section class="container-fluid p-0" style="background: white">
-  <section class="container" style="max-width: 1400px; padding-top: 50px;">
+  <section class="container" style="max-width: 1680px; padding-top: 50px;">
     <div class="d-flex section-title align-items-center">
       <i class="material-icons pr-1">stars</i>FEATURED
     </div>
@@ -111,59 +108,69 @@
   <!--FEED-->
   <section class="container" style="max-width: 1400px">
     <div class="row p-0">
-      <div class="col-md-9">
-        <div class="d-flex section-title align-items-center">
+      <div class="col-md-8">
+        <div class="d-flex section-title align-items-center mb-2">
           <i class="material-icons pr-1">new_releases</i>LASTEST
         </div>
         <% Article.order('created_at DESC').first(6).each do |article| %>
           <%= render 'layouts/hcard_sm', article: article, class:"mb-2" %>
         <% end %>
       </div>
-      <div class="col-md-3 pl-0">
-        <div class="d-flex section-title align-items-center pl-2">
+      <div class="col-md-4">
+        <div class="d-flex section-title align-items-center mb-2 pb-3 pl-2" style="border-bottom: 1px solid lightgrey">
           <i class="material-icons pr-1">trending_up</i>TRENDING
         </div>
-        <div>
-          <% Article.order('cached_scoped_praise_votes_total + (comments_count*0.2) DESC').first(5).each do |article| %>
-           <%= render 'layouts/vcard_trending', article: article %>    
-          <% end %>
-        </div>
+        
+        <% i = 1 %>
+        <% Article.order('cached_scoped_praise_votes_total + (comments_count*0.2) DESC').first(5).each do |article| %>
+          <div class="row pb-2" style="min-height: 70px">
+            <strong class="col-auto text-muted">
+              <%= i %>
+            </strong>
+            <div class="col">
+              <span class="m-0"><%= link_to article.title.truncate(60), article_path(article), class:"nav-link bold-link p-0" %></span>
+              <span class="m-0"><%= link_to User.find(article.user_id).full_name, user_path(article.user_id, full_name: User.find(article.user_id).full_name), class:"link date-sm" %></span> 
+              <span class="date-sm text-muted"><i class="far fa-clock pr-1"></i><%= article.created_at.strftime("%b %d, %Y") %></span>
+            </div>
+          </div>
+          <% i += 1 %>
+        <% end %>
       </div>
     </div>
   </section>
   <!--FEED-->
 </section>
 
-<section class="container-fluid" style="background: #f7f7f7">
-  <div class="container" style="max-width: 1400px;">
-    <div class="d-flex section-title align-items-end">
+<section class="container-fluid" style="background: #f7f7f7; border-top: 1px solid lightgrey">
+  <div class="d-flex flex-column mx-auto" style="max-width: 1400px; overflow-y: visible">
+    <div class="section-title align-items-end">
       <i class="fas fa-tags md-24 pr-2 grey" data-toggle="tooltip" data-placement="top" title="Tagged in"></i>
       <% theme_tag = Tag.find_by_name("science") %>
-      <%= theme_tag.name.capitalize %>
+      <%= link_to theme_tag.name.capitalize, tag_path(theme_tag.name), class:"link" %>
     </div>
-    <div class="d-flex mx-auto" style="overflow: auto">
-      <% Article.tagged_with("science").sample(3).each do |theme_article| %>
-        <div class="col-4 pl-0 pb-4">
-          <%= render 'layouts/vcard_trending', article: theme_article %>
-        </div>
-      <% end %>
+    <div class="row pl-3 pb-4" style="overflow: auto">
+      <div class="d-flex">
+        <% Article.tagged_with("science").sample(3).each do |theme_article| %>
+          <%= render 'layouts/vcard_theme', article: theme_article %>
+        <% end %>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="container-fluid" style="background: white">
-  <div class="container" style="max-width: 1400px">
-    <div class="d-flex section-title align-items-center">
+<section class="container-fluid" style="background: white; border-top: 1px solid lightgrey; padding-bottom: 200px">
+  <div class="d-flex flex-column mx-auto" style="max-width: 1400px; overflow-y: visible">
+    <div class="section-title align-items-end">
       <i class="fas fa-tags md-24 pr-2 grey" data-toggle="tooltip" data-placement="top" title="Tagged in"></i>
-      <% theme_tag = Tag.find_by_name("physics") %>
-      <%= theme_tag.name.capitalize %>
+      <% theme_tag = Tag.find_by_name("global warming") %>
+      <%= link_to theme_tag.name.capitalize, tag_path(theme_tag.name), class:"link" %>
     </div>
-    <div class="d-flex mx-auto" style="overflow: auto">
-      <% Article.tagged_with("physics").sample(3).each do |theme_article| %>
-        <div class="col-4 pl-0 pb-4">
-          <%= render 'layouts/vcard_trending', article: theme_article %>
-        </div>
-      <% end %>
+    <div class="row pl-3 pb-4" style="overflow: auto">
+      <div class="d-flex">
+        <% Article.tagged_with("global warming").sample(3).each do |theme_article| %>
+          <%= render 'layouts/vcard_theme', article: theme_article %>
+        <% end %>
+      </div>
     </div>
   </div>
 </section>

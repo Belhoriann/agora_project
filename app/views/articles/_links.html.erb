@@ -13,7 +13,7 @@
   <% if @article.doi? %>
     <div class="d-flex align-items-center mb-1">
       <i class="material-icons p-2 grey" data-toggle="tooltip" data-placement="left" title="Scientific article (DOI)">description</i>
-      <%= link_to "https://doi.org/#{@article.doi}", :target => "_blank" do %>
+      <%= link_to "https://doi.org/#{@article.doi}", :target => "_blank", class:"link" do %>
         <%= "#{@article.doi}" %>
       <% end %>
     </div>
@@ -22,7 +22,7 @@
   <% if @article.website? %>
     <div class="d-flex align-items-center mb-1">
       <i class="material-icons p-2 grey" data-toggle="tooltip" data-placement="left" title="Website or app">language</i>
-      <%= link_to "https://#{@article.website.gsub("https://", "")}", :target => "_blank" do %>
+      <%= link_to "https://#{@article.website.gsub("https://", "")}", :target => "_blank", class:"link" do %>
         <% "#{@article.website.truncate(40)}" %>
       <% end %>
     </div>
@@ -31,7 +31,7 @@
   <% if @article.video? %>
     <div class="d-flex align-items-center mb-1">
       <i class="material-icons p-2 grey" data-toggle="tooltip" data-placement="left" title="Video">ondemand_video</i>
-      <%= link_to "https://#{@article.video.gsub("https://", "")}", :target => "_blank" do %>
+      <%= link_to "https://#{@article.video.gsub("https://", "")}", :target => "_blank", class:"link" do %>
         <% "#{@article.video.truncate(40)}" %>
       <% end %>
     </div>
@@ -40,7 +40,7 @@
   <% if @article.podcast? %>
     <div class="d-flex align-items-center mb-1">
       <i class="material-icons p-2 grey" data-toggle="tooltip" data-placement="left" title="Podcast">wifi_tethering</i>
-      <%= link_to "https://#{@article.podcast.gsub("https://", "")}", :target => "_blank" do %>
+      <%= link_to "https://#{@article.podcast.gsub("https://", "")}", :target => "_blank", class:"link" do %>
         <% "#{@article.podcast.truncate(40)}" %>
       <% end %>
     </div>
@@ -49,7 +49,7 @@
   <% if @article.social? %>
     <div class="d-flex align-items-center mb-4">
       <i class="material-icons p-2 grey" data-toggle="tooltip" data-placement="left" title="Social network profile">person</i>
-      <%= link_to "https://#{@article.social.gsub("https://", "")}", :target => "_blank" do %>
+      <%= link_to "https://#{@article.social.gsub("https://", "")}", :target => "_blank", class:"link" do %>
         <% "#{@article.social.truncate(30)}" %>
       <% end %>
     </div>

@@ -25,19 +25,17 @@
     </div>
   </div>
   <div class="card-footer bg-transparent p-2">
-    <%= link_to article_path(article) do %>
-      <div class="d-flex align-items-center pb-1" style="font-size: 0.8em; font-weight: bold; color: black">
-        <i class="material-icons pr-2">description</i>
-        <%= Article.find(comment.article_id).title %>
-      </div>
-    <% end %>
+    <div class="d-flex align-items-center pb-1">
+      <i class="material-icons pr-2">description</i>
+      <%= link_to Article.find(comment.article_id).title, article_path(article), class:"nav-link author p-0" %>
+    </div>
     <div class="form-inline align-items-center author-sm text-muted">
       <i class="far fa-clock p-1">&nbsp</i>
       <%= time_ago_in_words(article.created_at) %> ago in
       <% cat_icon = category_icon(Category.find(article.category_id).name) %>
       <% cat_icon_color = category_icon_color(Category.find(article.category_id).name) %>
       <div>&nbsp<i class="<%= cat_icon %>" style="color:<%= cat_icon_color %>">&nbsp</i></div>
-      <%= link_to Category.find(article.category_id).name, category_path(article.category_id) %>
+      <%= link_to Category.find(article.category_id).name, category_path(article.category_id), class:"link" %>
     </div>
   </div>
 </div>

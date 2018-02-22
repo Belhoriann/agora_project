@@ -1,3 +1,6 @@
+$a-color: blue; // blue-violet
+$b-color: rgba(252, 29, 73, 1); // rose-rouge
+
 .fas.fa-heart { color: crimson; }
 .fas.fa-comment-alt { color: RoyalBlue }
 
@@ -48,11 +51,11 @@
 
 .material-icons.bookmark { 
     position: relative;
-    color: #9A1722;
+    color: $a-color;
     -webkit-transition: .25s color;
     transition: .25s color;
 }
 
 .material-icons.bookmark:hover { 
-    color: CornflowerBlue; 
+    color: $b-color; 
 }

@@ -1,14 +1,16 @@
-<div class="card mb-2" style="min-height: 380px; max-height: 400px; min-width:300px; max-width:450px">
-  <%= link_to image_tag(article.thumbnail.url(:large), class:"thumb-featured-sm img-fluid"), article_path(article) %>
+<div class="card card-theme mr-2">
+  <%= link_to image_tag(article.thumbnail.url(:large), class:"thumb-featured img-fluid"), article_path(article) %>
   <div class="card-body p-3 pb-0">
     <div class="row">
       <div class="col date-sm">
+        <i class="far fa-clock"></i>
+        <%= article.created_at.strftime("%b %d") %> -
         <% cat_icon = category_icon(Category.find(article.category_id).name) %>
         <% cat_icon_color = category_icon_color(Category.find(article.category_id).name) %>
         <i class="<%= cat_icon %>" style="color:<%= cat_icon_color %>"></i>
-        <%= link_to Category.find(article.category_id).name, category_path(article.category_id) %>
+        <%= link_to Category.find(article.category_id).name, category_path(article.category_id), class:"link" %>
         <% if user_signed_in? && current_user.id == article.user_id %>
-          | <%= link_to "Edit", edit_article_path(article) %>
+          | <%= link_to "Edit", edit_article_path(article), class:"link" %>
         <% end %>
       </div>
       <%#= article.cached_votes_total %>
@@ -18,7 +20,7 @@
     </div>
     <%= link_to article_path(article), class: "card-link" do %>
       <strong class="d-flex card-title pt-2"><%= article.title.truncate_words(10) %></strong>
-      <!--<small class="d-flex card-subtitle"><%= article.sub_title %></small>-->
+      <small class="d-flex card-subtitle"><%= article.sub_title %></small>
     <% end %>
       <!--<div class="card-article-body">-->
         <%#= truncate strip_tags(article.body), length: 200 %>

@@ -8,9 +8,9 @@
         <% cat_icon = category_icon(Category.find(article.category_id).name) %>
         <% cat_icon_color = category_icon_color(Category.find(article.category_id).name) %>
         <i class="<%= cat_icon %>" style="color:<%= cat_icon_color %>"></i>
-        <%= link_to Category.find(article.category_id).name, category_path(article.category_id) %>
+        <%= link_to Category.find(article.category_id).name, category_path(article.category_id), class:"link" %>
         <% if user_signed_in? && current_user.id == article.user_id %>
-          | <%= link_to "Edit", edit_article_path(article) %>
+          | <%= link_to "Edit", edit_article_path(article), class:"link" %>
         <% end %>
       </div>
       <%#= article.cached_votes_total %>
@@ -26,7 +26,7 @@
   <div class="card-footer bg-transparent">
     <div class="d-flex align-items-center">
       <% @user = User.find_by(id: article.user_id) %>
-      <%= render "articles/author_full", size: 60 %>
+      <%= render "articles/author", size: 60 %>
     </div>
   </div>
 </div>

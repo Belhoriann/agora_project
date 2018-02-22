@@ -1,11 +1,9 @@
 <!--Script for parallax effect on tablet and desktop-->
 <script>
   $(document).on('turbolinks:load', function() {
-    
     if ($(window).innerWidth() > 580) {
       $(window).scroll(function() {
         var scroll = $(window).scrollTop() / $(window).height()*30;
-        
         if (scroll > 0) {
           $('.category-bg').css({"transform" : "translate(0%,-" + scroll + "%)"});
         } else {
@@ -27,7 +25,7 @@
 <!--Hero-->
 
 
-<div class="container-fluid" style="background: white">
+<div class="container-fluid" style="background: white; padding-bottom: 200px">
   <div class="container" style="max-width: 1000px; min-height: 50vh; padding-top: 30px; background: white">
     <div class="row p-0">
       <div class="col-md-8 order-2 order-md-1 p-0">

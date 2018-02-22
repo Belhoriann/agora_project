@@ -47,7 +47,7 @@
   </div>
 </section>
 
-<section class="container" style="max-width: 800px" data-target="#navbar-example2">
+<section class="container" style="max-width: 800px; padding-bottom: 200px" data-target="#navbar-example2">
   <% art_size = @articles.where(user_id: @user.id).count %>
   <% com_size = @comments.where(user_id: @user.id).count %>
   <% fav_size = @user.find_voted_items(:vote_scope => 'praise').size %>

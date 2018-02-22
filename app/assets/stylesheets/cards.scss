@@ -9,6 +9,15 @@
   //background-color: #dddcda!important;
 }
 
+.card-theme {
+   min-height: 380px; 
+   width: 400px;
+   
+   @media screen and (max-width: 580px) {
+      width: 300px;
+    }
+}
+
 .card-featured {
   border: none!important;
   box-shadow: none!important;
@@ -38,6 +47,14 @@
   font-weight: bold;
   Line-Height: 1.5em!important;
   color: #161616!important;
+  
+  @media screen and (max-width: 768px) {
+      font-size: 0.7em!important;
+    }
+    
+  @media screen and (max-width: 580px) {
+    font-size: 0.9em!important;
+  }
 }
 
 .card-subtitle {
